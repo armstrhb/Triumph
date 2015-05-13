@@ -4,8 +4,14 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+achievement-1:
+  title: "A winner is you!"
+  description: "It not safe to go alone. take this."
+  realm: realm-1
+  category: category-1
+  rarity: rarity-1
+  points: 5
+  required_ticks: 1
+  repeatable: false
+  active_start: 2015-01-01 00:00:00
+  active_end: 2015-12-21 23:59:59
