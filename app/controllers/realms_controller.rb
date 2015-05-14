@@ -1,10 +1,17 @@
 class RealmsController < ApplicationController
   def index
     @realms = Realm.all
+    @new_realm = Realm.new
   end
 
   def show
     @realm = Realm.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.js{}
+      format.json{render json: @realm}
+    end
   end
 
   def new
@@ -14,23 +21,41 @@ class RealmsController < ApplicationController
 
   def create
     @realm = Realm.new(realm_params)
-    if @realm.save
-      redirect_to '/realms'
-    else
-      render 'new'
+
+    respond_to do |format|
+      if @realm.save
+        format.html{redirect_to @realm, notice: 'Realm created successfully.'}
+        format.js{}
+        format.json{render json: @realm, status: :created, location: @realm}
+      else
+        format.html{render action: 'new'}
+        format.json{render json: @realm.errors, status: :unprocessable_entity}
+      end
     end
   end
 
   def edit
     @realm = Realm.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.js{}
+      format.json{render json: @realm}
+    end
   end
 
   def update
     @realm = Realm.find(params[:id])
-    if @realm.update_attributes(realm_params)
-      redirect_to(:action => 'show', :id => @realm.id)
-    else
-      render 'edit'
+
+    respond_to do |format|
+      if @realm.update_attributes(realm_params)
+        format.html{redirect_to @realm, notice: 'Realm updated.'}
+        format.js{}
+        format.json{render json: @realm, status: :updated, location: @realm}
+      else
+        format.html{render action: 'show'}
+        format.json{render json: @realm.errors, status: :unprocessable_entity}
+      end
     end
   end
 
