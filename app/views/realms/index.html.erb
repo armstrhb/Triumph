@@ -1,0 +1,52 @@
+<html>
+<head>
+  <%= stylesheet_link_tag 'realms', :media => 'all' %>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Welcome to Your Realm!</h1>
+      <button class="btn btn-lg btn-primary">HNNGH</button>
+    </div>
+    <hr>
+    <p>You are currently a member of: </p>
+
+    <% @realms.each do |r| %>
+    <ul>
+      <li><%= r.name %></li>
+      <li><%= r.id %></li>
+    </ul>
+    <% end %>
+    <hr>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Achievements in Progress</h3>
+          </div><!--end panel-heading -->
+        <p>Cheevs</p>
+        </div><!--end panel-default -->
+      </div><!-- end col-lg-4 -->
+
+      <div class="col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Your Groups</h3>
+          </div><!--end panel-heading -->
+        <p>Cheevs</p>
+        </div><!--end panel-default -->
+      </div><!-- end col-lg-4 -->
+
+      <div class="col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Hipster Ipsum</h3>
+          </div><!--end panel-heading -->
+        <p>Cheevs</p>
+        </div><!--end panel-default -->
+      </div><!-- end col-lg-4 -->
+    </div><!-- end row -->
+  </div>
+</body>
+</html>
