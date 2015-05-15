@@ -1,0 +1,10 @@
+<tr>
+  <td><%= realm.name %></td>
+  <td class='text-center'><%= realm.users.length %></td>
+  <td class='text-center'><%= realm.achievements.length %></td>
+  <% if realm.group.nil? %>
+    <td class='text-muted'>none</td>
+  <% else %>
+    <td><%= realm.group.name %></td>
+  <% end %>
+</tr>

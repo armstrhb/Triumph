@@ -7,6 +7,7 @@ user1.groups << group1
 user2.groups << group1
 
 realm1 = Realm.create(name: 'test.realm', active: true, group: group1)
+realm2 = Realm.create(name: 'secondary.realm', active: true, group: group1)
 
 realm1.users << user1
 realm1.users << user2
