@@ -1,4 +1,5 @@
 class RealmsController < ApplicationController
+
   def index
     @realms = Realm.all
     @new_realm = Realm.new
