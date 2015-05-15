@@ -9,7 +9,14 @@
       <button class="btn btn-lg btn-primary">HNNGH</button>
     </div>
     <hr>
-    <p>You are currently a member of <strong><%= @realms.name%>!</p></strong>
+    <p>You are currently a member of: </p>
+
+    <% @realms.each do |r| %>
+    <ul>
+      <li><%= r.name %></li>
+      <li><%= r.id %></li>
+    </ul>
+    <% end %>
     <hr>
 
     <div class="row">
