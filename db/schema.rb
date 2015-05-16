@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512021003) do
+ActiveRecord::Schema.define(version: 20150516015132) do
 
   create_table "achievements", force: :cascade do |t|
     t.string   "title",                          null: false
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 20150512021003) do
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name"
+
+  create_table "progresses", force: :cascade do |t|
+    t.integer  "achievement_id"
+    t.integer  "user_id"
+    t.integer  "ticks",          default: 0
+    t.boolean  "completed",      default: false
+    t.datetime "complete_date"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "rarities", force: :cascade do |t|
     t.string   "name",       null: false
