@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1><%= @realm.name %></h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      Data grab test. Formatting is bad. Not permanent.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <%= pluralize(@realm.achievements.length, "achievement") %>
+    </div>
+    <div class="col-sm-4">
+      <%= pluralize(@realm.users.length, "user") %>
+    </div>
+    <div class="col-sm-4">
+      <%= pluralize(@total_points, "total points") %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      Recent Achievements
+    </div>
+    <% @recent_achievements.each do |a| %>
+      <div class="col-sm-2">
+        <%= a.complete_date.to_formatted_s(:short) %>
+      </div>
+      <div class="col-sm-2">
+        <%= a.user.name %>
+      </div>
+      <div class="col-sm-6">
+        <%= a.achievement.title %>
+      </div>
+      <div class="col-sm-2">
+        + <%= a.achievement.points %>
+      </div>
+    <% end %>
+  </div>
+</div>

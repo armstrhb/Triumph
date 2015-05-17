@@ -7,12 +7,28 @@ class RealmsController < ApplicationController
 
   def show
     @realm = Realm.find(params[:id])
+    @total_points = get_total_points_for_realm(@realm.id)
+    @recent_achievements = get_recent_achievements_in_realm(@realm.id)
 
     respond_to do |format|
       format.html
       format.js{}
-      format.json{render json: @realm}
+      format.json{render :json => { :realm => @realm, :points => @total_points, :recent_achievements => @recent_achievements.to_json(include: [:achievement, :user])}}
     end
+  end
+
+  def get_total_points_for_realm(realm_id)
+    Progress.includes(:achievement).where(completed: true, :achievements => { realm_id: realm_id}).sum(:points)
+  end
+
+  def get_top_point_users_in_realm(realm_id, limit=5)
+    #TODO figure this one out
+    #Progress.includes(:achievement).includes(:user)
+  end
+
+  def get_recent_achievements_in_realm(realm_id, limit=5, age_limit=7)
+    date_cutoff = Date.today
+    Progress.includes(:achievement).includes(:user).where(completed: true).where("complete_date > ?", date_cutoff.days_ago(age_limit)).order('complete_date desc').limit(limit);
   end
 
   def new

@@ -10,3 +10,12 @@
 .panel, .panel-title {
   text-align: center;
 }
+
+#realm-table tr {
+  cursor: pointer;
+}
+
+#realm-table tr:hover {
+  background: #c0c0c2;
+  color: #000000;
+}

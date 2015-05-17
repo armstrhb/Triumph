@@ -21,6 +21,10 @@ category1 = Category.create(name: 'general', realm: realm1)
 category2 = Category.create(name: 'special', realm: realm1)
 
 achievement1 = Achievement.create(title: 'A Winner is You!', description: 'You did it! First Achievement.', repeatable: false, points: 5, required_ticks: 1, realm: realm1, category: category1, rarity: rarity1, active_start: DateTime.new(2015,5,1), active_end: DateTime.new(2016,5,1))
+achievement2 = Achievement.create(title: 'Figured out how to link to from index', description: 'Pro Rails Yo.', repeatable: false, points: 7, required_ticks: 1, realm: realm1, category: category1, rarity: rarity1, active_start: DateTime.new(2015,5,1), active_end: DateTime.new(2016,5,1))
+achievement3 = Achievement.create(title: 'Sweet Bootstrap Skills', description: 'Show off those sick grid skills on one page in Triumph.', repeatable: false, points: 5, required_ticks: 1, realm: realm1, category: category1, rarity: rarity2, active_start: DateTime.new(2015,5,1), active_end: DateTime.new(2016,5,1))
 
 progress1 = Progress.create(achievement: achievement1, user: user1, ticks: 0, completed: false)
-progress2 = Progress.create(achievement: achievement1, user: user2, ticks: 1, completed: true, complete_date: DateTime.new(2015,5,15))
+progress2 = Progress.create(achievement: achievement1, user: user2, ticks: 1, completed: true, complete_date: DateTime.new(2015,5,15,16,45))
+progress3 = Progress.create(achievement: achievement2, user: user1, ticks: 1, completed: true, complete_date: DateTime.new(2015,5,16,22,01))
+progress4 = Progress.create(achievement: achievement3, user: user2, ticks: 1, completed: true, complete_date: DateTime.new(2015,5,14,14,12))
