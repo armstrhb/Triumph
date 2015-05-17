@@ -28,7 +28,7 @@ class RealmsController < ApplicationController
 
   def get_recent_achievements_in_realm(realm_id, limit=5, age_limit=7)
     date_cutoff = Date.today
-    Progress.includes(:achievement).includes(:user).where(completed: true).where("complete_date > ?", date_cutoff.days_ago(age_limit)).order('complete_date desc').limit(limit);
+    Progress.includes(:achievement).includes(:user).where(completed: true, :achievements => { realm_id: realm_id}).where("complete_date > ?", date_cutoff.days_ago(age_limit)).order('complete_date desc').limit(limit);
   end
 
   def new
