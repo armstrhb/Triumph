@@ -13,9 +13,9 @@
 
 #realm-table tr {
   cursor: pointer;
+  transition: background 0.25s, color 0.25s;
 }
 
 #realm-table tr:hover {
-  background: #c0c0c2;
   color: #000000;
 }
