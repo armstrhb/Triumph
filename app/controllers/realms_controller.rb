@@ -23,8 +23,7 @@ class RealmsController < ApplicationController
   end
 
   def get_top_point_users_in_realm(realm_id, limit=5)
-    # TODO sanitize the sql
-    ActiveRecord::Base.connection.select_all("select users.name as user, sum(achievements.points) as points from progresses left join users on progresses.user_id = users.id left join achievements on progresses.achievement_id = achievements.id where achievements.realm_id = " + realm_id.to_s + " group by user order by points desc limit " + limit.to_s + ";")
+    ActiveRecord::Base.connection.select_all("select users.name as user, sum(achievements.points) as points from progresses left join users on progresses.user_id = users.id left join achievements on progresses.achievement_id = achievements.id where achievements.realm_id = " + ActiveRecord::Base.sanitize(realm_id.to_s) + " group by user order by points desc limit " + ActiveRecord::Base.sanitize(limit.to_s) + ";")
   end
 
   def get_recent_achievements_in_realm(realm_id, limit=5, age_limit=7)
