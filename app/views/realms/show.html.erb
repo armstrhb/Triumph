@@ -43,4 +43,23 @@
       <% end %>
     <% end %>
   </div>
+  <div class="row">
+    <div class="col-sm-12">
+      Top Users
+    </div>
+    <% if @top_users.length == 0 %>
+      <div class="col-sm=12">
+        <span class="text-muted">No users.</span>
+      </div>
+    <% else %>
+      <% @top_users.each do |u| %>
+        <div class="col-sm-6">
+          <%= u["user"] %>
+        </div>
+        <div class="col-sm-6">
+          <%= u["points"] %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

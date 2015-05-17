@@ -9,11 +9,12 @@ class RealmsController < ApplicationController
     @realm = Realm.find(params[:id])
     @total_points = get_total_points_for_realm(@realm.id)
     @recent_achievements = get_recent_achievements_in_realm(@realm.id)
+    @top_users = get_top_point_users_in_realm(@realm.id)
 
     respond_to do |format|
       format.html
       format.js{}
-      format.json{render :json => { :realm => @realm, :points => @total_points, :recent_achievements => @recent_achievements.to_json(include: [:achievement, :user])}}
+      format.json{render :json => { :realm => @realm, :points => @total_points, :recent_achievements => @recent_achievements.to_json(include: [:achievement, :user]), :top_users => @top_users}}
     end
   end
 
@@ -22,8 +23,8 @@ class RealmsController < ApplicationController
   end
 
   def get_top_point_users_in_realm(realm_id, limit=5)
-    #TODO figure this one out
-    #Progress.includes(:achievement).includes(:user)
+    # TODO sanitize the sql
+    ActiveRecord::Base.connection.select_all("select users.name as user, sum(achievements.points) as points from progresses left join users on progresses.user_id = users.id left join achievements on progresses.achievement_id = achievements.id where achievements.realm_id = " + realm_id.to_s + " group by user order by points desc limit " + limit.to_s + ";")
   end
 
   def get_recent_achievements_in_realm(realm_id, limit=5, age_limit=7)
