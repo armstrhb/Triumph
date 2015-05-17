@@ -22,19 +22,25 @@
     <div class="col-sm-12">
       Recent Achievements
     </div>
-    <% @recent_achievements.each do |a| %>
-      <div class="col-sm-2">
-        <%= a.complete_date.to_formatted_s(:short) %>
+    <% if @recent_achievements.length == 0 %>
+      <div class="col-sm-12">
+        <span class="text-muted">No recent achievements.</span>
       </div>
-      <div class="col-sm-2">
-        <%= a.user.name %>
-      </div>
-      <div class="col-sm-6">
-        <%= a.achievement.title %>
-      </div>
-      <div class="col-sm-2">
-        + <%= a.achievement.points %>
-      </div>
+    <% else %>
+      <% @recent_achievements.each do |a| %>
+        <div class="col-sm-2">
+          <%= a.complete_date.to_formatted_s(:short) %>
+        </div>
+        <div class="col-sm-2">
+          <%= a.user.name %>
+        </div>
+        <div class="col-sm-6">
+          <%= a.achievement.title %>
+        </div>
+        <div class="col-sm-2">
+          + <%= a.achievement.points %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
