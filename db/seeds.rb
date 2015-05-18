@@ -1,4 +1,6 @@
 group1 = Group.create(name: 'triumph.admin')
+group2 = Group.create(name: 'another.group')
+group3 = Group.create(name: 'bootstrap.cool.guys')
 
 user1 = User.create(name: 'armstrhb', active: true)
 user2 = User.create(name: 'wallBMW', active: true)

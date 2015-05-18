@@ -1,2 +1,2 @@
-$("<%= escape_javascript(render @realm) %>").appendTo("#realm-table");
+$("<%= escape_javascript(render @realm) %>").appendTo("#realm-table").hide().fadeIn(250);
 $('#new-realm-modal').modal_success();

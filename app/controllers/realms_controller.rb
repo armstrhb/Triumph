@@ -3,6 +3,7 @@ class RealmsController < ApplicationController
   def index
     @realms = Realm.all
     @new_realm = Realm.new
+    @groups = Group.all
   end
 
   def show
@@ -82,6 +83,6 @@ class RealmsController < ApplicationController
 
   private
     def realm_params
-      params.require(:realm).permit(:name, :active, :group)
+      params.require(:realm).permit(:name, :active, :group_id)
     end
 end
