@@ -7,4 +7,15 @@ class Realm < ActiveRecord::Base
 
   validates :name, presence: true, length: { minimum: 3 }, uniqueness: true
   validates :active, inclusion: { in: [true, false] }
+
+  def total_points_earned
+    @points = 0
+
+    completed_achievements = Progress.includes(:achievement).where(:achievements => {:realm_id => id}, :completed => true)
+    completed_achievements.each do |a|
+      @points += a.achievement.points
+    end
+
+    @points
+  end
 end
