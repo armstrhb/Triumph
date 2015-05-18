@@ -62,4 +62,23 @@
       <% end %>
     <% end %>
   </div>
+  <div class="row">
+    <div class="col-sm-12">
+      New Users
+    </div>
+    <% if @realm.new_users.length == 0 %>
+      <div class="col-sm-12">
+        <span class="text-muted">No new users.</span>
+      </div>
+    <% else %>
+      <% @realm.new_users.each do |u| %>
+        <div class="col-sm-6">
+          <%= u.name %>
+        </div>
+        <div class="col-sm-6">
+          <%= u.created_at.to_formatted_s(:short) %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

@@ -18,4 +18,8 @@ class Realm < ActiveRecord::Base
 
     @points
   end
+
+  def new_users(limit=5, since=7)
+    users.select {|user| user.created_at >= Date.today.days_ago(since) }[0..limit]
+  end
 end
