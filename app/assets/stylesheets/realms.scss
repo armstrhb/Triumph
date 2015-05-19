@@ -23,3 +23,11 @@
 .modal-dialog {
   width: 80%;
 }
+
+#error-message ul li {
+  list-style-type: none;
+}
+
+#error-message .error-item {
+  margin-left: 10px;
+}

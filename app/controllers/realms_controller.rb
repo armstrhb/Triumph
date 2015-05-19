@@ -46,8 +46,8 @@ class RealmsController < ApplicationController
         format.js{}
         format.json{render json: @realm, status: :created, location: @realm}
       else
-        format.html{render action: 'new'}
-        format.json{render json: @realm.errors, status: :unprocessable_entity}
+        #format.html{render action: 'new'}
+        format.json{render json: @realm.errors.full_messages, status: :unprocessable_entity}
       end
     end
   end
