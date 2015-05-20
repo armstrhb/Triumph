@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="header">
+    <h1><%= @realm.name %> <small>Achievements</small></h1>
+  </div>
+  <div class="row">
+    <% if @achievements.length > 0 %>
+      <% @achievements.each do |a| %>
+        <div class="col-sm-8">
+          <%= a.title %>
+          <br/>
+          <%= a.description %>
+        </div>
+        <div class="col-sm-2">
+          <%= a.rarity.name %>
+        </div>
+        <div class="col-sm-2">
+          <%= a.category.name %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-sm-12">
+        <span class="text-muted">There are no achievements in this realm.</span>
+      </div>
+    <% end %>
+  </div>
+</div>

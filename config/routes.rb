@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :groups
   resources :applications
 
+  get '/achievements/:realm_id' => 'achievements#index'
+
   get '/progress/realmpoints' => 'progress#get_total_points_all_realms'
   get '/progress/realmpoints/:id' => 'progress#get_total_points_realm'
   get '/progress/userpoints/:id' => 'progress#get_total_points_for_user'
