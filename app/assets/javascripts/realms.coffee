@@ -20,7 +20,7 @@ $.rails.allowAction = (element) ->
                        <h3>#{message}</h3>
                      </div>
                      <div class="modal-body">
-                       <p>This is permanent.</p>
+                       <p>This is <strong>permanent</strong>.</p>
                      </div>
                      <div class="modal-footer">
                        <a data-dismiss="modal" class="btn">Cancel</a>
