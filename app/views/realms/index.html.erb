@@ -28,6 +28,12 @@
       <span class="message"></span>
     </div>
 
+    <% if flash[:notice] %>
+      <div class="row alert alert-info" role="alert">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
     <table id="realm-table" class='table table-striped table-hover'>
       <tr>
         <th>Realm</th>

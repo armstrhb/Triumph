@@ -5,6 +5,7 @@
   <div class="row">
     <div class="col-md-12">
       Data grab test. Formatting is bad. Not permanent.
+      <%= button_to 'Delete Realm', {:controller => :realms, :action => 'destroy', :id => @realm.id }, :method => :delete %>
     </div>
   </div>
   <div class="row">

@@ -78,7 +78,13 @@ class RealmsController < ApplicationController
   end
 
   def destroy
-    #nope, not doing this one yet.
+    begin
+      @realm = Realm.find(params[:id]).destroy
+    rescue ActiveRecord::RecordNotFound
+    end
+
+    flash[:notice] = "Realm deleted."
+    redirect_to realms_url
   end
 
   private
