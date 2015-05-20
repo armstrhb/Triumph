@@ -10,4 +10,8 @@ class Achievement < ActiveRecord::Base
   validates :repeatable, inclusion: { in: [true, false] }
   validates :required_ticks, numericality: {only_integer: true, greater_than: 0 }
   validates :description, presence: true, length: { minimum: 3 }
+
+  def get_completed_users
+    User.joins('inner join progresses on users.id = progresses.user_id').where(:progresses => {:achievement_id => id, :completed => true}).uniq
+  end
 end
