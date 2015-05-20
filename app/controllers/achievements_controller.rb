@@ -6,4 +6,8 @@ class AchievementsController < ApplicationController
     @categories = Category.where(:realm => params[:realm_id])
     @rarities = Rarity.where(:realm => params[:realm_id])
   end
+
+  def show
+    
+  end
 end
