@@ -8,7 +8,7 @@ class AchievementsController < ApplicationController
   end
 
   def show
-    @achievement = Realm.find(params[:id])
+    @achievement = Achievement.find(params[:id])
 
     respond_to do |format|
       format.html

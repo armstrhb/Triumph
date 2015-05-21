@@ -1,2 +1,25 @@
-<h1>Achievements#show</h1>
-<p>Find me in app/views/achievements/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <h1><%= @achievement.title %></h1>
+      <h2><small><%= @achievement.description %></small></h2>
+    </div>
+    <div class="col-sm-2">
+      <h2><%= @achievement.category.name %></h2>
+    </div>
+    <div class="col-sm-2">
+      <h2><%= @achievement.rarity.name %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= pluralize(@achievement.get_completed_users.length, "user") %>
+      <% if @achievement.get_completed_users.length == 1 %>
+        has
+      <% else %>
+        have
+      <% end %>
+      completed this achievement.
+    </div>
+  </div>
+</div>
