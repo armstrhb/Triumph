@@ -14,4 +14,16 @@ class Achievement < ActiveRecord::Base
   def get_completed_users
     User.joins('inner join progresses on users.id = progresses.user_id').where(:progresses => {:achievement_id => id, :completed => true}).uniq
   end
+
+  def is_complete_for_user(user)
+    get_times_user_completed(user) > 0
+  end
+
+  def get_times_user_completed(user)
+    Progress.where(:user => user.id, :achievement => id, :completed => true).length
+  end
+
+  def get_progress_for_user(user)
+    Progress.where(:user => user.id, :achievement => id)
+  end
 end
