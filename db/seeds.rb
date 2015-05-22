@@ -2,8 +2,8 @@ group1 = Group.create(name: 'triumph.admin')
 group2 = Group.create(name: 'another.group')
 group3 = Group.create(name: 'bootstrap.cool.guys')
 
-user1 = User.create(name: 'armstrhb', active: true)
-user2 = User.create(name: 'wallBMW', active: true)
+user1 = User.create(name: 'armstrhb', active: true, email: 'armstrhb@github.com')
+user2 = User.create(name: 'wallBMW', active: true, email: 'wallbmw@github.com')
 
 user1.groups << group1
 user2.groups << group1
