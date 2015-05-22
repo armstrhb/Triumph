@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  get 'achievements/show'
+  get 'signup' => 'users#new'
 
   resources :realms
   resources :groups
   resources :applications
+  resources :users
 
   get '/achievements/:realm_id' => 'achievements#index'
   get '/achievements/:realm_id/:id' => 'achievements#show'
