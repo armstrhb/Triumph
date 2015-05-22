@@ -8,4 +8,16 @@ class User < ActiveRecord::Base
   validates :active, inclusion: { in: [true, false] }
   validates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :password, length: { minimum: 6 }
+
+  def total_points
+    points = 0
+
+    progresses.each { |p|
+      if p.completed == true
+        points += p.achievement.points
+      end
+    }
+
+    points
+  end
 end

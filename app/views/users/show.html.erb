@@ -1,2 +1,39 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-7">
+      <h1><%= @user.name %> <small>User Details</small></h1>
+    </div>
+    <div class="col-sm-5">
+      <h1><%= @user.total_points %> <small>points</small></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <span class="text-muted">email: </span><%= @user.email %><br/>
+      <span class="text-muted">user since: </span><%= @user.created_at.strftime("%m/%d/%Y") %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <strong>Realms</strong>
+      <div class="row">
+        <% @user.realms.each do |r| %>
+          <div class="col-sm-12">
+            <%= r.name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <strong>Groups</strong>
+      <div class="row">
+        <% @user.groups.each do |g| %>
+          <div class="col-sm-12">
+            <%= g.name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Users</h1>
+  <% @users.each do |u| %>
+    <div class="row user-row" data-link="<%= user_path(u) %>">
+      <div class="col-sm-4">
+        <strong><%= u.name %></strong>
+      </div>
+      <div class="col-sm-1">
+        <span class="text-muted">email: </span>
+      </div>
+      <div class="col-sm-3">
+        <%= u.email %>
+      </div>
+      <div class="col-sm-1">
+        <span class="text-muted">created: </span>
+      </div>
+      <div class="col-sm-3">
+        <%= u.created_at.strftime("%m/%d/%Y") %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $(".user-row[data-link]").click(function() {
+    window.location = this.dataset.link;
+  });
+</script>
