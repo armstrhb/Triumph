@@ -11,9 +11,20 @@ class User < ActiveRecord::Base
 
   def total_points
     points = 0
-
     progresses.each { |p|
       if p.completed == true
+        points += p.achievement.points
+      end
+    }
+
+    points
+  end
+
+  def points_for_realm(realm)
+    points = 0
+
+    progresses.each { |p|
+      if p.realm.id == realm.id && p.completed == true
         points += p.achievement.points
       end
     }

@@ -19,8 +19,11 @@
       <strong>Realms</strong>
       <div class="row">
         <% @user.realms.each do |r| %>
-          <div class="col-sm-12">
+          <div class="col-sm-7">
             <%= r.name %>
+          </div>
+          <div class="col-sm-5">
+            <%= @user.points_for_realm(r) %>
           </div>
         <% end %>
       </div>
