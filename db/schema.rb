@@ -92,11 +92,12 @@ ActiveRecord::Schema.define(version: 20150516015132) do
   add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                      null: false
-    t.string   "email",                     null: false
-    t.boolean  "active",     default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string   "name",                           null: false
+    t.string   "email",                          null: false
+    t.string   "password_digest"
+    t.boolean  "active",          default: true
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   add_index "users", ["name"], name: "index_users_on_name"
