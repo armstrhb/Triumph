@@ -55,6 +55,9 @@ ActiveRecord::Schema.define(version: 20150516015132) do
     t.datetime "updated_at",                     null: false
   end
 
+  add_index "progresses", ["achievement_id"], name: "index_progresses_on_achievement_id"
+  add_index "progresses", ["user_id"], name: "index_progresses_on_user_id"
+
   create_table "rarities", force: :cascade do |t|
     t.string   "name",       null: false
     t.integer  "realm_id"
