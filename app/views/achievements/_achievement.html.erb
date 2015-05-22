@@ -1,0 +1,8 @@
+<tr data-link="<%= url_for :controller => 'achievements', :action => 'show', :realm_id => achievement.realm_id, :id => achievement.id  %>">
+  <td>
+    <strong><%= achievement.title %></strong><br/>
+    <span class="text-muted"><%= achievement.description %></span>
+  </td>
+  <td class='text-centered'><%= achievement.rarity.name %></td>
+  <td class='text-centered'><%= achievement.category.name %></td>
+</tr>

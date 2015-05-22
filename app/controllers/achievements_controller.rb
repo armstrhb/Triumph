@@ -8,6 +8,12 @@ class AchievementsController < ApplicationController
   end
 
   def show
-    
+    @achievement = Achievement.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.js{}
+      format.json{render :json => { :realm => @achievement}}
+    end
   end
 end
