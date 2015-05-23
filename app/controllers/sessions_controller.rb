@@ -4,6 +4,8 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(name: params[:session][:name])
+    puts params[:session][:name]
+    puts user.id
 
     if user && user.authenticate(params[:session][:password])
       log_in user
@@ -16,6 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    redirect_to root_url
+    flash.now[:info] = "You've been signed out."
+    redirect_to login_path
   end
 end
