@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-7">
-      <h1><%= @user.name %> <small>User Details</small></h1>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+        <small>User Details</small>
+      </h1>
     </div>
     <div class="col-sm-5">
       <h1><%= @user.total_points %> <small>points</small></h1>
