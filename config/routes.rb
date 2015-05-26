@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'realms#index'
   get 'sessions/new'
 
   get 'users/index'
