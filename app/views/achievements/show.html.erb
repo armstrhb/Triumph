@@ -11,6 +11,7 @@
       <h2><%= @achievement.rarity.name %></h2>
     </div>
   </div>
+
   <div class="row">
     <div class="col-sm-12">
       <%= pluralize(@achievement.get_completed_users.length, "user") %>
@@ -20,6 +21,60 @@
         have
       <% end %>
       completed this achievement.
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <strong>Your Progress</strong>
+      <div class="row">
+        <div class="col-sm-12">
+        <% if @achievement.is_complete_for_user(current_user) %>
+          <% if @achievement.repeatable %>
+            <i>You have completed this achievement <%= pluralize @achievement.get_times_user_completed(current_user), "time" %> already.</i>
+          <% else %>
+            <i>You completed this achievement on <%= @achievement.get_progress_for_user(current_user)[0].complete_date.strftime("%m/%d/%Y") %>.</i>
+          <% end %>
+        <% end %>
+          <% if @achievement.does_user_have_progress(current_user, true) %>
+            <% progress = @achievement.get_progress_for_user(current_user, true) %>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="<%= progress.ticks %>" aria-valuemin="0" aria-valuemax="<%= @achievement.required_ticks %>" style="min-width:2em; width: <%= number_to_percentage(progress.percent_complete, precision: 0) %>">
+                <%= number_to_percentage(progress.percent_complete, precision: 0) %>
+              </div>
+            </div>
+          <% else %>
+            <% if @achievement.is_complete_for_user(current_user) %>
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" style="min-width:2em;width:100%">Complete</div>
+              </div>
+            <% else %>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%= @achievement.required_ticks %>" style="min-width:2em">0%</div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <strong>Recent Attainments</strong>
+      <div class="row">
+        <% if @achievement.get_recent_completed_progress.length == 0 %>
+          <div class="col-sm-12 text-muted">
+            <i>No recent attainments.</i>
+          </div>
+        <% else %>
+          <% @achievement.get_recent_completed_progress.each do |p| %>
+            <div class="col-sm-6">
+              <strong><%= p.user.name %></strong>
+            </div>
+            <div class="col-sm-6">
+              <%= p.complete_date.strftime("%m/%d/%Y") %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

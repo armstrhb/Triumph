@@ -10,4 +10,8 @@ class Progress < ActiveRecord::Base
   def completed?
     ticks >= achievement.required_ticks
   end
+
+  def percent_complete
+    ticks / achievement.required_ticks.to_f * 100
+  end
 end

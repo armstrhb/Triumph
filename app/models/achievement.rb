@@ -23,7 +23,25 @@ class Achievement < ActiveRecord::Base
     Progress.where(:user => user.id, :achievement => id, :completed => true).length
   end
 
-  def get_progress_for_user(user)
-    Progress.where(:user => user.id, :achievement => id)
+  def does_user_have_progress(user, only_incomplete=false)
+    prog = get_progress_for_user(user, only_incomplete)
+    ! prog.nil? && ((! only_incomplete && prog.length > 0) || (only_incomplete && ! prog.nil?))
+  end
+
+  def get_progress_for_user(user, only_incomplete=false)
+    if only_incomplete
+      progs = Progress.where(:user => user.id, :achievement => id, :completed => false)
+      if ! progs.nil?
+        progs[0]
+      else
+        nil
+      end
+    else
+      Progress.where(:user => user.id, :achievement => id)
+    end
+  end
+
+  def get_recent_completed_progress(limit=5)
+    Progress.where(:achievement => id, :completed => true).order(complete_date: :desc).limit(limit)
   end
 end
