@@ -1,4 +1,5 @@
 class RealmsController < ApplicationController
+  before_action :logged_in_user, only: [:show]
 
   def index
     @realms = Realm.all
@@ -90,5 +91,12 @@ class RealmsController < ApplicationController
   private
     def realm_params
       params.require(:realm).permit(:name, :active, :group_id)
+    end
+
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
     end
 end
