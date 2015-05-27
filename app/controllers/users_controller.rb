@@ -22,6 +22,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_password
+    @user = User.find(current_user.id)
+  end
+
+  def update_password
+    params = update_passwd_params
+
+    if ! current_user.authenticate(params[:old_password])
+      flash[:danger] = 'Incorrect Password.'
+      render 'edit_password'
+    else
+      current_user.password = params[:password]
+      current_user.password_confirmation = params[:password_confirmation]
+
+      if current_user.save
+        flash[:success] = "Password changed."
+        redirect_to current_user
+      else
+        flash[:danger] = 'New password does not match confirmation.'
+        render 'edit_password'
+      end
+    end
+  end
+
   def edit
   end
 
@@ -34,5 +58,9 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def update_passwd_params
+      params.require(:user).permit(:old_password, :password, :password_confirmation)
     end
 end

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :realms
   resources :groups
   resources :applications
+
+  get '/users/passwd' => 'users#edit_password'
+  post '/users/passwd' => 'users#update_password'
   resources :users
 
   get '/achievements/:realm_id' => 'achievements#index'
