@@ -3,7 +3,7 @@
   <% @users.each do |u| %>
     <div class="row user-row" data-link="<%= user_path(u) %>">
       <div class="col-sm-4">
-        <%= gravatar_for u, 20 %>
+        <%= gravatar_for u.email, 20 %>
         <strong><%= u.name %></strong>
       </div>
       <div class="col-sm-1">

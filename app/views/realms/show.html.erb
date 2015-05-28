@@ -25,7 +25,7 @@
       <div class="panel-body">
           <% @top_users.each do |u| %>
             <p>
-              <%= u["user"] %> with <%= u["points"] %> Achievement Points
+              <%= gravatar_for u["email"], 20 %> <%= u["user"] %> with <%= u["points"] %> Achievement Points
             </p>
           <% end %>
       </div>
