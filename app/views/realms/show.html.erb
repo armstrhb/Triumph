@@ -10,9 +10,6 @@
   </div>
   <div id="superuser_ish" class="row">
     <div class="col-md-12">
-
-      <!--<%= button_to 'Delete Realm', {:controller => :realms, :action => 'destroy', :id => @realm.id }, :method => :delete %>-->
-      <!--<%= link_to "Delete Realm", @realm, confirm: "Are you sure you want to delete '#{@realm.name}'?", method: :delete %>-->
       <%= link_to 'Achievements', '/achievements/' + @realm.id.to_s, class: 'btn' %>
       <%= link_to 'Delete Realm', @realm, class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{@realm.name}?" }, method: :delete %>
       <p>Panels in place. Temporary data grabs below.</p>
@@ -85,14 +82,17 @@
 
 
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <%= pluralize(@realm.achievements.length, "achievement") %>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <%= pluralize(@realm.users.length, "user") %>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <%= pluralize(@total_points, "total points") %>
+    </div>
+    <div class="col-sm-3">
+      <%= pluralize(@realm.completed_achievements.length, "completed achievement") %>
     </div>
   </div>
 

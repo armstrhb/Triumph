@@ -11,7 +11,6 @@ class Realm < ActiveRecord::Base
   def total_points_earned
     @points = 0
 
-    completed_achievements = Progress.includes(:achievement).where(:achievements => {:realm_id => id}, :completed => true)
     completed_achievements.each do |a|
       @points += a.achievement.points
     end
@@ -21,5 +20,9 @@ class Realm < ActiveRecord::Base
 
   def new_users(limit=5, since=7)
     users.select {|user| user.created_at >= Date.today.days_ago(since) }[0..limit]
+  end
+
+  def completed_achievements
+    Progress.includes(:achievement).where(:achievements => {:realm_id => id}, :completed => true)
   end
 end
