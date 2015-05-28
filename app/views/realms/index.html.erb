@@ -119,6 +119,8 @@
       $("#error-message").hide();
     });
 
+    $('[data-toggle="tooltip"]').tooltip(); 
+
     function showSuccess() {
       $("#success-message .message").html("Realm created.");
       $("#success-message").fadeIn(250);
