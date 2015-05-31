@@ -73,7 +73,7 @@ class RealmsController < ApplicationController
     end
   end
 
-  def activate_realm
+  def activate
     @realm = Realm.find(params[:id])
 
     @realm.active = true
@@ -82,13 +82,17 @@ class RealmsController < ApplicationController
     @realm
   end
 
-  def deactivate_realm
+  def deactivate
     @realm = Realm.find(params[:id])
 
     @realm.active = false
     @realm.save
 
     @realm
+  end
+
+  def rename
+
   end
 
   def destroy
