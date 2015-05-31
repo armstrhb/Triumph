@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
+  get 'realms/activate/:id' => 'realms#activate_realm', as: 'activate_realm'
+  get 'realms/deactivate/:id' => 'realms#deactivate_realm', as: 'deactivate_realm'
   resources :realms
+
   resources :groups
   resources :applications
 

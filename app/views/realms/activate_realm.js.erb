@@ -1,0 +1,6 @@
+$("#change_state_button").fadeOut(250, function() {
+  $("#realm-inactive-banner").fadeOut(250);
+  $(this).text('Deactivate');
+  $(this).attr('href', "<%= deactivate_realm_path(@realm.id) %>");
+  $(this).fadeIn(250);
+});

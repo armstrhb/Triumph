@@ -1,5 +1,6 @@
 class RealmsController < ApplicationController
   before_action :logged_in_user, only: [:show]
+  respond_to :html, :js
 
   def index
     @realms = Realm.all
@@ -12,12 +13,6 @@ class RealmsController < ApplicationController
     @total_points = get_total_points_for_realm(@realm.id)
     @recent_achievements = get_recent_achievements_in_realm(@realm.id)
     @top_users = get_top_point_users_in_realm(@realm.id)
-
-    respond_to do |format|
-      format.html
-      format.js{}
-      format.json{render :json => { :realm => @realm, :points => @total_points, :recent_achievements => @recent_achievements.to_json(include: [:achievement, :user]), :top_users => @top_users}}
-    end
   end
 
   def get_total_points_for_realm(realm_id)
@@ -76,6 +71,24 @@ class RealmsController < ApplicationController
         format.json{render json: @realm.errors, status: :unprocessable_entity}
       end
     end
+  end
+
+  def activate_realm
+    @realm = Realm.find(params[:id])
+
+    @realm.active = true
+    @realm.save
+
+    @realm
+  end
+
+  def deactivate_realm
+    @realm = Realm.find(params[:id])
+
+    @realm.active = false
+    @realm.save
+
+    @realm
   end
 
   def destroy

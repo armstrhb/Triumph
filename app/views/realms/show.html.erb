@@ -8,14 +8,17 @@
   <div class="jumbotron">
     <h1><%= @realm.name %></h1>
   </div>
-  <% if ! @realm.active %>
-    <div class="alert alert-info">
-      This realm is inactive.
-    </div>
-  <% end %>
+  <div id="realm-inactive-banner" class="alert alert-info <%= 'hide' if @realm.active %>">
+    This realm is inactive.
+  </div>
   <div id="superuser_ish" class="row">
     <div class="col-md-12">
       <%= link_to 'Achievements', '/achievements/' + @realm.id.to_s, class: 'btn' %>
+      <% if @realm.active %>
+        <%= link_to 'Deactivate', deactivate_realm_path(@realm.id), id: 'change_state_button', class: 'btn', :remote => true %>
+      <% else %>
+        <%= link_to 'Activate', activate_realm_path(@realm.id), id: 'change_state_button', class: 'btn', :remote => true %>
+      <% end %>
       <%= link_to 'Delete Realm', @realm, class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{@realm.name}?" }, method: :delete %>
       <p>Panels in place. Temporary data grabs below.</p>
     </div>
