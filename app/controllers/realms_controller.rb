@@ -92,7 +92,11 @@ class RealmsController < ApplicationController
   end
 
   def rename
+    @realm = Realm.find(params[:id])
+    @realm.name = rename_params[:name]
+    @realm.save
 
+    @realm
   end
 
   def destroy
@@ -108,6 +112,10 @@ class RealmsController < ApplicationController
   private
     def realm_params
       params.require(:realm).permit(:name, :active, :group_id)
+    end
+
+    def rename_params
+      params.require(:realm).permit(:name)
     end
 
     def logged_in_user

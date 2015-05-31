@@ -6,18 +6,26 @@
 <div class="container">
 
   <div class="jumbotron">
-    <h1><%= @realm.name %></h1>
+    <h1 id="realm-name"><%= @realm.name %></h1>
   </div>
-  <div id="realm-inactive-banner" class="alert alert-info <%= 'hide' if @realm.active %>">
+  <div id="realm-inactive-banner" class="alert alert-info" <%= 'style=display:none;' if @realm.active %>>
     This realm is inactive.
+  </div>
+  <div id="error-message" class="row collapse alert alert-danger" role="alert">
+    <div class="col-lg-12 error-count-message">
+      <h4>The following errors occurred:</h4>
+      <ul>
+      </ul>
+    </div>
   </div>
   <div id="superuser_ish" class="row">
     <div class="col-md-12">
       <%= link_to 'Achievements', '/achievements/' + @realm.id.to_s, class: 'btn' %>
+      <button id="rename-button" class="btn btn-default" type="button" data-toggle="modal" data-target="#rename-modal">Rename</button>
       <% if @realm.active %>
-        <%= link_to 'Deactivate', deactivate_realm_path(@realm.id), id: 'change_state_button', class: 'btn', :remote => true %>
+        <%= link_to 'Deactivate', deactivate_realm_path(@realm.id), id: 'change_state_button', class: 'btn btn-default', :remote => true %>
       <% else %>
-        <%= link_to 'Activate', activate_realm_path(@realm.id), id: 'change_state_button', class: 'btn', :remote => true %>
+        <%= link_to 'Activate', activate_realm_path(@realm.id), id: 'change_state_button', class: 'btn btn-default', :remote => true %>
       <% end %>
       <%= link_to 'Delete Realm', @realm, class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{@realm.name}?" }, method: :delete %>
       <p>Panels in place. Temporary data grabs below.</p>
@@ -184,7 +192,58 @@
     <% end %>
   </div>
 
-
+  <div id="rename-modal" class="modal fade" tabindex="-1" aria-labelledby="renameModalLabel" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="renameModalLabel">Rename Realm</h4>
+        </div>
+        <div class="modal-body">
+        <%= form_for(@realm, :url => rename_realm_path(@realm), :html => { :id => "rename_form", :class => "form-inline"}, remote: true, method: 'post') do |f| %>
+          <div class='form-group'>
+            <%= f.hidden_field :id %>
+            <%= f.label :name %>
+            <%= f.text_field :name, class: "form-control" %>
+          </div>
+          <%= f.submit "Rename", :class => 'btn btn-primary' %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <% end %>
+      </div>
+      </div>
+    </div>
+  </div>
+  </div>
 
 </div>
+<script>
+  $.fn.modal_success = function(){
+      this.modal('hide');
+  };
+
+  $("#rename_form").on("ajax:error", function(event, xhr, status, error) {
+    $('#rename-modal').modal('hide');
+    handleErrors($.parseJSON(xhr.responseText));
+  }).on("ajax:complete", function(xhr, status) {
+    $('#rename-modal').modal('hide');
+  }).on("ajax:beforeSend", function(event, xhr, settings) {
+    $("#error-message").hide();
+  });
+
+  function handleErrors(errors) {
+    var errorDiv = $("#error-message");
+    var errorList = errorDiv.find("ul");
+
+    errorList.empty();
+    for (var i = 0; i < errors.length; i++) {
+      errorList.append($("<li>")
+               .append($("<span>", {class: "glyphicon glyphicon-exclamation-sign", "aria-hidden": true}))
+               .append($("<span>", {class: "sr-only"}))
+               .append($("<span>", {class: "error-item", html: errors[i]})));
+    }
+
+    if (errors.length > 0 && !errorDiv.is(":visible"))
+      errorDiv.fadeIn(250);
+  }
+</script>
 </html>
