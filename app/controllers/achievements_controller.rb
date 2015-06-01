@@ -1,4 +1,6 @@
 class AchievementsController < ApplicationController
+  respond_to :html, :js
+
   def index
     @realm = Realm.find(params[:realm_id])
     @achievements = Achievement.where(:realm => params[:realm_id])
@@ -16,4 +18,16 @@ class AchievementsController < ApplicationController
       format.json{render :json => { :realm => @achievement}}
     end
   end
+
+  def create
+    @achievement = Achievement.new(get_create_params)
+    @achievement.save
+
+    @achievement
+  end
+
+  private
+    def get_create_params
+      params.require(:achievement).permit(:title, :description, :realm_id, :category_id, :rarity_id, :points, :required_ticks, :active_start, :active_end, :repeatable)
+    end
 end

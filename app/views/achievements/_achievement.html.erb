@@ -1,4 +1,4 @@
-<tr data-link="<%= url_for :controller => 'achievements', :action => 'show', :realm_id => achievement.realm_id, :id => achievement.id  %>">
+<tr class='achievement-item' data-link="<%= url_for :controller => 'achievements', :action => 'show', :realm_id => achievement.realm_id, :id => achievement.id  %>">
   <td>
     <strong><%= achievement.title %></strong><br/>
     <span class="text-muted"><%= achievement.description %></span>
