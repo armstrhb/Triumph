@@ -10,7 +10,7 @@
       <%= pluralize(@categories.length, "category") %>
     </div>
     <div class="col-sm-4">
-      <%= pluralize(@rarities.length, "rarity") %>
+      <%= link_to pluralize(@rarities.length, "rarity"), rarities_path(@realm) %>
     </div>
   </div>
   <div class="row">
