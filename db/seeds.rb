@@ -14,10 +14,10 @@ realm2 = Realm.create(name: 'secondary.realm', active: true, group: group1)
 realm1.users << user1
 realm1.users << user2
 
-rarity1 = Rarity.create(name: 'bronze', realm: realm1)
-rarity2 = Rarity.create(name: 'silver', realm: realm1)
-rarity3 = Rarity.create(name: 'gold', realm: realm1)
-rarity4 = Rarity.create(name: 'platinum', realm: realm1)
+rarity1 = Rarity.create(name: 'bronze', realm: realm1, description: 'Base line achievements.')
+rarity2 = Rarity.create(name: 'silver', realm: realm1, description: 'A little less common.')
+rarity3 = Rarity.create(name: 'gold', realm: realm1, description: 'These are tough to get.')
+rarity4 = Rarity.create(name: 'platinum', realm: realm1, description: 'Good luck. These are rare!')
 
 category1 = Category.create(name: 'general', description: 'some of that basic stuff', realm: realm1)
 category2 = Category.create(name: 'special', description: 'some of that wizard stuff', realm: realm1)

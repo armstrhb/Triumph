@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'rarities/index'
+
+  get 'rarities/show'
+
   root 'realms#index'
   get 'sessions/new'
 
@@ -24,6 +28,13 @@ Rails.application.routes.draw do
   get '/achievements/:realm_id' => 'achievements#index'
   get '/achievements/:realm_id/:id' => 'achievements#show'
   resources :achievements
+
+  get '/rarities/:id' => 'rarities#index', as: 'rarities'
+  get '/rarities/detail/:id' => 'rarities#show', as: 'show_rarity'
+  #post '/rarities' => 'rarities#create', as: 'create_rarity_path'
+  #post '/rarities/:id' => 'rarities#update', as: 'update_rarity_path'
+  #delete '/rarities/:id' => 'rarities#destroy', as: 'destroy_rarity_path'
+  resources :rarities
 
   get '/progress/realmpoints' => 'progress#get_total_points_all_realms'
   get '/progress/realmpoints/:id' => 'progress#get_total_points_realm'
