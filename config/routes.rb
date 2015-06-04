@@ -31,9 +31,9 @@ Rails.application.routes.draw do
 
   get '/rarities/:id' => 'rarities#index', as: 'rarities'
   get '/rarities/detail/:id' => 'rarities#show', as: 'show_rarity'
-  #post '/rarities' => 'rarities#create', as: 'create_rarity_path'
-  #post '/rarities/:id' => 'rarities#update', as: 'update_rarity_path'
-  #delete '/rarities/:id' => 'rarities#destroy', as: 'destroy_rarity_path'
+  post '/rarities' => 'rarities#create', as: 'create_rarity'
+  post '/rarities/:id' => 'rarities#update', as: 'update_rarity'
+  delete '/rarities/:id' => 'rarities#destroy', as: 'destroy_rarity'
   resources :rarities
 
   get '/progress/realmpoints' => 'progress#get_total_points_all_realms'
