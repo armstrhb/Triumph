@@ -5,6 +5,7 @@
   <div class="row">
     <%= link_to "Back to List", rarities_path(@rarity.realm), :class => 'btn btn-default' %>
     <button id="edit-button" class="btn btn-default" type="button" data-toggle="modal" data-target="#edit-modal">Edit</button>
+    <%= link_to 'Delete Rarity', @rarity, class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{@rarity.name}?" }, method: :delete %>
   </div>
   <div class="row">
     <% if @rarity.achievements.length > 0 %>
