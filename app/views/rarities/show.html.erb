@@ -1,7 +1,9 @@
 <div class="container">
   <div class="header">
-    <h1>Rarity <small><%= @rarity.name %></small></h1>
-    <h2><small><%= @rarity.description %></small></h2>
+    <h1>Rarity : <span class=""><%= @rarity.name %></span> <small><%= @rarity.description %></small></h1>
+  </div>
+  <div class="row">
+    <%= link_to "Back to List", rarities_path(@rarity.realm) %>
   </div>
   <div class="row">
     <% if @rarity.achievements.length > 0 %>
@@ -13,7 +15,7 @@
         <th>Category</th>
       </tr>
       <% @rarity.achievements.each do |a| %>
-        <tr>
+        <tr data-link="<%= show_achievement_path(@rarity.realm, a) %>">
           <td><%= a.title %></td>
           <td><%= a.description %></td>
           <td><%= a.points %></td>
@@ -28,3 +30,9 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  $("tr[data-link]").click(function() {
+    window.location = this.dataset.link;
+  });
+</script>

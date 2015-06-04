@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   post '/users/passwd' => 'users#update_password'
   resources :users
 
-  get '/achievements/:realm_id' => 'achievements#index'
-  get '/achievements/:realm_id/:id' => 'achievements#show'
+  get '/achievements/:realm_id' => 'achievements#index', as: 'achievements'
+  get '/achievements/:realm_id/:id' => 'achievements#show', as: 'show_achievement'
   resources :achievements
 
   get '/rarities/:id' => 'rarities#index', as: 'rarities'
