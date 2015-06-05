@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get '/achievements/:realm_id' => 'achievements#index', as: 'achievements'
   get '/achievements/:realm_id/:id' => 'achievements#show', as: 'show_achievement'
   post '/achievements/:realm_id' => 'achievements#create', as: 'create_achievement'
+  delete '/achievements/:id' => 'achievements#destroy', as: 'destroy_achievement'
   resources :achievements
 
   get '/rarities/:id' => 'rarities#index', as: 'rarities'

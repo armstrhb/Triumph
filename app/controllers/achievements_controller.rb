@@ -33,6 +33,16 @@ class AchievementsController < ApplicationController
     @achievement.update_attributes(get_edit_params)
   end
 
+  def destroy
+    begin
+      @achievement = Achievement.find(params[:id]).destroy
+    rescue ActiveRecord::RecordNotFound
+    end
+
+    flash[:info] = "Achievement deleted."
+    redirect_to achievements_url @achievement.realm
+  end
+
   private
     def get_create_params
       params.require(:achievement).permit(:title, :description, :realm_id, :category_id, :rarity_id, :points, :required_ticks, :active_start, :active_end, :repeatable)
