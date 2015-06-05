@@ -1,0 +1,5 @@
+if (!$("#category-table").is(":visible"))
+  $("#category-table").fadeIn(250);
+
+$("<%= escape_javascript(render @category) %>").appendTo("#category-table").hide().fadeIn(250);
+$('#new-category-modal').modal_success();

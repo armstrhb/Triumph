@@ -1,3 +1,5 @@
-console.log("adding achievement <%= @achievement.title %>, <%= @achievement.id %>, <%= @achievement.realm.id %>");
+if (!$("#achievement-table").is(":visible"))
+  $("#achievement-table").fadeIn(250);
+
 $("<%= escape_javascript(render @achievement) %>").appendTo("#achievement-table").hide().fadeIn(250);
 $('#new-achievement-modal').modal_success();

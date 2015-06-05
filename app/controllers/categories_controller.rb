@@ -3,10 +3,11 @@ class CategoriesController < ApplicationController
 
   def index
     puts "realm param: #{params[:realm_id]}"
+    @realm = Realm.find(params[:realm_id])
     @categories = Category.where(:realm => params[:realm_id])
-    @new_category = Category.new
-    #@realm = Realm.find(params[:realm_id])
 
+    @new_category = Category.new
+    @new_category.realm = @realm
   end
 
   def show
@@ -49,10 +50,10 @@ class CategoriesController < ApplicationController
 
   private
    def get_create_params
-    params.require(:category).permit(:name, :description, :realm_id, :realm)
+    params.require(:category).permit(:name, :realm_id, :description)
    end
 
    def update_params
-     params.require(:category).permit(:name, :description, :realm_id, :realm)
+     params.require(:category).permit(:name, :description)
    end
 end

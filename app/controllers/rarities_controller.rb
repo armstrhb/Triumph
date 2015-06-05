@@ -30,7 +30,7 @@ class RaritiesController < ApplicationController
     end
 
     flash[:notice] = "Rarity deleted."
-    redirect_to rarities_url
+    redirect_to rarities_url @rarity.realm
   end
 
   private

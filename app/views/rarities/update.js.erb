@@ -1,0 +1,9 @@
+$("#rarity-name").fadeOut(250, function() {
+  $(this).html("<%= @rarity.name %>");
+  $(this).fadeIn(250);
+});
+
+$("#rarity-description").fadeOut(250, function() {
+  $(this).html("<%= @rarity.description %>");
+  $(this).fadeIn(250);
+});

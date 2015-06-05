@@ -1,0 +1,9 @@
+$("#category-name").fadeOut(250, function() {
+  $(this).html("<%= @category.name %>");
+  $(this).fadeIn(250);
+});
+
+$("#category-description").fadeOut(250, function() {
+  $(this).html("<%= @category.description %>");
+  $(this).fadeIn(250);
+});

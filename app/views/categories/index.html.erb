@@ -8,6 +8,7 @@
 <div class="row">
   <div class="col-sm-12">
     <h3>Below are the achievement types in your Realm.</h3>
+    <button id="#new-category-button" class="btn" data-toggle="modal" data-target="#new-category-modal">New Category</button>
   </div>
 </div>
 
@@ -23,9 +24,10 @@
       <%= render @categories %>
     </table>
     <% else %>
+  </div>
     <div class="col-sm-12">
       <span class="text-muted">There are no categories in this realm. Lame.</span>
-    <div>
+    </div>
     <div class="col-sm-12">
       <div class="row">
         <%= link_to 'New Category', new_category_path, class: "btn btn-default" %>
@@ -33,10 +35,33 @@
     </div>
     <% end %>
   </div>
+
+
+ <div id="new-category-modal" class="modal fade" tabindex="-1" aria-labelledby="categoryModalLabel" role="dialog" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+         <h4 class="modal-title" id="categoryModalLabel">Create Category</h4>
+       </div>
+       <div class="modal-body">
+         <%= form_for(@new_category, :url => create_category_path, :html => { :id => 'new_category_form', :class => 'form'}, remote: true) do |f| %>
+         <%= f.hidden_field :realm_id, :value => @realm.id %>
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, :class => 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :description %>
+            <%= f.text_field :description, :class => 'form-control' %>
+          </div>
+       </div>
+       <div class="modal-footer">
+         <%= f.submit :class => 'btn btn-primary' %>
+         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+       </div>
+       <% end %>
+     </div>
+   </div>
  </div>
- </div>
-</div>
-
-
-
 </div>

@@ -25,15 +25,16 @@ Rails.application.routes.draw do
   post '/users/passwd' => 'users#update_password'
   resources :users
 
-  get '/achievements/:realm_id' => 'achievements#index'
-  get '/achievements/:realm_id/:id' => 'achievements#show'
+  get '/achievements/:realm_id' => 'achievements#index', as: 'achievements'
+  get '/achievements/:realm_id/:id' => 'achievements#show', as: 'show_achievement'
+  post '/achievements/:realm_id' => 'achievements#create', as: 'create_achievement'
   resources :achievements
 
   get '/rarities/:id' => 'rarities#index', as: 'rarities'
   get '/rarities/detail/:id' => 'rarities#show', as: 'show_rarity'
-  #post '/rarities' => 'rarities#create', as: 'create_rarity_path'
-  #post '/rarities/:id' => 'rarities#update', as: 'update_rarity_path'
-  #delete '/rarities/:id' => 'rarities#destroy', as: 'destroy_rarity_path'
+  post '/rarities' => 'rarities#create', as: 'create_rarity'
+  post '/rarities/:id' => 'rarities#update', as: 'update_rarity'
+  delete '/rarities/:id' => 'rarities#destroy', as: 'destroy_rarity'
   resources :rarities
 
   get '/progress/realmpoints' => 'progress#get_total_points_all_realms'
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
   get '/progress/userpoints/:user_id/:realm_id' => 'progress#get_total_points_for_user_in_realm'
 
   get '/categories/:realm_id' => 'categories#index', as: 'categories'
+  get '/categories' => 'categories#create', as: 'create_category'
   resources :categories
 
 end

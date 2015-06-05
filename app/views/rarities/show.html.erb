@@ -1,7 +1,11 @@
 <div class="container">
   <div class="header">
-    <h1>Rarity <small><%= @rarity.name %></small></h1>
-    <h2><small><%= @rarity.description %></small></h2>
+    <h1>Rarity : <span id="rarity-name" class="text-info"><%= @rarity.name %></span> <small id="rarity-description"><%= @rarity.description %></small></h1>
+  </div>
+  <div class="row">
+    <%= link_to "Back to List", rarities_path(@rarity.realm), :class => 'btn btn-default' %>
+    <button id="edit-button" class="btn btn-default" type="button" data-toggle="modal" data-target="#edit-modal">Edit</button>
+    <%= link_to 'Delete Rarity', @rarity, class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{@rarity.name}?" }, method: :delete %>
   </div>
   <div class="row">
     <% if @rarity.achievements.length > 0 %>
@@ -13,7 +17,7 @@
         <th>Category</th>
       </tr>
       <% @rarity.achievements.each do |a| %>
-        <tr>
+        <tr data-link="<%= show_achievement_path(@rarity.realm, a) %>">
           <td><%= a.title %></td>
           <td><%= a.description %></td>
           <td><%= a.points %></td>
@@ -28,3 +32,48 @@
     <% end %>
   </div>
 </div>
+
+<div id="edit-modal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="editModalLabel">Edit Rarity</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(@rarity, :url => update_rarity_path(@rarity), :html => { :id => "edit_form", :class => "form"}, remote: true, method: 'post') do |f| %>
+        <%= f.hidden_field :id %>
+        <div class='form-group'>
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class='form-group'>
+          <%= f.label :description %>
+          <%= f.text_field :description, class: "form-control" %>
+        </div>
+        <%= f.submit "Do it", :class => 'btn btn-primary' %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  $.fn.modal_success = function(){
+      this.modal('hide');
+  };
+
+  $("tr[data-link]").click(function() {
+    window.location = this.dataset.link;
+  });
+
+  $("#edit_form").on("ajax:error", function(event, xhr, status, error) {
+    $('#edit-modal').modal('hide');
+  }).on("ajax:complete", function(xhr, status) {
+    $('#edit-modal').modal('hide');
+  }).on("ajax:beforeSend", function(event, xhr, settings) {
+    //$("#error-message").hide();
+  });
+</script>
