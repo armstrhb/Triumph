@@ -44,4 +44,8 @@ class Achievement < ActiveRecord::Base
   def get_recent_completed_progress(limit=5)
     Progress.where(:achievement => id, :completed => true).order(complete_date: :desc).limit(limit)
   end
+
+  def active?
+     (active_start..active_end).include?(Date.today)
+  end
 end

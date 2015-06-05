@@ -1,0 +1,18 @@
+function update(selector, newVal) {
+  $("#" + selector).fadeOut(250, function() {
+    $(this).html(newVal);
+    $(this).fadeIn(250);
+  });
+}
+
+update("realm-title", "<%= @achievement.title %>");
+update("realm-description", "<%= @achievement.description %>");
+update("realm-category", "<%= @achievement.category.name %>");
+update("realm-rarity", "<%= @achievement.rarity.name %>");
+
+if (<%= @achievement.active? %>)
+  $("#active-banner").fadeOut(250);
+else
+  $("#active-banner").fadeIn(250);
+
+$('#edit-modal').modal_success();

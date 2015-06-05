@@ -1,14 +1,28 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-8">
-      <h1><%= @achievement.title %></h1>
-      <h2><small><%= @achievement.description %></small></h2>
+      <h1 id="realm-title"><%= @achievement.title %></h1>
+      <h2><small id="realm-description"><%= @achievement.description %></small></h2>
     </div>
     <div class="col-sm-2">
-      <h2><%= @achievement.category.name %></h2>
+      <h2 id="realm-category"><%= @achievement.category.name %></h2>
     </div>
     <div class="col-sm-2">
-      <h2><%= @achievement.rarity.name %></h2>
+      <h2 id="realm-rarity"><%= @achievement.rarity.name %></h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="active-banner" class="alert alert-warning" role="alert" <%= "style=display:none;" if @achievement.active? %>>
+        This achievement is inactive.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button id="edit-button" class="btn btn-default" type="button" data-toggle="modal" data-target="#edit-modal">Edit</button>
     </div>
   </div>
 
@@ -78,3 +92,81 @@
     </div>
   </div>
 </div>
+
+<div id="edit-modal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="editModalLabel">Edit Achievement</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(@achievement, :html => { :id => "edit_achievement_form", :class => "form"}, remote: true) do |f| %>
+        <div class='form-group'>
+          <%= f.label :title %>
+          <%= f.text_field :title, :class => 'form-control' %>
+        </div>
+        <div class='form-group'>
+          <%= f.label :description %>
+          <%= f.text_field :description, :class => 'form-control' %>
+          <span class="help-block">A short descriptor of the achievement.</span>
+        </div>
+        <div class='form-group'>
+          <%= f.label :active_start %>
+          <%= f.date_field :active_start, :class => 'form_control' %>
+        </div>
+        <div class='form-group'>
+          <%= f.label :active_end %>
+          <%= f.date_field :active_end, :class => 'form_control' %>
+        </div>
+        <div class='form-group checkbox-inline'>
+          <%= f.check_box :repeatable, :class => 'form_control' %>
+          <%= f.label :repeatable %>
+        </div>
+        <%= f.hidden_field :realm_id, :value => @achievement.realm.id %>
+        <div class='form-group'>
+          <%= f.label :category %>
+          <%= f.collection_select(:category_id, @categories.all, :id, :name, {}, {:class => 'form-control'}) %>
+        </div>
+        <div class='form-group'>
+          <%= f.label :rarity %>
+          <%= f.collection_select(:rarity_id, @rarities.all, :id, :name, {}, {:class => 'form-control'}) %>
+        </div>
+        <div class='form-group'>
+          <%= f.label :required_ticks %>
+          <%= f.number_field(:required_ticks, in: 1..100000000, :class => 'form-control') %>
+          <span class="help-block">Needs to be positive :)</span>
+        </div>
+        <div class='form-group'>
+          <%= f.label :points %>
+          <%= f.number_field(:points, in: 1..1000, :class => 'form-control') %>
+          <span class="help-block">Needs to be positive, too.</span>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit :class => 'btn btn-primary' %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$.fn.modal_success = function(){
+    this.modal('hide');
+};
+
+$("tr[data-link]").click(function() {
+  window.location = this.dataset.link;
+});
+
+$("#edit_form").on("ajax:error", function(event, xhr, status, error) {
+  $('#edit-modal').modal('hide');
+}).on("ajax:complete", function(xhr, status) {
+  $('#edit-modal').modal('hide');
+}).on("ajax:beforeSend", function(event, xhr, settings) {
+  //$("#error-message").hide();
+});
+</script>

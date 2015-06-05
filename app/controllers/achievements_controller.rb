@@ -11,6 +11,8 @@ class AchievementsController < ApplicationController
 
   def show
     @achievement = Achievement.find(params[:id])
+    @categories = Category.where(:realm => @achievement.realm)
+    @rarities = Rarity.where(:realm => @achievement.realm)
 
     respond_to do |format|
       format.html
@@ -26,8 +28,17 @@ class AchievementsController < ApplicationController
     @achievement
   end
 
+  def update
+    @achievement = Achievement.find(params[:id])
+    @achievement.update_attributes(get_edit_params)
+  end
+
   private
     def get_create_params
       params.require(:achievement).permit(:title, :description, :realm_id, :category_id, :rarity_id, :points, :required_ticks, :active_start, :active_end, :repeatable)
+    end
+
+    def get_edit_params
+      get_create_params
     end
 end
