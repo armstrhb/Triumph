@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
     completions
   end
 
+  def completions
+    Progress.where(:user_id => id, :completed => true).count
+  end
+
   def rarity_completions(rarity)
     Progress.includes(:achievement).where(:user_id => id, :completed => true, :achievements => {:realm_id => rarity.realm.id, :rarity_id => rarity.id}).length
   end

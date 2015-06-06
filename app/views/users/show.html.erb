@@ -1,13 +1,16 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-6">
       <h1>
         <%= gravatar_for @user.email %>
         <%= @user.name %>
         <small>User Details</small>
       </h1>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-3">
+      <h1><%= @user.completions %> <small>completions</small><h1>
+    </div>
+    <div class="col-sm-3">
       <h1><%= @user.total_points %> <small>points</small></h1>
     </div>
   </div>
@@ -22,20 +25,28 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-9">
       <strong>Realms</strong>
       <div class="row">
         <% @user.realms.each do |r| %>
           <div class="col-sm-7">
             <%= link_to r.name, r %>
           </div>
-          <div class="col-sm-5">
+          <div class="col-sm-3">
+            <% @user.realm_completions(r).each do |rarity, completions| %>
+              <% if completions > 0 %>
+                <span class="text-muted glyphicon glyphicon-tower" aria-hidden="true" data-toggle="tooltip" title="<%= rarity %>"></span>
+                <%= completions %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="col-sm-2">
             <%= @user.points_for_realm(r) %>
           </div>
         <% end %>
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-3">
       <strong>Groups</strong>
       <div class="row">
         <% @user.groups.each do |g| %>
