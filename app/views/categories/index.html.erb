@@ -72,4 +72,8 @@
       this.modal('hide');
       showSuccess();
   };
+
+  $("tr[data-link]").click(function() {
+    window.location = this.dataset.link;
+  });
 </script>

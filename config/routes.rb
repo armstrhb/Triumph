@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   get '/progress/userpoints/:user_id/:realm_id' => 'progress#get_total_points_for_user_in_realm'
 
   get '/categories/:realm_id' => 'categories#index', as: 'categories'
+  get '/categories/detail/:id' => 'categories#show', as: 'show_category'
   get '/categories' => 'categories#create', as: 'create_category'
   resources :categories
 
