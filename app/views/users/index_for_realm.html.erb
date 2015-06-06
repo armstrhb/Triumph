@@ -12,14 +12,21 @@
       <table class="table table-hover table-striped">
         <tr>
           <th>Username</th>
-          <th>Email</th>
-          <th>Created</th>
+          <th class="text-right">Completions</th>
+          <th class="text-right">Points</th>
         </tr>
       <% @users.each do |u| %>
         <tr data-link="<%= user_path(u) %>">
           <td><%= gravatar_for u.email, 20 %> <strong><%= u.name %></strong></td>
-          <td><%= u.email %></td>
-          <td><%= u.created_at.strftime("%m/%d/%Y") %></td>
+          <td class="text-right">
+            <% u.realm_completions(@realm).each do |rarity, completions| %>
+              <% if completions > 0 %>
+                <span class="text-muted glyphicon glyphicon-tower" aria-hidden="true" data-toggle="tooltip" title="<%= rarity %>"></span>
+                <%= completions %>
+              <% end %>
+            <% end %>
+          </td>
+          <td class="text-right"><%= u.points_for_realm(@realm) %></td>
         </tr>
       <% end %>
       </table>

@@ -31,4 +31,18 @@ class User < ActiveRecord::Base
 
     points
   end
+
+  def realm_completions(realm)
+    completions = Hash.new
+
+    realm.rarities.each { |r|
+      completions[r.name] = rarity_completions(r)
+    }
+
+    completions
+  end
+
+  def rarity_completions(rarity)
+    Progress.includes(:achievement).where(:user_id => id, :completed => true, :achievements => {:realm_id => rarity.realm.id, :rarity_id => rarity.id}).length
+  end
 end
