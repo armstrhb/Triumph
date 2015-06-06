@@ -61,14 +61,6 @@
 </div>
 
 <script>
-  $.fn.modal_success = function(){
-      this.modal('hide');
-  };
-
-  $("tr[data-link]").click(function() {
-    window.location = this.dataset.link;
-  });
-
   $("#edit_form").on("ajax:error", function(event, xhr, status, error) {
     $('#edit-modal').modal('hide');
   }).on("ajax:complete", function(xhr, status) {

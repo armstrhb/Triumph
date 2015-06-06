@@ -4,7 +4,7 @@
   </div>
   <% flash.each do |message_type, message| %>
     <div class="alert alert-<%= message_type %>"><%= message %></div>
-  <% end %> 
+  <% end %>
   <div class="row">
     <div class="col-sm-4">
       <%= pluralize(@achievements.length, "achievement") %>
@@ -99,19 +99,6 @@
 </div>
 
 <script>
-  $.fn.modal_success = function(){
-      this.modal('hide');
-      showSuccess();
-  };
-
-  $("tr[data-link]").click(function() {
-    window.location = this.dataset.link;
-  });
-
-  //$(document).on('click', '.achievement-item', {}, function(e) {
-  //  window.location = $(e.currentTarget).dataset.link;
-  //});
-
   $("#new_achievement_form").on("ajax:error", function(event, xhr, status, error) {
     //handleErrors($.parseJSON(xhr.responseText));
   }).on("ajax:complete", function(xhr, status) {

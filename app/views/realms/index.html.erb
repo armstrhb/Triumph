@@ -100,15 +100,6 @@
   </div>
 
   <script>
-    $.fn.modal_success = function(){
-        this.modal('hide');
-        showSuccess();
-    };
-
-    $("tr[data-link]").click(function() {
-      window.location = this.dataset.link;
-    });
-
     $("#new_realm_form").on("ajax:error", function(event, xhr, status, error) {
       hideSuccess()
       handleErrors($.parseJSON(xhr.responseText));
@@ -117,8 +108,6 @@
     }).on("ajax:beforeSend", function(event, xhr, settings) {
       $("#error-message").hide();
     });
-
-    $('[data-toggle="tooltip"]').tooltip();
 
     function showSuccess() {
       $("#success-message .message").html("Realm created.");
