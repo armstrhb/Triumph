@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get '/users/passwd' => 'users#edit_password'
   post '/users/passwd' => 'users#update_password'
+  get '/users/realm/:id' => 'users#index_for_realm', as: 'realm_users'
   resources :users
 
   get '/achievements/:realm_id' => 'achievements#index', as: 'achievements'

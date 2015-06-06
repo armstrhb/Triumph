@@ -3,6 +3,11 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def index_for_realm
+    @realm = Realm.find(params[:id])
+    @users = User.joins("join realm_users on users.id = realm_users.user_id").where(["realm_users.realm_id = ?", params[:id]])    
+  end
+
   def show
     @user = User.find(params[:id])
   end
