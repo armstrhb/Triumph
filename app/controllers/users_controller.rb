@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
+  respond_to :html, :js
+
   def index
     @users = User.all
   end
 
   def index_for_realm
     @realm = Realm.find(params[:id])
-    @users = User.joins("join realm_users on users.id = realm_users.user_id").where(["realm_users.realm_id = ?", params[:id]])    
+    @users = User.joins("join realm_users on users.id = realm_users.user_id").where(["realm_users.realm_id = ?", params[:id]])
   end
 
   def show
@@ -58,6 +60,40 @@ class UsersController < ApplicationController
   end
 
   def destroy
+  end
+
+  def edit_realm_users
+    @realm = Realm.find(params[:id])
+  end
+
+  def search
+    if params[:realm_id].present?
+      @realm = Realm.find(params[:realm_id])
+    end
+
+    @users = User.order(:name).where("name LIKE ?", "%#{params[:name]}%")
+  end
+
+  def add_to_realm
+    @user = User.find(params[:user])
+    @realm = Realm.find(params[:realm])
+
+    if !@user.realms.include?(@realm)
+      @user.realms << @realm
+    end
+
+    @user
+  end
+
+  def remove_from_realm
+    @user = User.find(params[:user])
+    @realm = Realm.find(params[:realm])
+
+    if @user.realms.include?(@realm)
+      @user.realms.delete(@realm)
+    end
+
+    @user
   end
 
   private

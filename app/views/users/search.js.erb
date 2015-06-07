@@ -1,0 +1,11 @@
+$("#user-table").find("tr:gt(0)").remove();
+
+<% if @users.length > 0 %>
+  $("#user-table").fadeIn(250);
+<% else %>
+  $("#user-table").fadeOut(250);
+<% end %>
+
+<% @users.each do |u| %>
+  $("<tr id='user-<%= u.id %>' class='result<%= ' text-muted' unless u.realms.include?(@realm) %>'><td class='hide user-id'><%= u.id %></td><td><%= u.name %></td><td class='membership'><%= u.realms.include?(@realm) ? 'Member' : 'Not a Member'%></td><td class='action'></td></tr>").appendTo($("#user-table"));
+<% end %>

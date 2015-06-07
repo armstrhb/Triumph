@@ -24,6 +24,10 @@ Rails.application.routes.draw do
   get '/users/passwd' => 'users#edit_password'
   post '/users/passwd' => 'users#update_password'
   get '/users/realm/:id' => 'users#index_for_realm', as: 'realm_users'
+  get '/users/realm/edit/:id' => 'users#edit_realm_users', as: 'edit_realm_users'
+  post '/users/search' => 'users#search', as: 'user_search'
+  post '/users/add' => 'users#add_to_realm', as: 'add_user_to_realm'
+  post '/users/remove' => 'users#remove_from_realm', as: 'remove_user_from_realm'
   resources :users
 
   get '/achievements/:realm_id' => 'achievements#index', as: 'achievements'

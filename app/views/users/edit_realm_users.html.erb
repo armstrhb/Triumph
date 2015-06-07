@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="header">
+    <h1><span id="realm-name"><%= @realm.name %></span> <small>User Roster</small></h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <ul class="nav nav-pills">
+        <li role="presentation"><%= link_to "Back to User List", realm_users_path(@realm) %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= form_tag({ :controller => 'users', :action => 'search', :method => :post}, { :id => "search_form", :class => "form-inline", :remote => true }) do %>
+        <div class="form-group">
+          <%= hidden_field_tag "realm_id", @realm.id %>
+          <%= text_field_tag "name", nil, :class => 'form-control', :placeholder => 'User name' %>
+        </div>
+        <%= submit_tag "Search", :class => 'btn btn-default' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <table id="user-table" class="table table-hover table-striped" style="display:none;">
+        <tr class="table-heading">
+          <th>User</th>
+          <th>Membership</th>
+          <th></th>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function (){
+  $(document).on('mouseenter', 'tr.result', function() {
+    $(this).find('td.action').empty();
+    if ($(this).find('td.membership').html() == 'Member')
+      $("<button id='remove-user' class='btn btn-danger'>Remove</button>").appendTo($(this).find('td.action'));
+    else
+      $("<button id='add-user' class='btn btn-default'>Add</button>").appendTo($(this).find('td.action'));
+  });
+
+  $(document).on('mouseleave', 'tr.result', function() {
+    $(this).find('td.action').empty();
+  });
+
+  $(document).on('click', '#add-user', function() {
+    $.ajax({type: "POST",
+           url: "<%= add_user_to_realm_path %>",
+           data: {user: $(this).parent().parent().find(".user-id").html(), realm: <%= @realm.id %>},
+           accepts: 'application/json'
+    });
+  });
+
+  $(document).on('click', '#remove-user', function() {
+    $.ajax({type: "POST",
+           url: "<%= remove_user_from_realm_path %>",
+           data: {user: $(this).parent().parent().find(".user-id").html(), realm: <%= @realm.id %>},
+           accepts: 'application/json'
+    });
+  });
+});
+</script>

@@ -1,0 +1,8 @@
+var row = $("#user-<%= @user.id%>");
+
+row.removeClass('text-muted');
+row.find('td.action').empty();
+row.find('td.membership').fadeOut(250, function() {
+  $(this).html('Member');
+  $(this).fadeIn(250);
+});
