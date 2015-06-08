@@ -4,6 +4,8 @@ class CreateRealms < ActiveRecord::Migration
       t.string :name, null: false
       t.boolean :active, default: true
       t.belongs_to :group
+      t.belongs_to :icon
+      t.string :color, default: "\#c0c0c0"
       t.timestamps null: false
     end
 

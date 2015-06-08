@@ -30,6 +30,7 @@
       <div class="row">
         <% @user.realms.each do |r| %>
           <div class="col-sm-7">
+            <span class="fa fa-fw fa-<%= r.icon.name %>" style="color:<%= r.color %>"></span> 
             <%= link_to r.name, r %>
           </div>
           <div class="col-sm-3 text-right">

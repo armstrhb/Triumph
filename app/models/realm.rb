@@ -4,6 +4,7 @@ class Realm < ActiveRecord::Base
   has_many :rarities, :foreign_key => "realm_id"
   has_and_belongs_to_many :users, :join_table => "realm_users"
   belongs_to :group, :foreign_key => "group_id"
+  belongs_to :icon, :foreign_key => "icon_id"
 
   validates :name, presence: true, length: { minimum: 3 }, uniqueness: true
   validates :active, inclusion: { in: [true, false] }

@@ -89,11 +89,13 @@ ActiveRecord::Schema.define(version: 20150607190013) do
   add_index "realm_users", ["user_id"], name: "index_realm_users_on_user_id"
 
   create_table "realms", force: :cascade do |t|
-    t.string   "name",                      null: false
+    t.string   "name",                           null: false
     t.boolean  "active",     default: true
     t.integer  "group_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "icon_id"
+    t.string   "color",      default: "#c0c0c0"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "user_groups", id: false, force: :cascade do |t|

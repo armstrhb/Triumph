@@ -6,6 +6,7 @@
 <div class="container">
 
   <div class="jumbotron">
+    <h1 id="realm-icon"><span class="fa fa-fw fa-2x fa-<%= @realm.icon.name %>" style="color:<%= @realm.color %>"></span></h1>
     <h1 id="realm-name"><%= @realm.name %></h1>
   </div>
   <div id="realm-inactive-banner" class="alert alert-info" <%= 'style=display:none;' if @realm.active %>>
@@ -23,6 +24,7 @@
       <%= link_to 'Achievements', '/achievements/' + @realm.id.to_s, :class => 'btn btn-default' %>
       <%= link_to 'Users', realm_users_path(@realm), :class => 'btn btn-default' %>
       <button id="rename-button" class="btn btn-default" type="button" data-toggle="modal" data-target="#rename-modal">Rename</button>
+      <button id="change-icon-button" class="btn btn-default" type="button" data-toggle="modal" data-target="#change-icon-modal">Change Icon</button>
       <% if @realm.active %>
         <%= link_to 'Deactivate', deactivate_realm_path(@realm.id), id: 'change_state_button', class: 'btn btn-default', :remote => true %>
       <% else %>
@@ -214,6 +216,31 @@
       </div>
     </div>
   </div>
+
+  <div id="change-icon-modal" class="modal fade" tabindex="-1" aria-labelledby="iconModalLabel" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="iconModalLabel">Change Icon</h4>
+        </div>
+        <div class="modal-body">
+        <%= form_for(@realm, :url => change_realm_icon_path(@realm), :html => { :id => "change_icon_form", :class => "form"}, remote: true, method: 'post') do |f| %>
+          <div class='form-group'>
+            <%= f.hidden_field :id %>
+            <%= f.label :icon %>
+            <%= f.collection_select(:icon_id, @icons.all, :id, :name, {}, {:class => 'form-control'}) %>
+          </div>
+          <div class='form-group'>
+            <%= f.label :color %>
+            <%= f.color_field :color, value: "#{@realm.color}", class: "form-control" %>
+          </div>
+          <%= f.submit :class => 'btn btn-primary' %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <% end %>
+      </div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -226,6 +253,10 @@
     $('#rename-modal').modal('hide');
   }).on("ajax:beforeSend", function(event, xhr, settings) {
     $("#error-message").hide();
+  });
+
+  $("#change_icon_form").on("ajax:complete", function(xhr, status) {
+    $("#change-icon-modal").modal('hide');
   });
 
   function handleErrors(errors) {

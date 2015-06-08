@@ -6,6 +6,7 @@ class RealmsController < ApplicationController
     @realms = Realm.all
     @new_realm = Realm.new
     @groups = Group.all
+    @icons = Icon.all
   end
 
   def show
@@ -13,6 +14,7 @@ class RealmsController < ApplicationController
     @total_points = get_total_points_for_realm(@realm.id)
     @recent_achievements = get_recent_achievements_in_realm(@realm.id)
     @top_users = get_top_point_users_in_realm(@realm.id)
+    @icons = Icon.all
   end
 
   def get_total_points_for_realm(realm_id)
@@ -99,6 +101,15 @@ class RealmsController < ApplicationController
     @realm
   end
 
+  def change_icon
+    @realm = Realm.find(params[:id])
+
+    @realm.icon = Icon.find(change_icon_params[:icon_id])
+    @realm.color = change_icon_params[:color]
+
+    @realm.save
+  end
+
   def destroy
     begin
       @realm = Realm.find(params[:id]).destroy
@@ -111,11 +122,15 @@ class RealmsController < ApplicationController
 
   private
     def realm_params
-      params.require(:realm).permit(:name, :active, :group_id)
+      params.require(:realm).permit(:name, :active, :group_id, :icon_id, :color)
     end
 
     def rename_params
       params.require(:realm).permit(:name)
+    end
+
+    def change_icon_params
+      params.require(:realm).permit(:icon_id, :color)
     end
 
     def logged_in_user

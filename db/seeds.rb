@@ -8,12 +8,6 @@ user2 = User.create(name: 'wallBMW', active: true, email: 'wallbmw@github.com', 
 user1.groups << group1
 user2.groups << group1
 
-realm1 = Realm.create(name: 'test.realm', active: true, group: group1)
-realm2 = Realm.create(name: 'secondary.realm', active: true, group: group1)
-
-realm1.users << user1
-realm1.users << user2
-
 Icon.create(name: 'ambulance')
 Icon.create(name: 'anchor')
 Icon.create(name: 'android')
@@ -77,8 +71,8 @@ Icon.create(name: 'cloud')
 Icon.create(name: 'cloud-download')
 Icon.create(name: 'cloud-upload')
 Icon.create(name: 'cny')
-Icon.create(name: 'code')
-Icon.create(name: 'code-fork')
+code_icon = Icon.create(name: 'code')
+code_fork_icon = Icon.create(name: 'code-fork')
 Icon.create(name: 'codepen')
 Icon.create(name: 'coffee')
 Icon.create(name: 'cog')
@@ -313,6 +307,12 @@ Icon.create(name: 'windows')
 Icon.create(name: 'wrench')
 Icon.create(name: 'yahoo')
 Icon.create(name: 'youtube')
+
+realm1 = Realm.create(name: 'test.realm', active: true, group: group1, color: "#3498db", icon: code_icon)
+realm2 = Realm.create(name: 'secondary.realm', active: true, group: group1, color: "#27ae60", icon: code_fork_icon)
+
+realm1.users << user1
+realm1.users << user2
 
 rarity1 = Rarity.create(name: 'bronze', realm: realm1, description: 'Base line achievements.', icon: trophy_icon, color: '#e87e04', rareness: 1)
 rarity2 = Rarity.create(name: 'silver', realm: realm1, description: 'A little less common.', icon: trophy_icon, color: '#95a5a6', rareness: 2)

@@ -3,7 +3,10 @@
 <% else %>
 <tr data-link="<%= realm_path(realm) %>" class="text-muted" data-toggle="tooltip" title="<%= realm.name %> is currently disabled.">
 <% end %>
-  <td><%= realm.name %></td>
+  <td>
+    <span class="fa fa-fw fa-<%= realm.icon.name %>" style="color:<%= realm.color %>"></span>
+    <%= realm.name %>
+  </td>
   <td class='text-center'><%= realm.users.length %></td>
   <td class='text-center'><%= realm.achievements.length %></td>
   <td class='text-center'><%= realm.total_points_earned %></td>

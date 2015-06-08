@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'realms/activate/:id' => 'realms#activate', as: 'activate_realm'
   get 'realms/deactivate/:id' => 'realms#deactivate', as: 'deactivate_realm'
   post '/realms/rename/:id' => 'realms#rename', as: 'rename_realm'
+  post '/realms/changeicon/:id' => 'realms#change_icon', as: 'change_realm_icon'
   resources :realms
 
   resources :groups
