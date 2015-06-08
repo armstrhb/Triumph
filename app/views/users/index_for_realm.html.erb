@@ -22,7 +22,7 @@
           <td class="text-right">
             <% u.realm_completions(@realm).each do |rarity, completions| %>
               <% if completions > 0 %>
-                <span class="text-muted glyphicon glyphicon-tower" aria-hidden="true" data-toggle="tooltip" title="<%= rarity %>"></span>
+                <span class="fa fa-fw fa-<%= rarity.icon.name %>" data-toggle="tooltip" title="<%= rarity.name %>" style="color:<%= rarity.color %>"></span>
                 <%= completions %>
               <% end %>
             <% end %>

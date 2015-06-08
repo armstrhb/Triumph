@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516015132) do
+ActiveRecord::Schema.define(version: 20150607190013) do
 
   create_table "achievements", force: :cascade do |t|
     t.string   "title",                          null: false
@@ -29,11 +29,13 @@ ActiveRecord::Schema.define(version: 20150516015132) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.string   "description", null: false
+    t.string   "name",                            null: false
+    t.string   "description",                     null: false
     t.integer  "realm_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "icon_id"
+    t.string   "color",       default: "#c0c0c0"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name"
@@ -45,6 +47,12 @@ ActiveRecord::Schema.define(version: 20150516015132) do
   end
 
   add_index "groups", ["name"], name: "index_groups_on_name"
+
+  create_table "icons", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "progresses", force: :cascade do |t|
     t.integer  "achievement_id"
@@ -60,11 +68,14 @@ ActiveRecord::Schema.define(version: 20150516015132) do
   add_index "progresses", ["user_id"], name: "index_progresses_on_user_id"
 
   create_table "rarities", force: :cascade do |t|
-    t.string   "name",        null: false
+    t.string   "name",                            null: false
     t.integer  "realm_id"
-    t.string   "description", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "icon_id"
+    t.string   "color",       default: "#c0c0c0"
+    t.integer  "rareness",                        null: false
+    t.string   "description",                     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "rarities", ["name"], name: "index_rarities_on_name"

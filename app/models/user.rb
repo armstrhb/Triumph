@@ -35,8 +35,8 @@ class User < ActiveRecord::Base
   def realm_completions(realm)
     completions = Hash.new
 
-    realm.rarities.each { |r|
-      completions[r.name] = rarity_completions(r)
+    realm.rarities.order(rareness: :desc).each { |r|
+      completions[r] = rarity_completions(r)
     }
 
     completions

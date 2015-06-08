@@ -32,15 +32,15 @@
           <div class="col-sm-7">
             <%= link_to r.name, r %>
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-3 text-right">
             <% @user.realm_completions(r).each do |rarity, completions| %>
               <% if completions > 0 %>
-                <span class="text-muted glyphicon glyphicon-tower" aria-hidden="true" data-toggle="tooltip" title="<%= rarity %>"></span>
+                <span class="fa fa-fw fa-<%= rarity.icon.name %>" aria-hidden="true" data-toggle="tooltip" title="<%= rarity.name %>" style="color:<%= rarity.color %>"></span>
                 <%= completions %>
               <% end %>
             <% end %>
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-2 text-right">
             <%= @user.points_for_realm(r) %>
           </div>
         <% end %>

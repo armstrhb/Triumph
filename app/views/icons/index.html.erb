@@ -1,0 +1,19 @@
+<div class='container'>
+  <div class='header'>
+    <h1>Triumph <small>Icons</small></h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= pluralize(@icons.length, "icon") %>.
+    </div>
+  </div>
+  <div class="row text-muted">
+    <% @icons.each do |i| %>
+      <div class="col-sm-3 text-center">
+        <span class="fa fa-3x fa-<%= i.name %>"></span>
+        <br/>
+        <%= i.name %>
+      </div>
+    <% end %>
+  </div>
+</div>

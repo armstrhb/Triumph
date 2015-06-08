@@ -26,8 +26,8 @@
       <table id="achievement-table" class='table table-striped table-hover' <%= "style=display:none;" if @achievements.length == 0 %>>
         <tr>
           <th>Achievement/Description</th>
-          <th>Rarity</th>
-          <th>Category</th>
+          <th class="text-center">Rarity</th>
+          <th class="text-center">Category</th>
         </tr>
         <%= render @achievements %>
       </table>

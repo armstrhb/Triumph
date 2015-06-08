@@ -1,5 +1,5 @@
 <tr data-link="<%= show_rarity_path(rarity) %>">
-  <td><%= rarity.name %></td>
+  <td><span class='fa fa-fw fa-<%= rarity.icon.name%>' style='color:<%= rarity.color %>'></span> <%= rarity.name %></td>
   <td><%= rarity.description %></td>
   <td><%= rarity.achievements.length %></td>
 </tr>

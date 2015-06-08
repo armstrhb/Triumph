@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
 
+  get '/icons' => 'icons#index', as: 'icons'
+  get '/icons/search/:name' => 'icons#searach', as: 'icons_search'
+
   get 'realms/activate/:id' => 'realms#activate', as: 'activate_realm'
   get 'realms/deactivate/:id' => 'realms#deactivate', as: 'deactivate_realm'
   post '/realms/rename/:id' => 'realms#rename', as: 'rename_realm'

@@ -5,6 +5,8 @@ class CreateCategories < ActiveRecord::Migration
       t.string :description, null: false
       t.index :name
       t.belongs_to :realm
+      t.belongs_to :icon
+      t.string :color, default: "\#c0c0c0"
       t.timestamps null: false
     end
   end

@@ -3,6 +3,14 @@
     <strong><%= achievement.title %></strong><br/>
     <span class="text-muted"><%= achievement.description %></span>
   </td>
-  <td class='text-centered'><%= achievement.rarity.name %></td>
-  <td class='text-centered'><%= achievement.category.name %></td>
+  <td class='text-center'>
+    <span class="fa fa-fw fa-2x fa-<%= achievement.rarity.icon.name %>" style="color:<%= achievement.rarity.color %>"></span>
+    <br/>
+    <%= achievement.rarity.name %>
+  </td>
+  <td class='text-center'>
+    <span class="fa fa-fw fa-2x fa-<%= achievement.category.icon.name %>" style="color:<%= achievement.category.color %>"></span>
+    <br/>
+    <%= achievement.category.name %>
+  </td>
 </tr>
