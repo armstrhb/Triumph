@@ -13,3 +13,14 @@ $(function() {
   // bootstrap-ify tooltips
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+function update_field(selector, newVal) {
+  $("#" + selector).fadeOut(250, function() {
+    if ($.type(newVal) == "string")
+      $(this).html(newVal);
+    else
+      $(newVal).appendTo($(this));
+
+    $(this).fadeIn(250);
+  });
+}

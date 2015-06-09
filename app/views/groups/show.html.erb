@@ -1,11 +1,13 @@
 <div class="container">
   <div class="jumbotron">
-    <h1>Group Detail <small><%= @group.name %></small></h1>
+    <h1>Group Detail <small id="group-name"><%= @group.name %></small></h1>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <ul class="nav nav-pills">
+      <ul class="nav nav-pills well well-sm">
         <li class="presentation"><%= link_to "Back to Groups", groups_path %></li>
+        <li class="presentation"><a href="#" data-toggle="modal" data-target="#edit-group-modal">Edit</a></li>
+        <li class="presentation"><a href="#" data-toggle="modal" data-target="#update-roster-modal">Update Roster</a></li>
       </ul>
     </div>
   </div>
@@ -14,7 +16,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Members</div>
         <div class="panel-body">
-          <table class="table table-hover table-striped">
+          <table id="user-table" class="table table-hover table-striped">
             <% @group.users.each do |u| %>
               <tr data-link="<%= user_path(u) %>">
                 <td class="text-left"><%= gravatar_for u.email, 20 %> <%= u.name %></td>
@@ -31,19 +33,47 @@
           <table class="table">
             <tr>
               <td class="text-muted">Created</td>
-              <td><%= @group.created_at.strftime "%m/%d/%Y" %></td>
+              <td id="group-creation"><%= @group.created_at.strftime "%m/%d/%Y" %></td>
             </tr>
             <tr>
               <td class="text-muted">Updated</td>
-              <td><%= @group.updated_at.strftime "%m/%d/%Y" %></td>
+              <td id="group-updated"><%= @group.updated_at.strftime "%m/%d/%Y" %></td>
             </tr>
             <tr>
               <td class="text-muted">Admin</td>
-              <td><%= gravatar_for @group.admin.email, 20 %> <%= @group.admin.name %></td>
+              <td><span id="group-admin-gravatar"><%= gravatar_for @group.admin.email, 20 %></span> <span id="group-admin"><%= @group.admin.name %></span></td>
             </tr>
           </table>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="edit-group-modal" class="modal fade" tabindex="-1" aria-labelledby="groupModalLabel" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="groupModalLabel">Edit Group</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(@group, :html => { :id => "edit_group_form", :class => "form"}, remote: true) do |f| %>
+        <%= f.hidden_field :id, :value => @group.id %>
+        <div class='form-group'>
+          <%= f.label :name %>
+          <%= f.text_field :name, :class => 'form-control' %>
+        </div>
+        <div class='form-group'>
+          <%= f.label :admin %>
+          <%= f.collection_select(:admin_id, @users.all, :id, :name, {}, {:class => 'form-control'}) %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit :class => 'btn btn-primary' %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

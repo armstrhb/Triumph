@@ -1,13 +1,20 @@
 <div class="container">
-  <div class="header text-center">
-    <h1><span class="fa fa-5x fa-fw fa-users"></span>
+  <div class="jumbotron text-center">
+    <h1><span class="fa fa-4x fa-fw fa-users"></span>
       <br/>
       Groups
     </h1>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <table class="table table-hover table-striped">
+      <ul class="nav nav-pills well well-sm">
+        <li class="presentation"><a href="#" data-toggle="modal" data-target="#new-group-modal">New Group</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <table id="group-table" class="table table-hover table-striped">
         <tr>
           <th>Name</th>
           <th>Admin</th>
@@ -15,6 +22,33 @@
         </tr>
         <%= render @groups %>
       </table>
+    </div>
+  </div>
+</div>
+
+<div id="new-group-modal" class="modal fade" tabindex="-1" aria-labelledby="groupModalLabel" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="groupModalLabel">Create Group</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(@new_group, :html => { :id => "new_group_form", :class => "form"}, remote: true) do |f| %>
+        <div class='form-group'>
+          <%= f.label :name %>
+          <%= f.text_field :name, :class => 'form-control' %>
+        </div>
+        <div class='form-group'>
+          <%= f.label :admin %>
+          <%= f.collection_select(:admin_id, @users.all, :id, :name, {}, {:class => 'form-control'}) %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit :class => 'btn btn-primary' %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

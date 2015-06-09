@@ -4,10 +4,12 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all
     @new_group = Group.new
+    @users = User.all
   end
 
   def show
     @group = Group.find(params[:id])
+    @users = User.all
   end
 
   def new
@@ -17,42 +19,16 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-
-    respond_to do |format|
-      if @group.save
-        format.html{redirect_to @group, notice: 'Group created successfully.'}
-        format.js{}
-        format.json{render json: @group, status: :created, location: @group}
-      else
-        format.html{render action: 'new'}
-        format.json{render json: @group.errors, status: :unprocessable_entity}
-      end
-    end
+    @group.save
   end
 
   def edit
     @group = Group.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.js{}
-      format.json{render json: @group}
-    end
   end
 
   def update
     @group = Group.find(params[:id])
-
-    respond_to do |format|
-      if @group.update_attributes(group_params)
-        format.html{redirect_to @group, notice: 'Group updated.'}
-        format.js{}
-        format.json{render json: @group, status: :updated, location: @group}
-      else
-        format.html{render action: 'show'}
-        format.json{render json: @group.errors, status: :unprocessable_entity}
-      end
-    end
+    @group.update_attributes(update_params)
   end
 
   def destroy
@@ -61,6 +37,10 @@ class GroupsController < ApplicationController
 
   private
     def group_params
-      params.require(:group).permit(:name, :users)
+      params.require(:group).permit(:name, :users, :admin_id)
+    end
+
+    def update_params
+      params.require(:group).permit(:name, :admin_id)
     end
 end
