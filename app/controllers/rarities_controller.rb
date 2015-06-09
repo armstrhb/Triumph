@@ -1,4 +1,6 @@
 class RaritiesController < ApplicationController
+  respond_to :html, :js
+  
   def index
     @realm = Realm.find(params[:id])
     @rarities = Rarity.where(:realm => params[:id]).order(rareness: :desc)

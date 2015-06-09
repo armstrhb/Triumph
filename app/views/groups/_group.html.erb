@@ -1,0 +1,5 @@
+<tr data-link="<%= group_path(group) %>">
+  <td><%= group.name %></td>
+  <td><%= gravatar_for group.admin.email, 20 %> <%= group.admin.name %></td>
+  <td class="text-right"><%= group.users.length %></td>
+</tr>

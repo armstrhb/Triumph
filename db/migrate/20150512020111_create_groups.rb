@@ -3,6 +3,7 @@ class CreateGroups < ActiveRecord::Migration
     create_table :groups do |t|
       t.string :name, null: false
       t.index :name
+      t.integer :admin_id
       t.timestamps null: false
     end
 

@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  respond_to :html, :js
+
   def index
     @groups = Group.all
     @new_group = Group.new
@@ -6,12 +8,6 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.js{}
-      format.json{render json: @group}
-    end
   end
 
   def new
