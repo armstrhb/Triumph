@@ -54,7 +54,13 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    #nope, not doing this one yet.
+    begin
+      @group = Group.find(params[:id]).destroy
+    rescue ActiveRecord::RecordNotFound
+    end
+
+    flash[:info] = "Group deleted."
+    redirect_to groups_path
   end
 
   private

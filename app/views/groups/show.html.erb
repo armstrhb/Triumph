@@ -5,9 +5,10 @@
   <div class="row">
     <div class="col-sm-12">
       <ul class="nav nav-pills well well-sm">
-        <li class="presentation"><%= link_to "Back to Groups", groups_path %></li>
+        <li class="presentation"><%= link_to "Back to Groups", :back %></li>
         <li class="presentation"><a href="#" data-toggle="modal" data-target="#edit-group-modal">Edit</a></li>
         <li class="presentation"><%= link_to "Update Roster", edit_group_roster_path(@group) %></li>
+        <li class="presentation"><%= link_to "Delete Group", @group, data: {confirm: "Are you sure you want to delete #{@group.name}?" }, :method => :delete, :class => 'text-danger' %></li>
       </ul>
     </div>
   </div>
