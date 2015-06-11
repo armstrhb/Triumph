@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>Roster Edit<br/><small id="group-name"><%= @group.name %></small></h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <ul class="nav nav-pills well well-sm">
+        <li class="presentation"><%= link_to "Back to Detail", @group %></li>
+        <li class="presentation"><a href="#" data-toggle="modal" data-target="#add-users-modal">Add Users</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Members</div>
+        <div class="panel-body">
+          <table id="roster-table" class="table table-hover table-striped">
+            <% @group.users.each do |u| %>
+              <tr id="user-<%= u.id %>" class="user-row">
+                <td class="text-left"><%= gravatar_for u.email, 20 %> <%= u.name %></td>
+                <td class="text-right"><%= button_to "Remove", remove_user_from_group_path(@group, u), remote: true, class: "btn btn-danger btn-xs collapse" %></td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="add-users-modal" class="modal fade" tabindex="-1" aria-labelledby="usersModalLabel" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="usersModalLabel">Add Users</h4>
+      </div>
+      <div class="modal-body">
+        <div class="well">
+        <%= form_tag({ :controller => 'users', :action => 'search', :method => :post}, { :id => "search_form", :class => "form-inline", :remote => true, :role => "form" }) do %>
+          <div class="form-group">
+            <%= hidden_field_tag "group_id", @group.id %>
+            <%= text_field_tag "name", nil, :class => 'form-control', :placeholder => 'User name' %>
+            <%= submit_tag "Search", :class => 'btn btn-primary' %>
+          </div>
+        <% end %>
+        </div>
+        <div class="well">
+          <table id="user-table" class="table table-striped table-hover">
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on('mouseenter', 'tr.user-row', function() {
+    $(this).find("input.btn").fadeIn(250);
+  });
+
+  $(document).on('mouseleave', 'tr.user-row', function() {
+    $(this).find("input.btn").fadeOut(250);
+  });
+
+  $(document).on('mouseenter', 'tr.result', function() {
+    if ($(this).find('.membership').html() == '') {
+      $("<button id='add-user' class='btn btn-xs btn-success'>Add</button>").appendTo($(this).find('td.action'));
+    }
+  });
+
+  $(document).on('mouseleave', 'tr.result', function() {
+    $("#add-user").remove();
+  });
+
+  $(document).on('click', '#add-user', function() {
+    $.ajax({type: "POST",
+           url: "<%= add_user_to_group_path %>",
+           contentType: "application/json",
+           dataType: 'script',
+           data: JSON.stringify({user: $(this).parent().parent().find(".user-id").html(), group: <%= @group.id %>})
+    });
+  });
+</script>

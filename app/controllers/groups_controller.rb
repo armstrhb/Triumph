@@ -31,6 +31,28 @@ class GroupsController < ApplicationController
     @group.update_attributes(update_params)
   end
 
+  def edit_roster
+    @group = Group.find(params[:id])
+  end
+
+  def add_user
+    @group = Group.find(params[:group])
+    @user = User.find(params[:user])
+    @result = false
+
+    if !@group.users.include? @user
+      @group.users << @user
+      @result = true
+    end
+  end
+
+  def remove_user
+    @group = Group.find(params[:id])
+    @user = User.find(params[:user_id])
+
+    @group.users.delete(@user)
+  end
+
   def destroy
     #nope, not doing this one yet.
   end

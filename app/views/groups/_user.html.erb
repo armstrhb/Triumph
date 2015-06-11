@@ -1,0 +1,4 @@
+<tr id="user-<%= @user.id %>" class="user-row">
+  <td class="text-left"><%= gravatar_for @user.email, 20 %> <%= @user.name %></td>
+  <td class="text-right"><%= button_to "Remove", remove_user_from_group_path(@group, @user), remote: true, class: "btn btn-danger btn-xs collapse" %></td>
+</tr>

@@ -69,6 +69,8 @@ class UsersController < ApplicationController
   def search
     if params[:realm_id].present?
       @realm = Realm.find(params[:realm_id])
+    elsif params[:group_id].present?
+      @group = Group.find(params[:group_id])
     end
 
     @users = User.order(:name).where("name LIKE ?", "%#{params[:name]}%")

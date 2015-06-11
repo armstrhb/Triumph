@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   post '/realms/changeicon/:id' => 'realms#change_icon', as: 'change_realm_icon'
   resources :realms
 
+  get '/groups/editroster/:id' => 'groups#edit_roster', as: 'edit_group_roster'
+  post '/groups/add' => 'groups#add_user', as: 'add_user_to_group'
+  post '/groups/remove/:id/:user_id' => 'groups#remove_user', as: 'remove_user_from_group'
   resources :groups
   resources :applications
 

@@ -1,13 +1,13 @@
 <div class="container">
   <div class="jumbotron">
-    <h1>Group Detail <small id="group-name"><%= @group.name %></small></h1>
+    <h1>Group Detail<br/><small id="group-name"><%= @group.name %></small></h1>
   </div>
   <div class="row">
     <div class="col-sm-12">
       <ul class="nav nav-pills well well-sm">
         <li class="presentation"><%= link_to "Back to Groups", groups_path %></li>
         <li class="presentation"><a href="#" data-toggle="modal" data-target="#edit-group-modal">Edit</a></li>
-        <li class="presentation"><a href="#" data-toggle="modal" data-target="#update-roster-modal">Update Roster</a></li>
+        <li class="presentation"><%= link_to "Update Roster", edit_group_roster_path(@group) %></li>
       </ul>
     </div>
   </div>
