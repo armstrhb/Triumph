@@ -1,11 +1,11 @@
 <div class="container">
-  <div class="header">
-    <h1><%= @realm.name %> <small>Achievements</small></h1>
+  <div class="jumbotron">
+    <h1><span class="fa fa-fw fa-<%= @realm.icon.name %>" style="color:<%= @realm.color %>;"></span> <%= @realm.name %><br/><small>Achievements</small></h1>
   </div>
   <% flash.each do |message_type, message| %>
     <div class="alert alert-<%= message_type %>"><%= message %></div>
   <% end %>
-  <div class="row">
+  <div class="row well">
     <div class="col-sm-4">
       <%= pluralize(@achievements.length, "achievement") %>
     </div>
@@ -17,10 +17,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-12">
-      <%= link_to "Back to Realm", @realm, :class => 'btn btn-default' %>
-      <button id="new-achievement-button" class="btn btn-default" data-toggle="modal" data-target="#new-achievement-modal">New Achievement</button>
-    </div>
+    <ul class="nav nav-pills well">
+      <li class="presentation"><%= link_to "Back to Realm", @realm %></li>
+      <li class="presentation"><a id="new-achievement-button" data-toggle="modal" data-target="#new-achievement-modal" href="#">New Achievement</a></li>
+    </ul>
   </div>
   <div class="row">
       <table id="achievement-table" class='table table-striped table-hover' <%= "style=display:none;" if @achievements.length == 0 %>>
