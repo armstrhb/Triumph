@@ -38,9 +38,9 @@ $(function (){
   $(document).on('mouseenter', 'tr.result', function() {
     $(this).find('td.action').empty();
     if ($(this).find('td.membership').html() == 'Member')
-      $("<button id='remove-user' class='btn btn-danger'>Remove</button>").appendTo($(this).find('td.action'));
+      $("<button id='remove-user' class='btn btn-danger btn-xs'>Remove</button>").appendTo($(this).find('td.action'));
     else
-      $("<button id='add-user' class='btn btn-default'>Add</button>").appendTo($(this).find('td.action'));
+      $("<button id='add-user' class='btn btn-success btn-xs'>Add</button>").appendTo($(this).find('td.action'));
   });
 
   $(document).on('mouseleave', 'tr.result', function() {

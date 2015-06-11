@@ -13,6 +13,6 @@
   <% end %>
 
   <% @users.each do |u| %>
-    $("<tr id='user-<%= u.id %>' class='result<%= ' text-muted' unless u.realms.include?(@realm) %>'><td class='hide user-id'><%= u.id %></td><td><%= u.name %></td><td class='membership'><%= u.realms.include?(@realm) ? 'Member' : 'Not a Member'%></td><td class='action'></td></tr>").appendTo($("#user-table"));
+    $("<tr id='user-<%= u.id %>' class='result<%= ' text-muted' unless u.realms.include?(@realm) %>'><td class='hide user-id'><%= u.id %></td><td><%= u.name %></td><td class='membership'><%= u.realms.include?(@realm) ? 'Member' : 'Not a Member'%></td><td class='action col-sm-4'></td></tr>").appendTo($("#user-table"));
   <% end %>
 <% end %>

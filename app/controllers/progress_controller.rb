@@ -1,5 +1,6 @@
 class ProgressController < ApplicationController
   helper ProgressHelper
+  respond_to :html, :js
 
   def get_total_points_all_realms
     @points = Progress.includes(:achievement).where(completed: true).sum(:points)
