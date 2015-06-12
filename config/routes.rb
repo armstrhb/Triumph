@@ -50,6 +50,11 @@ Rails.application.routes.draw do
   delete '/rarities/:id' => 'rarities#destroy', as: 'destroy_rarity'
   resources :rarities
 
+  get '/progress/get/:achievement_id/:user_id' => 'progress#get', as: 'get_progress'
+  get '/progress/add/:achievement_id/:user_id/:ticks' => 'progress#add', as: 'add_progress'
+  get '/progress/subtract/:achievement_id/:user_id/:ticks' => 'progress#subtract', as: 'subtract_progress'
+  get '/progress/grant/:achievement_id/:user_id' => 'progress#grant', as: 'grant_progress'
+  get '/progress/forfeit/:achievement_id/:user_id' => 'progress#forfeit', as: 'forfeit_progress'
   get '/progress/realmpoints' => 'progress#get_total_points_all_realms'
   get '/progress/realmpoints/:id' => 'progress#get_total_points_realm'
   get '/progress/userpoints/:id' => 'progress#get_total_points_for_user'

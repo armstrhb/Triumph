@@ -14,4 +14,23 @@ class Progress < ActiveRecord::Base
   def percent_complete
     ticks / achievement.required_ticks.to_f * 100
   end
+
+  def remaining
+    achievement.required_ticks - ticks
+  end
+
+  def grant
+    if ! completed?
+      if id.nil?
+        self.save
+      end
+
+      update(:ticks => achievement.required_ticks, :completed => true, :complete_date => Date.today)
+    end
+  end
+
+  def forfeit
+    return if id.nil?
+    update(:ticks => 0, :completed => false, :complete_date => :nil)
+  end
 end
