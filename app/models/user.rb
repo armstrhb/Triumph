@@ -59,4 +59,19 @@ class User < ActiveRecord::Base
 
     false
   end
+
+  def current_progress(achievement)
+    @progress = progresses.where(:achievement => achievement).last
+
+    if @progress.nil?
+      @progress = Progress.new(:achievement => achievement, :user => self)
+    end
+
+    @progress
+  end
+
+  def times_completed(achievement)
+    Progress.where(:achievement => achievement, :user => self, :completed => true).length
+  end
+
 end

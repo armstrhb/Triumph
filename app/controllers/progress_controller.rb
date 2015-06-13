@@ -7,8 +7,17 @@ class ProgressController < ApplicationController
     respond_with(@progress)
   end
 
+  def admin
+    @achievement = Achievement.find(params[:id])
+  end
+
+  def search
+    @achievement = Achievement.find(params[:achievement_id])
+    @users = User.order(:name).where("name LIKE ? ", "%#{params[:name]}%").select { |u| u.realms.include? @achievement.realm }
+  end
+
   def add
-    @progress = get_or_create_progress(params[:achievement_id], params[:user_id])
+    @progress = get_or_create_progress(params[:achievement], params[:user])
     @ticks = params[:ticks].to_i
 
     while @ticks > 0
@@ -30,7 +39,7 @@ class ProgressController < ApplicationController
       end
 
       if @progress.completed? && @ticks > 0 && @progress.achievement.repeatable
-        @progress = create_new_progress(params[:achievement_id], params[:user_id])
+        @progress = create_new_progress(params[:achievement], params[:user])
       else
         @ticks = 0
       end
@@ -40,7 +49,7 @@ class ProgressController < ApplicationController
   end
 
   def subtract
-    @progress = get_only_existing_progress(params[:achievement_id], params[:user_id])
+    @progress = get_only_existing_progress(params[:achievement], params[:user])
     @ticks = params[:ticks].to_i
 
     while @ticks > 0 && ! @progress.nil?
@@ -64,7 +73,7 @@ class ProgressController < ApplicationController
       if @progress.ticks == 0 && @ticks > 0
         if @progress.achievement.repeatable
           @progress.destroy
-          @progress = get_only_existing_progress(params[:achievement_id], params[:user_id])
+          @progress = get_only_existing_progress(params[:achievement], params[:user])
         else
           @progress.destroy
           @ticks = 0
@@ -72,13 +81,17 @@ class ProgressController < ApplicationController
       end
     end
 
-    respond_with(@progress.nil? ? {:message => 'no current progress on this achievement exists.'} : @progress)
+    if @progress.nil?
+      @progress = create_new_progress(params[:achievement], params[:user])
+    end
+
+    respond_with({:progress => @progress})
   end
 
   def grant
-    @progress = get_or_create_progress(params[:achievement_id], params[:user_id])
+    @progress = get_or_create_progress(params[:achievement], params[:user])
     if @progress.completed? && @progress.achievement.repeatable
-      @progress = create_new_progress(params[:achievement_id], params[:user_id])
+      @progress = create_new_progress(params[:achievement], params[:user])
     end
 
     if ! @progress.completed?
@@ -89,7 +102,7 @@ class ProgressController < ApplicationController
   end
 
   def forfeit
-    @progress = get_or_create_progress(params[:achievement_id], params[:user_id])
+    @progress = get_or_create_progress(params[:achievement], params[:user])
     @progress.forfeit
 
     respond_with(@progress)

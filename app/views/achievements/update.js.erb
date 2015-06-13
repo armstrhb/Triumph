@@ -1,7 +1,19 @@
-update_field("realm-title", "<%= @achievement.title %>");
-update_field("realm-description", "<%= @achievement.description %>");
-update_field("realm-category", "<%= @achievement.category.name %>");
-update_field("realm-rarity", "<%= @achievement.rarity.name %>");
+update_field("achievement-title", "<%= @achievement.title %>");
+update_field("achievement-description", "<%= @achievement.description %>");
+update_field("achievement-category", "<%= @achievement.category.name %>");
+update_field("achievement-rarity", "<%= @achievement.rarity.name %>");
+update_icon("rarity-icon", "<%= @achievement.rarity.icon.name %>", "<%= @achievement.rarity.color %>");
+update_icon("category-icon", "<%= @achievement.category.icon.name %>", "<%= @achievement.category.color %>");
+
+function update_icon(selector, new_icon, new_color) {
+  $("#" + selector).fadeOut(250, function() {
+    $(this).removeClass();
+    $(this).addClass("fa fa-fw fa-5x fa-" + new_icon);
+    $(this).css({'color': new_color});
+
+    $(this).fadeIn(250);
+  });
+}
 
 if (<%= @achievement.active? %>)
   $("#active-banner").fadeOut(250);

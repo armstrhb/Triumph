@@ -1,0 +1,11 @@
+$("#progress-bar-<%= @progress.user.id %>").fadeOut(250, function() {
+  <% if @progress.completed? %>
+    $(this).addClass('progress-bar-success');
+  <% else %>
+    $(this).removeClass('progress-bar-success');
+  <% end %>
+  $(this).css('width', '<%= number_to_percentage(@progress.percent_complete, precision: 0) %>');
+  $(this).attr('aria-valuenow', '<%= @progress.ticks %>');
+  $(this).html('<%= number_to_percentage(@progress.percent_complete, precision: 0) %>');
+  $(this).fadeIn(250);
+});
