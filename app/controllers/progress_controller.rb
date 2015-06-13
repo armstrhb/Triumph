@@ -40,7 +40,39 @@ class ProgressController < ApplicationController
   end
 
   def subtract
-    # params[:achievement_id] params[:user_id] params[:ticks]
+    @progress = get_only_existing_progress(params[:achievement_id], params[:user_id])
+    @ticks = params[:ticks].to_i
+
+    while @ticks > 0 && ! @progress.nil?
+      if @progress.ticks > 0
+          if @ticks <= @progress.ticks
+            @progress.ticks -= @ticks
+            @ticks = 0
+          else
+            @ticks -= @progress.ticks
+            @progress.ticks = 0
+          end
+      end
+
+      if @progress.completed && ! @progress.completed?
+        @progress.completed = false
+        @progress.complete_date = nil
+      end
+
+      @progress.save
+
+      if @progress.ticks == 0 && @ticks > 0
+        if @progress.achievement.repeatable
+          @progress.destroy
+          @progress = get_only_existing_progress(params[:achievement_id], params[:user_id])
+        else
+          @progress.destroy
+          @ticks = 0
+        end
+      end
+    end
+
+    respond_with(@progress.nil? ? {:message => 'no current progress on this achievement exists.'} : @progress)
   end
 
   def grant
@@ -96,5 +128,9 @@ class ProgressController < ApplicationController
 
     def create_new_progress(achievement, user)
       @progress = Progress.new(:achievement => Achievement.find(achievement), :user => User.find(user))
+    end
+
+    def get_only_existing_progress(achievement, user)
+      @progress = Progress.where(:achievement => achievement, :user => user).last
     end
 end
