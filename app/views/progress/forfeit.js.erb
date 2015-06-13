@@ -9,3 +9,10 @@ $("#progress-bar-<%= @progress.user.id %>").fadeOut(250, function() {
   $(this).html('<%= number_to_percentage(@progress.percent_complete, precision: 0) %>');
   $(this).fadeIn(250);
 });
+
+if ($("#times-completed-<%= @progress.user.id %>").html() != '<%= @progress.user.times_completed(@progress.achievement) %>') {
+  $("#times-completed-<%= @progress.user.id %>").fadeOut(250, function() {
+    $(this).html('<%= @progress.user.times_completed(@progress.achievement) %>');
+    $(this).fadeIn(250);
+  });
+}
