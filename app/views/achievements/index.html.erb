@@ -17,9 +17,11 @@
     </div>
   </div>
   <div class="row">
-    <ul class="nav nav-pills well">
+    <ul class="nav nav-pills well well-sm">
       <li class="presentation"><%= link_to "Back to Realm", @realm %></li>
-      <li class="presentation"><a id="new-achievement-button" data-toggle="modal" data-target="#new-achievement-modal" href="#">New Achievement</a></li>
+      <% if @realm.group.users.include?(current_user) %>
+        <li class="presentation"><a id="new-achievement-button" data-toggle="modal" data-target="#new-achievement-modal" href="#">New Achievement</a></li>
+      <% end %>
     </ul>
   </div>
   <div class="row">

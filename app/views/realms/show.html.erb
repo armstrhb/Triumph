@@ -20,18 +20,21 @@
     </div>
   </div>
   <div id="superuser_ish" class="row">
-    <div class="col-md-12">
-      <%= link_to 'Achievements', '/achievements/' + @realm.id.to_s, :class => 'btn btn-default' %>
-      <%= link_to 'Users', realm_users_path(@realm), :class => 'btn btn-default' %>
-      <button id="rename-button" class="btn btn-default" type="button" data-toggle="modal" data-target="#rename-modal">Rename</button>
-      <button id="change-icon-button" class="btn btn-default" type="button" data-toggle="modal" data-target="#change-icon-modal">Change Icon</button>
-      <% if @realm.active %>
-        <%= link_to 'Deactivate', deactivate_realm_path(@realm.id), id: 'change_state_button', class: 'btn btn-default', :remote => true %>
-      <% else %>
-        <%= link_to 'Activate', activate_realm_path(@realm.id), id: 'change_state_button', class: 'btn btn-default', :remote => true %>
-      <% end %>
-      <%= link_to 'Delete Realm', @realm, class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete #{@realm.name}?" }, method: :delete %>
-      <p>Panels in place. Temporary data grabs below.</p>
+    <div class="col-md-12 well well-sm">
+      <ul class="nav nav-pills">
+        <li><%= link_to 'Achievements', '/achievements/' + @realm.id.to_s %></li>
+        <li><%= link_to 'Users', realm_users_path(@realm) %></li>
+        <% if @realm.group.users.include?(current_user) %>
+          <li><a id="rename-button" href="#" data-toggle="modal" data-target="#rename-modal">Rename</a></li>
+          <li><a id="change-icon-button" href="#" data-toggle="modal" data-target="#change-icon-modal">Change Icon</a></li>
+          <% if @realm.active %>
+            <li><%= link_to 'Deactivate', deactivate_realm_path(@realm.id), id: 'change_state_button', :remote => true %></li>
+          <% else %>
+            <li><%= link_to 'Activate', activate_realm_path(@realm.id), id: 'change_state_button', :remote => true %></li>
+          <% end %>
+          <li><%= link_to 'Delete Realm', @realm, class: 'text-danger', data: {confirm: "Are you sure you want to delete #{@realm.name}?" }, method: :delete %></li>
+        <% end %>
+      </ul>
     </div>
   </div>
 
