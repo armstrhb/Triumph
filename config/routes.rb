@@ -68,5 +68,5 @@ Rails.application.routes.draw do
   resources :categories
 
   get '/admin' => 'admin#index', as: 'admin'
-
+  get '/admin/sysconfig' => 'admin#show_sys_config', as: 'sys_config'
 end
