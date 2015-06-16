@@ -67,4 +67,6 @@ Rails.application.routes.draw do
   get '/categories' => 'categories#create', as: 'create_category'
   resources :categories
 
+  get '/admin' => 'admin#index', as: 'admin'
+
 end
