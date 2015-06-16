@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150607190013) do
+ActiveRecord::Schema.define(version: 20150616014047) do
 
   create_table "achievements", force: :cascade do |t|
     t.string   "title",                          null: false
@@ -98,6 +98,15 @@ ActiveRecord::Schema.define(version: 20150607190013) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
+
+  create_table "sys_configs", force: :cascade do |t|
+    t.string   "key",        null: false
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "sys_configs", ["key"], name: "index_sys_configs_on_key"
 
   create_table "user_groups", id: false, force: :cascade do |t|
     t.integer "user_id"

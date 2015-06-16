@@ -11,7 +11,9 @@
     </div>
     <hr>
     <p>You are currently a member of <%= pluralize(@realms.length, 'realm') %>.
-      <button id="new-realm-button" class="btn" data-toggle="modal" data-target="#new-realm-modal">New Realm</button>
+      <% if admin? %>
+        <button id="new-realm-button" class="btn" data-toggle="modal" data-target="#new-realm-modal">New Realm</button>
+      <% end %>
     </p>
 
     <div id="error-message" class="row collapse alert alert-danger" role="alert">

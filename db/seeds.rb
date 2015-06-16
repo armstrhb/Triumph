@@ -9,6 +9,8 @@ group3 = Group.create(name: 'bootstrap.cool.guys', admin: user2)
 user1.groups << group1
 user2.groups << group1
 
+SysConfig.create(key: 'triumph.admin.group', value: group1.id)
+
 Icon.create(name: 'ambulance')
 Icon.create(name: 'anchor')
 Icon.create(name: 'android')

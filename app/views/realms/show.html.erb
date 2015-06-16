@@ -24,7 +24,7 @@
       <ul class="nav nav-pills">
         <li><%= link_to 'Achievements', '/achievements/' + @realm.id.to_s %></li>
         <li><%= link_to 'Users', realm_users_path(@realm) %></li>
-        <% if @realm.group.users.include?(current_user) %>
+        <% if realm_admin?(@realm) %>
           <li><a id="rename-button" href="#" data-toggle="modal" data-target="#rename-modal">Rename</a></li>
           <li><a id="change-icon-button" href="#" data-toggle="modal" data-target="#change-icon-modal">Change Icon</a></li>
           <% if @realm.active %>

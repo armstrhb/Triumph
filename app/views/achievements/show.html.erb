@@ -33,7 +33,7 @@
     <div class="col-sm-12 well well-sm">
       <ul class="nav nav-pills">
         <li><%= link_to "Back to Achievements", achievements_path(@achievement.realm) %></li>
-        <% if @achievement.realm.group.users.include?(current_user) %>
+        <% if realm_admin?(@achievement.realm) %>
           <li><%= link_to "Progress", progress_admin_path(@achievement) %></li>
           <li><a id="edit-button" href="#" data-toggle="modal" data-target="#edit-modal">Edit</a></li>
           <li><%= link_to 'Delete Achievement', @achievement, class: 'text-danger', data: {confirm: "Are you sure you want to delete #{@achievement.title}?" }, method: :delete %></li>
