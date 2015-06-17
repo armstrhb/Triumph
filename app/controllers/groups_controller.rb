@@ -2,6 +2,8 @@ class GroupsController < ApplicationController
   respond_to :html, :js
 
   def index
+    authorize_admin
+
     @groups = Group.all
     @new_group = Group.new
     @users = User.all
@@ -9,15 +11,21 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    authorize_group_member(@group)
+
     @users = User.all
   end
 
   def new
+    authorize_admin
+
     @group = Group.new
     @groups = Group.all
   end
 
   def create
+    authorize_admin
+
     @group = Group.new(group_params)
     @group.save
   end
@@ -28,15 +36,20 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
+    authorize_group_admin(@group)
+
     @group.update_attributes(update_params)
   end
 
   def edit_roster
     @group = Group.find(params[:id])
+    authorize_group_admin(@group)
   end
 
   def add_user
     @group = Group.find(params[:group])
+    authorize_group_admin(@group)
+
     @user = User.find(params[:user])
     @result = false
 
@@ -48,12 +61,16 @@ class GroupsController < ApplicationController
 
   def remove_user
     @group = Group.find(params[:id])
+    authorize_group_admin(@group)
+
     @user = User.find(params[:user_id])
 
     @group.users.delete(@user)
   end
 
   def destroy
+    authorize_admin
+
     begin
       @group = Group.find(params[:id]).destroy
     rescue ActiveRecord::RecordNotFound

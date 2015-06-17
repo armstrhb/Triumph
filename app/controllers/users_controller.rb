@@ -64,6 +64,7 @@ class UsersController < ApplicationController
 
   def edit_realm_users
     @realm = Realm.find(params[:id])
+    authorize_realm_admin(@realm)
   end
 
   def search
@@ -79,6 +80,7 @@ class UsersController < ApplicationController
   def add_to_realm
     @user = User.find(params[:user])
     @realm = Realm.find(params[:realm])
+    authorize_realm_admin(@realm)
 
     if !@user.realms.include?(@realm)
       @user.realms << @realm
@@ -90,6 +92,7 @@ class UsersController < ApplicationController
   def remove_from_realm
     @user = User.find(params[:user])
     @realm = Realm.find(params[:realm])
+    authorize_realm_admin(@realm)
 
     if @user.realms.include?(@realm)
       @user.realms.delete(@realm)

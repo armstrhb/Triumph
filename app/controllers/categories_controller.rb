@@ -2,7 +2,6 @@ class CategoriesController < ApplicationController
   respond_to :html, :xml, :json, :js
 
   def index
-    puts "realm param: #{params[:realm_id]}"
     @realm = Realm.find(params[:realm_id])
     @categories = Category.where(:realm => params[:realm_id])
 
@@ -21,6 +20,8 @@ class CategoriesController < ApplicationController
   end
 
   def create
+    authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
+
     @category = Category.new(get_create_params)
     @category.save
 
@@ -34,11 +35,14 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find(params[:id])
+    authorize_realm_admin(@category.realm)
 
     @category.update_attributes(update_params)
   end
 
   def destroy
+    authorize_realm_admin(Category.find(params[:id]).realm)
+
     begin
       @category = Category.find(params[:id]).destroy
     rescue ActiveRecord::RecordNotFound

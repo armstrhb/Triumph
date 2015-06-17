@@ -22,6 +22,8 @@ class AchievementsController < ApplicationController
   end
 
   def create
+    authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
+
     @achievement = Achievement.new(get_create_params)
     @achievement.save
 
@@ -29,11 +31,15 @@ class AchievementsController < ApplicationController
   end
 
   def update
+    authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
+
     @achievement = Achievement.find(params[:id])
     @achievement.update_attributes(get_edit_params)
   end
 
   def destroy
+    authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
+
     begin
       @achievement = Achievement.find(params[:id]).destroy
     rescue ActiveRecord::RecordNotFound

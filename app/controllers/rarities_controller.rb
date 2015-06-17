@@ -1,6 +1,6 @@
 class RaritiesController < ApplicationController
   respond_to :html, :js
-  
+
   def index
     @realm = Realm.find(params[:id])
     @rarities = Rarity.where(:realm => params[:id]).order(rareness: :desc)
@@ -16,6 +16,8 @@ class RaritiesController < ApplicationController
   end
 
   def create
+    authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
+
     @rarity = Rarity.new(get_create_params)
     @rarity.save
 
@@ -24,10 +26,14 @@ class RaritiesController < ApplicationController
 
   def update
     @rarity = Rarity.find(params[:id])
+    authorize_realm_admin(@rarity.realm)
+
     @rarity.update_attributes(update_params)
   end
 
   def destroy
+    authorize_realm_admin(Rarity.find(params[:realm_id]).realm)
+
     begin
       @rarity = Rarity.find(params[:id]).destroy
     rescue ActiveRecord::RecordNotFound

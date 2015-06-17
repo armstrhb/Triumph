@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   helper_method :admin?, :sys_config, :realm_admin?
+  rescue_from NotAuthorizedError, with: :permission_denied
 
   def admin?
     false if !logged_in?
@@ -21,4 +22,25 @@ class ApplicationController < ActionController::Base
     false if !logged_in?
     admin? || realm.group.users.include?(current_user)
   end
+
+  def authorize_admin
+    raise NotAuthorizedError unless admin?
+  end
+
+  def authorize_realm_admin(realm)
+    raise NotAuthorizedError unless realm_admin?(realm)
+  end
+
+  def authorize_group_member(group)
+    raise NotAuthorizedError unless group.users.include?(current_user) || group.admin == current_user || admin?
+  end
+
+  def authorize_group_admin(group)
+    raise NotAuthorizedError unless group.admin == current_user || admin?
+  end
+
+  private
+    def permission_denied
+      head 403
+    end
 end

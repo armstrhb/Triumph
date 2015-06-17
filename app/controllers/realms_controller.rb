@@ -36,6 +36,7 @@ class RealmsController < ApplicationController
   end
 
   def create
+    authorize_admin
     @realm = Realm.new(realm_params)
 
     respond_to do |format|
@@ -52,6 +53,7 @@ class RealmsController < ApplicationController
 
   def edit
     @realm = Realm.find(params[:id])
+    authorize_realm_admin(@realm)
 
     respond_to do |format|
       format.html
@@ -62,6 +64,7 @@ class RealmsController < ApplicationController
 
   def update
     @realm = Realm.find(params[:id])
+    authorize_realm_admin(@realm)
 
     respond_to do |format|
       if @realm.update_attributes(realm_params)
@@ -77,6 +80,7 @@ class RealmsController < ApplicationController
 
   def activate
     @realm = Realm.find(params[:id])
+    authorize_realm_admin(@realm)
 
     @realm.active = true
     @realm.save
@@ -86,6 +90,7 @@ class RealmsController < ApplicationController
 
   def deactivate
     @realm = Realm.find(params[:id])
+    authorize_realm_admin(@realm)
 
     @realm.active = false
     @realm.save
@@ -95,6 +100,8 @@ class RealmsController < ApplicationController
 
   def rename
     @realm = Realm.find(params[:id])
+    authorize_realm_admin(@realm)
+
     @realm.name = rename_params[:name]
     @realm.save
 
@@ -103,6 +110,7 @@ class RealmsController < ApplicationController
 
   def change_icon
     @realm = Realm.find(params[:id])
+    authorize_realm_admin(@realm)
 
     @realm.icon = Icon.find(change_icon_params[:icon_id])
     @realm.color = change_icon_params[:color]
@@ -111,6 +119,8 @@ class RealmsController < ApplicationController
   end
 
   def destroy
+    authorize_realm_admin(Realm.find(params[:id]))
+
     begin
       @realm = Realm.find(params[:id]).destroy
     rescue ActiveRecord::RecordNotFound

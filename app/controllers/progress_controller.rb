@@ -9,6 +9,7 @@ class ProgressController < ApplicationController
 
   def admin
     @achievement = Achievement.find(params[:id])
+    authorize_realm_admin(@achievement.realm)
   end
 
   def search
