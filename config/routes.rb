@@ -69,4 +69,5 @@ Rails.application.routes.draw do
 
   get '/admin' => 'admin#index', as: 'admin'
   get '/admin/sysconfig' => 'admin#show_sys_config', as: 'sys_config'
+  post '/admin/updatesysconfig' => 'admin#update_sys_config', as: 'update_sys_config'
 end

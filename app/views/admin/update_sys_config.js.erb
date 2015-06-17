@@ -1,0 +1,6 @@
+$("#config-<%= @sys_config.id %> .value").fadeOut(250, function() {
+  $(this).html("<%= @sys_config.value %>");
+  $(this).fadeIn(250);
+});
+
+$('#update-sys-config-modal').modal_success();
