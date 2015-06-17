@@ -42,5 +42,7 @@ class ApplicationController < ActionController::Base
   private
     def permission_denied
       head 403
+      self.response_body = nil
+      render :template => 'layouts/errors/error_403'
     end
 end
