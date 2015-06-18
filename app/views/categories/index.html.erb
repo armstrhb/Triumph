@@ -6,13 +6,15 @@
   </div>
 
 <div class="row">
-  <div class="col-sm-12 well well-sm">
-    <ul class="nav nav-pills">
-      <li><%= link_to "Back to Achievements", achievements_path(@realm) %></li>
-      <% if realm_admin?(@realm) %>
-        <li><a id="#new-category-button" href="#" class="text-success" data-toggle="modal" data-target="#new-category-modal">New Category</a></li>
-      <% end %>
-    </ul>
+  <div class="col-sm-12">
+    <div class="well well-sm">
+      <ul class="nav nav-pills">
+        <li><%= link_to "Back to Achievements", achievements_path(@realm) %></li>
+        <% if realm_admin?(@realm) %>
+          <li><a id="#new-category-button" href="#" class="text-success" data-toggle="modal" data-target="#new-category-modal">New Category</a></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -30,12 +32,7 @@
     <% else %>
   </div>
     <div class="col-sm-12">
-      <span class="text-muted">There are no categories in this realm. Lame.</span>
-    </div>
-    <div class="col-sm-12">
-      <div class="row">
-        <%= link_to 'New Category', new_category_path, class: "btn btn-default" %>
-      </div>
+      <div class="alert alert-info" alert="alert">There are no categories in this realm. Lame.</div>
     </div>
     <% end %>
   </div>

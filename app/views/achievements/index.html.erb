@@ -43,7 +43,7 @@
         <%= render @achievements %>
       </table>
       <% if @achievements.length == 0 %>
-        <span class="text-muted">There are no achievements in this realm.</span>
+        <div class="alert alert-info" role="alert">There are no achievements in this realm.</div>
       <% end %>
     </div>
   </div>

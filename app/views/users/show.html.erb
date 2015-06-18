@@ -1,61 +1,86 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm-6">
+  <div class="jumbotron">
       <h1>
-        <%= gravatar_for @user.email %>
+        <small>User Details</small><br/>
+        <%= gravatar_for @user.email, 40 %>
         <%= @user.name %>
-        <small>User Details</small>
       </h1>
-    </div>
-    <div class="col-sm-3">
-      <h1><%= @user.completions %> <small>completions</small><h1>
-    </div>
-    <div class="col-sm-3">
-      <h1><%= @user.total_points %> <small>points</small></h1>
-    </div>
   </div>
   <% flash.each do |message_type, message| %>
     <div class="alert alert-<%= message_type %>"><%= message %></div>
   <% end %>
   <div class="row">
-    <div class="col-sm-12">
-      <span class="text-muted">email: </span><%= @user.email %><br/>
-      <span class="text-muted">user since: </span><%= @user.created_at.strftime("%m/%d/%Y") %>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">User Info</div>
+        <div class="panel-body text-left">
+          <div class="row">
+            <div class="col-sm-4">Email</div>
+            <div class="col-sm-8"><%= @user.email %></div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">Joined</div>
+            <div class="col-sm-8"><%= @user.created_at.strftime("%m/%d/%Y") %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Accomplishments</div>
+        <div class="panel-body text-left">
+          <div class="row">
+            <div class="col-sm-6 text-right"><%= @user.completions %></div>
+            <div class="col-sm-6">Completions</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 text-right"><%= @user.total_points %></div>
+            <div class="col-sm-6">Total Points</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-sm-9">
-      <strong>Realms</strong>
-      <div class="row">
-        <% @user.realms.each do |r| %>
-          <div class="col-sm-7">
-            <span class="fa fa-fw fa-<%= r.icon.name %>" style="color:<%= r.color %>"></span> 
-            <%= link_to r.name, r %>
-          </div>
-          <div class="col-sm-3 text-right">
-            <% @user.realm_completions(r).each do |rarity, completions| %>
-              <% if completions > 0 %>
-                <span class="fa fa-fw fa-<%= rarity.icon.name %>" aria-hidden="true" data-toggle="tooltip" title="<%= rarity.name %>" style="color:<%= rarity.color %>"></span>
-                <%= completions %>
-              <% end %>
-            <% end %>
-          </div>
-          <div class="col-sm-2 text-right">
-            <%= @user.points_for_realm(r) %>
-          </div>
-        <% end %>
+      <div class="panel panel-default">
+        <div class="panel-heading">Realm Memberships</div>
+        <div class="panel-body">
+          <% @user.realms.each do |r| %>
+            <div class="row">
+              <div class="col-sm-7 text-left">
+                <span class="fa fa-fw fa-<%= r.icon.name %>" style="color:<%= r.color %>"></span>
+                <%= link_to r.name, r %>
+              </div>
+              <div class="col-sm-3 text-right">
+                <% @user.realm_completions(r).each do |rarity, completions| %>
+                  <% if completions > 0 %>
+                    <span class="fa fa-fw fa-<%= rarity.icon.name %>" aria-hidden="true" data-toggle="tooltip" title="<%= rarity.name %>" style="color:<%= rarity.color %>"></span>
+                    <%= completions %>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="col-sm-2 text-right">
+                <%= @user.points_for_realm(r) %> pts
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="col-sm-3">
-      <strong>Groups</strong>
-      <div class="row">
-        <% @user.groups.each do |g| %>
-          <div class="col-sm-12">
-            <%= g.name %>
-          </div>
-        <% end %>
-      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">Groups</div>
+        <div class="panel-body">
+          <% @user.groups.each do |g| %>
+            <div class="row">
+              <div class="col-sm-12 text-left">
+                <%= link_to g.name, g %>
+              </div>
+            </div>
+          <% end %>
+        </div>
     </div>
   </div>
 </div>

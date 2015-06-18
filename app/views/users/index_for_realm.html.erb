@@ -1,40 +1,48 @@
 <div class="container">
-  <div class="header">
-    <h1><%= @realm.name %> <small>Users</small></h1>
+  <div class="jumbotron">
+    <h1>
+      <span class="fa fa-fw fa-2x fa-users"></span><br/><small><%= @realm.name %></small><br/>Users
+    </h1>
   </div>
   <div class="row">
-    <div class="col-sm-12 well well-sm">
-      <ul class="nav nav-pills">
-        <li><%= link_to "Back to Realm", @realm %></li>
-        <% if realm_admin?(@realm) %>
-          <li><%= link_to "Edit Users", edit_realm_users_path(@realm) %></li>
-        <% end %>
-      </ul>
+    <div class="col-sm-12">
+      <div class="well well-sm">
+        <ul class="nav nav-pills">
+          <li><%= link_to "Back to Realm", @realm %></li>
+          <% if realm_admin?(@realm) %>
+            <li><%= link_to "Edit Users", edit_realm_users_path(@realm) %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <table class="table table-hover table-striped">
-        <tr>
-          <th>Username</th>
-          <th class="text-right">Completions</th>
-          <th class="text-right">Points</th>
-        </tr>
-      <% @users.each do |u| %>
-        <tr data-link="<%= user_path(u) %>">
-          <td><%= gravatar_for u.email, 20 %> <strong><%= u.name %></strong></td>
-          <td class="text-right">
-            <% u.realm_completions(@realm).each do |rarity, completions| %>
-              <% if completions > 0 %>
-                <span class="fa fa-fw fa-<%= rarity.icon.name %>" data-toggle="tooltip" title="<%= rarity.name %>" style="color:<%= rarity.color %>"></span>
-                <%= completions %>
+      <% if @users.length > 0 %>
+        <table class="table table-hover table-striped">
+          <tr>
+            <th>Username</th>
+            <th class="text-right">Completions</th>
+            <th class="text-right">Points</th>
+          </tr>
+        <% @users.each do |u| %>
+          <tr data-link="<%= user_path(u) %>">
+            <td><%= gravatar_for u.email, 20 %> <strong><%= u.name %></strong></td>
+            <td class="text-right">
+              <% u.realm_completions(@realm).each do |rarity, completions| %>
+                <% if completions > 0 %>
+                  <span class="fa fa-fw fa-<%= rarity.icon.name %>" data-toggle="tooltip" title="<%= rarity.name %>" style="color:<%= rarity.color %>"></span>
+                  <%= completions %>
+                <% end %>
               <% end %>
-            <% end %>
-          </td>
-          <td class="text-right"><%= u.points_for_realm(@realm) %></td>
-        </tr>
+            </td>
+            <td class="text-right"><%= u.points_for_realm(@realm) %></td>
+          </tr>
+        <% end %>
+        </table>
+      <% else %>
+        <div class="alert alert-info" role="alert">There are no users in this realm.</div>
       <% end %>
-      </table>
     </div>
   </div>
 </div>

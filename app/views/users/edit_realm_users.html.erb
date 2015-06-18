@@ -1,23 +1,29 @@
 <div class="container">
-  <div class="header">
-    <h1><span id="realm-name"><%= @realm.name %></span> <small>User Roster</small></h1>
+  <div class="jumbotron">
+    <h1>
+      <span class="fa fa-fw fa-2x fa-user-plus"></span>
+      <br/><small><span id="realm-name"><%= @realm.name %></span></small><br/>User Roster</h1>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <ul class="nav nav-pills">
-        <li role="presentation"><%= link_to "Back to User List", realm_users_path(@realm) %></li>
-      </ul>
+      <div class="well well-sm">
+        <ul class="nav nav-pills">
+          <li role="presentation"><%= link_to "Back to User List", realm_users_path(@realm) %></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <%= form_tag({ :controller => 'users', :action => 'search', :method => :post}, { :id => "search_form", :class => "form-inline", :remote => true }) do %>
-        <div class="form-group">
-          <%= hidden_field_tag "realm_id", @realm.id %>
-          <%= text_field_tag "name", nil, :class => 'form-control', :placeholder => 'User name' %>
-        </div>
-        <%= submit_tag "Search", :class => 'btn btn-default' %>
-      <% end %>
+      <div class="well well-sm">
+        <%= form_tag({ :controller => 'users', :action => 'search', :method => :post}, { :id => "search_form", :class => "form-inline", :remote => true }) do %>
+          <div class="form-group">
+            <%= hidden_field_tag "realm_id", @realm.id %>
+            <%= text_field_tag "name", nil, :class => 'form-control', :placeholder => 'User name' %>
+          </div>
+          <%= submit_tag "Search", :class => 'btn btn-default' %>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="row">

@@ -1,15 +1,23 @@
 <div class="container">
-  <div class="header">
-    <h1><%= @realm.name %> <small>Rarities</small></h1>
+  <div class="jumbotron">
+    <h1>
+      <span class="fa fa-fw fa-2x fa-signal"></span>
+      <br/>
+      <small><%= @realm.name %></small>
+      <br/>
+      Rarities
+    </h1>
   </div>
   <div class="row">
-    <div class="col-sm-12 well well-sm">
-      <ul class="nav nav-pills">
-        <li><%= link_to "Back to Realm Achievements", achievements_path(@realm) %></li>
-        <% if realm_admin?(@realm) %>
-          <li><a id="new-rarity-button" class="text-success" href="#" data-toggle="modal" data-target="#new-rarity-modal">New Rarity</a></li>
-        <% end %>
-      </ul>
+    <div class="col-sm-12">
+      <div class="well well-sm">
+        <ul class="nav nav-pills">
+          <li><%= link_to "Back to Realm Achievements", achievements_path(@realm) %></li>
+          <% if realm_admin?(@realm) %>
+            <li><a id="new-rarity-button" class="text-success" href="#" data-toggle="modal" data-target="#new-rarity-modal">New Rarity</a></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -23,7 +31,7 @@
           <%= render @rarities %>
         </table>
       <% if @rarities.length == 0 %>
-        <span class="text-muted">There are no rarities in this realm.</span>
+        <div class="alert alert-info" role="alert">There are no rarities in this realm.</div>
       <% end %>
     </div>
   </div>
