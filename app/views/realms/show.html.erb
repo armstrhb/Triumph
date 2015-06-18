@@ -41,28 +41,122 @@
   </div>
 
   <div class="row">
-   <div class="col-lg-4">
+  <div class="col-sm-8 col-lg-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Realm Stats</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <h1 class="no-vertical-margin"><%= @realm.achievements.length %></h1>
+            achievements
+          </div>
+          <div class="col-sm-3">
+            <h1 class="no-vertical-margin"><%= @realm.users.length %></h1>
+            users
+          </div>
+          <div class="col-sm-3">
+            <h1 class="no-vertical-margin"><%= @total_points %></h1>
+            total points
+          </div>
+          <div class="col-sm-3">
+            <h1 class="no-vertical-margin"><%= @realm.completed_achievements.length %></h1>
+            completions
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="col-sm-4 col-lg-4">
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">Top Users</h3>
       </div>
       <div class="panel-body">
-          <% @top_users.each do |u| %>
-            <p>
-              <%= gravatar_for u["email"], 20 %> <%= u["user"] %> with <%= u["points"] %> Achievement Points
-            </p>
+        <% @top_users.each do |u| %>
+          <div class="row">
+            <div class="col-sm-7 col-md-8 text-left">
+              <%= gravatar_for u["email"], 20 %> <%= u["user"] %>
+            </div>
+            <div class="col-sm-5 col-md-4 text-right">
+              <%= u["points"] %> pts
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-lg-8 col-sm-8">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">My Stats</h3>
+        </div>
+        <div class="panel-body">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">New Users</h3>
+        </div>
+        <div class="panel-body">
+          <% if @realm.new_users.length == 0 %>
+            <div class="alert alert-info" role="alert">
+              No new users.
+            </div>
+          <% else %>
+            <% @realm.new_users.each do |u| %>
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= u.name %>
+                </div>
+                <div class="col-sm-6">
+                  <%= u.created_at.strftime("%m/%d/%Y") %>
+                </div>
+              </div>
+            <% end %>
           <% end %>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="col-lg-8">
+<div class="row">
+  <div class="col-sm-12 col-lg-12">
     <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Recent Achievements</h3>
   </div>
      <div class="panel-body">
-
+       <% if @recent_achievements.length == 0 %>
+         <div class="alert alert-info" role="alert">>
+           No recent achievements.
+         </div>
+       <% else %>
+         <% @recent_achievements.each do |a| %>
+          <div class="row">
+           <div class="col-sm-2">
+             <%= a.complete_date.strftime("%m/%d/%Y") %>
+           </div>
+           <div class="col-sm-3 text-left">
+             <%= gravatar_for a.user.email, 20 %>
+             <%= a.user.name %>
+           </div>
+           <div class="col-sm-5 text-left">
+             <%= link_to a.achievement.title, a.achievement %>
+           </div>
+           <div class="col-sm-2 text-right">
+             + <%= a.achievement.points %> pts
+           </div>
+         </div>
+         <% end %>
+       <% end %>
      </div>
    </div>
   </div>
@@ -89,116 +183,6 @@
     </div>
   </div>
 </div>
-
-<div class="row">
-    <div class="col-lg-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">My Stats</h3>
-        </div>
-        <div class="panel-body">
-
-        </div>
-      </div>
-    </div>
-</div>
-
-
-
-  <div class="row">
-    <div class="col-sm-3">
-      <%= pluralize(@realm.achievements.length, "achievement") %>
-    </div>
-    <div class="col-sm-3">
-      <%= pluralize(@realm.users.length, "user") %>
-    </div>
-    <div class="col-sm-3">
-      <%= pluralize(@total_points, "total points") %>
-    </div>
-    <div class="col-sm-3">
-      <%= pluralize(@realm.completed_achievements.length, "completed achievement") %>
-    </div>
-  </div>
-
-
-
-
-
-  <div class="row">
-    <div class="col-sm-12">
-      Recent Achievements
-    </div>
-    <% if @recent_achievements.length == 0 %>
-      <div class="col-sm-12">
-        <span class="text-muted">No recent achievements.</span>
-      </div>
-    <% else %>
-      <% @recent_achievements.each do |a| %>
-        <div class="col-sm-2">
-          <%= a.complete_date.to_formatted_s(:short) %>
-        </div>
-        <div class="col-sm-2">
-          <%= a.user.name %>
-        </div>
-        <div class="col-sm-6">
-          <%= a.achievement.title %>
-        </div>
-        <div class="col-sm-2">
-          + <%= a.achievement.points %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-
-
-
-
-
-
-
-  <div class="row">
-    <div class="col-sm-12">
-      Top Users
-    </div>
-    <% if @top_users.length == 0 %>
-      <div class="col-sm-12">
-        <span class="text-muted">No users.</span>
-      </div>
-    <% else %>
-      <% @top_users.each do |u| %>
-        <div class="col-sm-6">
-          <%= u["user"] %>
-        </div>
-        <div class="col-sm-6">
-          <%= u["points"] %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-
-
-
-
-
-  <div class="row">
-    <div class="col-sm-12">
-      New Users
-    </div>
-    <% if @realm.new_users.length == 0 %>
-      <div class="col-sm-12">
-        <span class="text-muted">No new users.</span>
-      </div>
-    <% else %>
-      <% @realm.new_users.each do |u| %>
-        <div class="col-sm-6">
-          <%= u.name %>
-        </div>
-        <div class="col-sm-6">
-          <%= u.created_at.to_formatted_s(:short) %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
 
   <div id="rename-modal" class="modal fade" tabindex="-1" aria-labelledby="renameModalLabel" role="dialog" aria-hidden="true">
     <div class="modal-dialog">

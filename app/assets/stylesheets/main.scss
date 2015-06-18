@@ -1,3 +1,11 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Nova Round', sans-serif !important;
+}
+
+body, p, div {
+  font-family: 'Lato', sans-serif !important;
+}
+
 .footer {
   margin-top: 60px;
   border-top: 1px solid #dddddd;
@@ -12,4 +20,9 @@ input[type=date]::-webkit-outer-spin-button {
 
 tr[data-link] {
   cursor: pointer;
+}
+
+.no-vertical-margin {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
