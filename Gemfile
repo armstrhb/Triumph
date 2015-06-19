@@ -8,6 +8,8 @@ gem 'responders', '~> 2.0'
 
 gem 'bootstrap-sass', ' ~> 3.2.0'
 
+gem 'autoprefixer-rails'
+
 gem 'font-awesome-rails' # sweet icons
 
 # gem 'pundit' # simple, elegant authorization

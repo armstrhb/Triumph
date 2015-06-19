@@ -14,5 +14,45 @@
  *= require_self
  *= require font-awesome
  */
+
+$gray-base: #212121 !default
+$brand-primary: #58b09c
+$brand-success: #ff7943
+$brand-info: #e4f1fe
+$brand-warning: #f9690e
+$brand-danger: #e74c3c
+
+$font-family-sans-serif: Lato, Helvetica, Arial, sans-serif !default
+$headings-font-family: "Nova Round", $font-family-sans-serif !default
+
+$btn-default-bg: #e6e6e6
+
+$input-border-focus: $brand-primary !default
+
+$border-radius-base: 0px !default
+$border-radius-large: $border-radius-base !default
+$border-radius-small: $border-radius-base !default
+
+$state-success-text: #26a65b
+$state-success-bg: #c8f7c5
+
+$state-warning-text: #d35400
+$state-warning-bg: #fde3a7
+
+$state-info-text: #446cb3
+$state-info-bg: #e4f1fe
+
+$state-danger-text: #e74c3c
+$state-danger-bg: #f1a9a0
+
 @import "bootstrap-sprockets"
 @import "bootstrap"
+
+h3, h4, h5, h6, .h3, .h4, .h5, .h6
+  font-family: $font-family-sans-serif
+
+.progress
+  height: $line-height-computed * 2
+
+.progress-bar
+  line-height: $line-height-computed * 2
