@@ -1,0 +1,36 @@
+/* line 7, C:/Users/Henbo/Documents/code/projects/Triumph/app/assets/stylesheets/realms.scss */
+.jumbotron {
+  margin-top: 20px;
+}
+
+/* line 10, C:/Users/Henbo/Documents/code/projects/Triumph/app/assets/stylesheets/realms.scss */
+.panel, .panel-title {
+  text-align: center;
+}
+
+/* line 14, C:/Users/Henbo/Documents/code/projects/Triumph/app/assets/stylesheets/realms.scss */
+#realm-table tr {
+  cursor: pointer;
+  -webkit-transition: background 0.25s, color 0.25s;
+          transition: background 0.25s, color 0.25s;
+}
+
+/* line 19, C:/Users/Henbo/Documents/code/projects/Triumph/app/assets/stylesheets/realms.scss */
+#realm-table tr:hover {
+  color: #000000;
+}
+
+/* line 23, C:/Users/Henbo/Documents/code/projects/Triumph/app/assets/stylesheets/realms.scss */
+.modal-dialog {
+  width: 80%;
+}
+
+/* line 27, C:/Users/Henbo/Documents/code/projects/Triumph/app/assets/stylesheets/realms.scss */
+#error-message ul li {
+  list-style-type: none;
+}
+
+/* line 31, C:/Users/Henbo/Documents/code/projects/Triumph/app/assets/stylesheets/realms.scss */
+#error-message .error-item {
+  margin-left: 10px;
+}
