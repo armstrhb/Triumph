@@ -48,6 +48,17 @@ $state-danger-bg: #f1a9a0
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
+body
+  background-color: $brand-primary
+
+div.container
+  background-color: $body-bg
+  border-left: 1px solid #ddd
+  border-right: 1px solid #ddd
+  border-bottom: 1px solid #ddd
+  padding-bottom: 60px
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3)
+
 h3, h4, h5, h6, .h3, .h4, .h5, .h6
   font-family: $font-family-sans-serif
 
@@ -56,3 +67,20 @@ h3, h4, h5, h6, .h3, .h4, .h5, .h6
 
 .progress-bar
   line-height: $line-height-computed * 2
+
+body ul.nav
+  background-color: $body-bg
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3)
+
+.jumbotron
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3)
+
+.footer
+  border-top: 1px solid #ddd
+  background-color: $body-bg
+  margin-top: 0px
+  position: fixed
+  left: 0
+  right: 0
+  bottom: 0
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3)
