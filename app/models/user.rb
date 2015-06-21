@@ -10,26 +10,15 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
 
   def total_points
-    points = 0
-    progresses.each { |p|
-      if p.completed == true
-        points += p.achievement.points
-      end
-    }
+    Progress.joins(:achievement).joins(:user).select("users.id as user_id, sum(achievements.points) as points").where(:completed => true).group("user_id").order("points desc").where(:user_id => id).first.points rescue 0
+  end
 
-    points
+  def realm_rank(realm)
+    Progress.joins(:achievement).joins(:user).select("users.id as user_id, sum(achievements.points) as points, achievements.realm_id as realm_id").where(:completed => true, :achievements => {:realm_id => realm.id}).group("user_id").order("points desc").index{ |item| item.user_id == id } + 1 rescue nil
   end
 
   def points_for_realm(realm)
-    points = 0
-
-    progresses.each { |p|
-      if p.realm.id == realm.id && p.completed == true
-        points += p.achievement.points
-      end
-    }
-
-    points
+    Progress.joins(:achievement).joins(:user).select("users.id as user_id, sum(achievements.points) as points, achievements.realm_id as realm_id").where(:completed => true, :achievements => {:realm_id => realm.id}).group("user_id").order("points desc").where(:user_id => id).first.points rescue 0
   end
 
   def realm_completions(realm)
