@@ -79,8 +79,8 @@
                 <% progress = @achievement.get_progress_for_user(current_user, true) %>
                 <h2 class="no-vertical-margin text-center"><%= progress.ticks %> / <%= progress.achievement.required_ticks %></h2>
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="<%= progress.ticks %>" aria-valuemin="0" aria-valuemax="<%= @achievement.required_ticks %>" style="min-width:2em; width: <%= number_to_percentage(progress.percent_complete, precision: 0) %>">
-                    <%= number_to_percentage(progress.percent_complete, precision: 0) %>
+                  <div class="progress-bar" role="progressbar" aria-valuenow="<%= progress.ticks %>" aria-valuemin="0" aria-valuemax="<%= @achievement.required_ticks %>" style="min-width:2em; width: <%= number_to_percentage(progress.percent_complete, precision: 1) %>">
+                    <%= number_to_percentage(progress.percent_complete, precision: 1) %>
                   </div>
                 </div>
               <% else %>

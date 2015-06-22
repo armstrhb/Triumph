@@ -4,9 +4,9 @@ $("#progress-bar-<%= @progress.user.id %>").fadeOut(250, function() {
   <% else %>
     $(this).removeClass('progress-bar-success');
   <% end %>
-  $(this).css('width', '<%= number_to_percentage(@progress.percent_complete, precision: 0) %>');
+  $(this).css('width', '<%= number_to_percentage(@progress.percent_complete, precision: 1) %>');
   $(this).attr('aria-valuenow', '<%= @progress.ticks %>');
-  $(this).html('<%= number_to_percentage(@progress.percent_complete, precision: 0) %>');
+  $(this).html('<%= number_to_percentage(@progress.percent_complete, precision: 1) %>');
   $(this).fadeIn(250);
 });
 

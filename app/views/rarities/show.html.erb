@@ -31,14 +31,14 @@
           <tr>
             <th>Achievement</th>
             <th>Description</th>
-            <th>Points</th>
+            <th class="text-right">Points</th>
             <th>Category</th>
           </tr>
           <% @rarity.achievements.each do |a| %>
             <tr data-link="<%= show_achievement_path(@rarity.realm, a) %>">
               <td><%= a.title %></td>
               <td><%= a.description %></td>
-              <td><%= a.points %></td>
+              <td class="text-right"><%= a.points %></td>
               <td><%= a.category.name %></td>
             </tr>
           <% end %>
