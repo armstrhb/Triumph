@@ -3,10 +3,16 @@ class RealmsController < ApplicationController
   respond_to :html, :js
 
   def index
-    @realms = Realm.all
-    @new_realm = Realm.new
-    @groups = Group.all
-    @icons = Icon.all
+    if ! logged_in?
+      @realms = []
+    elsif admin?
+      @realms = Realm.all
+      @new_realm = Realm.new
+      @groups = Group.all
+      @icons = Icon.all
+    else
+      @realms = current_user.realms
+    end
   end
 
   def show

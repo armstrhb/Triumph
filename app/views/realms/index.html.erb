@@ -9,22 +9,29 @@
       <h1>Triumph.</h1>
     </div>
     <hr>
-    <p>You are currently a member of <%= pluralize(@realms.length, 'realm') %>.
+    <p>
+      <% if logged_in? %>
+        You are currently a member of <%= pluralize(@realms.length, 'realm') %>.
+      <% else %>
+        To see your realms, please <%= link_to "sign in", login_path %>.
+      <% end %>
       <% if admin? %>
         <button id="new-realm-button" class="btn" data-toggle="modal" data-target="#new-realm-modal">New Realm</button>
       <% end %>
     </p>
 
-    <div id="error-message" class="row collapse alert alert-danger" role="alert">
-      <div class="col-lg-12 error-count-message">
-        <h4>The following errors prevented realm creation:</h4>
-        <ul>
-          <% @new_realm.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+    <% if admin? %>
+      <div id="error-message" class="row collapse alert alert-danger" role="alert">
+        <div class="col-lg-12 error-count-message">
+          <h4>The following errors prevented realm creation:</h4>
+          <ul>
+            <% @new_realm.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div id="success-message" class="row collapse alert alert-success" role="alert">
       <span class="message"></span>
@@ -77,38 +84,40 @@
       </div><!-- end col-lg-4 -->
     </div><!-- end row -->
 
-    <div id="new-realm-modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Create Realm</h4>
+    <% if admin? %>
+      <div id="new-realm-modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Create Realm</h4>
+            </div>
+            <div class="modal-body">
+            <%= form_for(@new_realm, :html => { :id => "new_realm_form", :class => "form"}, remote: true) do |f| %>
+              <div class='form-group'>
+                <%= f.label :name %>
+                <%= f.text_field :name, :class => 'form-control' %>
+              </div>
+              <div class='form-group'>
+                <%= f.label :icon %>
+                <%= f.collection_select(:icon_id, @icons.all, :id, :name, {}, {:class => 'form-control'}) %>
+              </div>
+              <div class='form-group'>
+                <%= f.label :color %>
+                <%= f.color_field :color, value: "#{@new_realm.color}", class: "form-control" %>
+              </div>
+              <div class='form-group'>
+                <%= f.label "Admin Group" %>
+                <%= f.collection_select(:group_id, @groups.all, :id, :name, {}, {:class => 'form-control'}) %>
+              </div>
+              <%= f.submit :class => 'btn btn-primary' %>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <% end %>
           </div>
-          <div class="modal-body">
-          <%= form_for(@new_realm, :html => { :id => "new_realm_form", :class => "form"}, remote: true) do |f| %>
-            <div class='form-group'>
-              <%= f.label :name %>
-              <%= f.text_field :name, :class => 'form-control' %>
-            </div>
-            <div class='form-group'>
-              <%= f.label :icon %>
-              <%= f.collection_select(:icon_id, @icons.all, :id, :name, {}, {:class => 'form-control'}) %>
-            </div>
-            <div class='form-group'>
-              <%= f.label :color %>
-              <%= f.color_field :color, value: "#{@new_realm.color}", class: "form-control" %>
-            </div>
-            <div class='form-group'>
-              <%= f.label "Admin Group" %>
-              <%= f.collection_select(:group_id, @groups.all, :id, :name, {}, {:class => 'form-control'}) %>
-            </div>
-            <%= f.submit :class => 'btn btn-primary' %>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <% end %>
-        </div>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 
   <script>
