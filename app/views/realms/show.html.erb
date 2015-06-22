@@ -109,7 +109,7 @@
           </div>
           <div class="col-sm-4 text-right">
             <h2 class="no-vertical-margin">
-              <%= pluralize(current_user.points_for_realm(@realm), "pt") %>
+              <span data-toggle="tooltip" title="Rank: <%= current_user.realm_rank(@realm) %>"><%= pluralize(current_user.points_for_realm(@realm), "pt") %></span>
             </h2>
           </div>
           </div>

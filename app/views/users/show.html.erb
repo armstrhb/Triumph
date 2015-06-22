@@ -62,7 +62,7 @@
                 <% end %>
               </div>
               <div class="col-sm-2 text-right">
-                <%= @user.points_for_realm(r) %> pts
+                <span data-toggle="tooltip" title="Rank: <%= @user.realm_rank(r) %>"><%= @user.points_for_realm(r) %> pts</span>
               </div>
             </div>
           <% end %>
