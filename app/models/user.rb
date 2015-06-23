@@ -63,4 +63,20 @@ class User < ActiveRecord::Base
     Progress.where(:achievement => achievement, :user => self, :completed => true).length
   end
 
+  def to_json(options={})
+    options[:except] ||= [:password_digest]
+    super(options)
+  end
+
+  def as_json(options={})
+    { # surely there's a better way to do this.
+      id: self.id,
+      name: self.name,
+      email: self.email,
+      active: self.active,
+      created_at: self.created_at,
+      updated_at: self.updated_at
+    }
+  end
+
 end

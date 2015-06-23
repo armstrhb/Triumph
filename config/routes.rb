@@ -70,4 +70,23 @@ Rails.application.routes.draw do
   get '/admin' => 'admin#index', as: 'admin'
   get '/admin/sysconfig' => 'admin#show_sys_config', as: 'sys_config'
   post '/admin/updatesysconfig' => 'admin#update_sys_config', as: 'update_sys_config'
+
+  namespace :api, defaults: { format: :json } do
+    resources :realms, :only => [:index, :show]
+    get '/realms/:id/users' => 'realms#users'
+    get '/realms/:id/achievements' => 'realms#achievements'
+    get '/realms/:id/rarities' => 'realms#rarities'
+    get '/realms/:id/categories' => 'realms#categories'
+
+    resources :achievements, :only => [:show]
+
+    resources :users, :only => [:show]
+    get '/users/:id/progress' => 'users#progress_index'
+    get '/users/:id/progress/:achievement_id' => 'users#progress_show'
+
+    post '/progress/add/:achievement_id/:user_id/:ticks' => 'progress#add'
+    post '/progress/subtract/:achievement_id/:user_id/:ticks' => 'progress#subtract'
+    post '/progress/grant/:achievement_id/:user_id' => 'progress#grant'
+    post '/progress/forfeit/:achievement_id/:user_id' => 'progress#forfeit'
+  end
 end
