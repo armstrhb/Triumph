@@ -11,12 +11,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.js{}
-      format.json{render :json => { :realm => @category}}
-    end
+    @icons = Icon.all
   end
 
   def create

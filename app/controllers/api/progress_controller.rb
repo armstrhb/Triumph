@@ -3,9 +3,11 @@ class Api::ProgressController < ApplicationController
   respond_to :json
 
   def add
-    if !api_logged_in?
+    if !api_authorized?
       render json: {:error => "unauthorized."}, status: 403
       return
+    else
+      bump_api_session
     end
 
     @progress = get_or_create_progress(params[:achievement], params[:user])
@@ -40,9 +42,11 @@ class Api::ProgressController < ApplicationController
   end
 
   def subtract
-    if !api_logged_in?
+    if !api_authorized?
       render json: {:error => "unauthorized."}, status: 403
       return
+    else
+      bump_api_session
     end
 
     @progress = get_only_existing_progress(params[:achievement], params[:user])
@@ -85,9 +89,11 @@ class Api::ProgressController < ApplicationController
   end
 
   def grant
-    if !api_logged_in?
+    if !api_authorized?
       render json: {:error => "unauthorized."}, status: 403
       return
+    else
+      bump_api_session
     end
 
     @progress = get_or_create_progress(params[:achievement], params[:user])
@@ -103,9 +109,11 @@ class Api::ProgressController < ApplicationController
   end
 
   def forfeit
-    if !api_logged_in?
+    if !api_authorized?
       render json: {:error => "unauthorized."}, status: 403
       return
+    else
+      bump(api_current_token)
     end
 
     @progress = get_or_create_progress(params[:achievement], params[:user])

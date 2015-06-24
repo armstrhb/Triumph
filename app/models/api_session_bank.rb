@@ -4,7 +4,7 @@ class ApiSessionBank
   include Singleton
   attr_accessor :active_sessions, :inactivity_timeout
 
-  def initialize(timeout=180)
+  def initialize(timeout=1800)
     @active_sessions = []
     @inactivity_timeout = timeout
   end
@@ -25,11 +25,18 @@ class ApiSessionBank
   end
 
   def user_from_token(token)
-    result = @active_sessions.find{|a| a[:token] == token}
+    @active_sessions.find{|a| a[:token] == token}
   end
 
   def user_from_name(name)
     @active_sessions.find{|a| a[:name] == name}
+  end
+
+  def bump(token)
+    session = user_from_token(token)
+    if !session.nil?
+      session[:last_used] = Time.now.to_i
+    end
   end
 
   def scrub
