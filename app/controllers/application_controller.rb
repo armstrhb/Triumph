@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include SessionsHelper
+  include Api::SessionsHelper
 
   helper_method :admin?, :sys_config, :realm_admin?
   rescue_from NotAuthorizedError, with: :permission_denied
@@ -43,6 +44,9 @@ class ApplicationController < ActionController::Base
     def permission_denied
       head 403
       self.response_body = nil
-      render :template => 'layouts/errors/error_403'
+      respond_to do |format|
+        format.html{ render :template => 'layouts/errors/error_403' }
+        format.json{ render json: {:error => 'permission denied'} }
+      end
     end
 end

@@ -84,9 +84,11 @@ Rails.application.routes.draw do
     get '/users/:id/progress' => 'users#progress_index'
     get '/users/:id/progress/:achievement_id' => 'users#progress_show'
 
-    post '/progress/add/:achievement_id/:user_id/:ticks' => 'progress#add'
-    post '/progress/subtract/:achievement_id/:user_id/:ticks' => 'progress#subtract'
-    post '/progress/grant/:achievement_id/:user_id' => 'progress#grant'
-    post '/progress/forfeit/:achievement_id/:user_id' => 'progress#forfeit'
+    post '/progress/add/:achievement/:user/:ticks' => 'progress#add'
+    post '/progress/subtract/:achievement/:user/:ticks' => 'progress#subtract'
+    post '/progress/grant/:achievement/:user' => 'progress#grant'
+    post '/progress/forfeit/:achievement/:user' => 'progress#forfeit'
+
+    resources :sessions, :only => [:create]
   end
 end

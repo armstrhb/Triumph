@@ -1,7 +1,13 @@
 class Api::ProgressController < ApplicationController
+  protect_from_forgery with: :null_session
   respond_to :json
 
   def add
+    if !api_logged_in?
+      render json: {:error => "unauthorized."}, status: 403
+      return
+    end
+
     @progress = get_or_create_progress(params[:achievement], params[:user])
     @ticks = params[:ticks].to_i
 
@@ -30,10 +36,15 @@ class Api::ProgressController < ApplicationController
       end
     end
 
-    respond_with @progress
+    render json: @progress
   end
 
   def subtract
+    if !api_logged_in?
+      render json: {:error => "unauthorized."}, status: 403
+      return
+    end
+
     @progress = get_only_existing_progress(params[:achievement], params[:user])
     @ticks = params[:ticks].to_i
 
@@ -70,10 +81,15 @@ class Api::ProgressController < ApplicationController
       @progress = create_new_progress(params[:achievement], params[:user])
     end
 
-    respond_with @progress
+    render json: @progress
   end
 
   def grant
+    if !api_logged_in?
+      render json: {:error => "unauthorized."}, status: 403
+      return
+    end
+
     @progress = get_or_create_progress(params[:achievement], params[:user])
     if @progress.completed? && @progress.achievement.repeatable
       @progress = create_new_progress(params[:achievement], params[:user])
@@ -83,13 +99,37 @@ class Api::ProgressController < ApplicationController
       @progress.grant
     end
 
-    respond_with @progress
+    render json: @progress
   end
 
   def forfeit
+    if !api_logged_in?
+      render json: {:error => "unauthorized."}, status: 403
+      return
+    end
+
     @progress = get_or_create_progress(params[:achievement], params[:user])
     @progress.forfeit
 
-    respond_with @progress
+    render json: @progress
   end
+
+  private
+    def get_or_create_progress(achievement, user)
+      @progress = Progress.where(:achievement => achievement, :user => user).last
+
+      if @progress.nil?
+        @progress = Progress.new(:achievement => Achievement.find(achievement), :user => User.find(user))
+      end
+
+      @progress
+    end
+
+    def create_new_progress(achievement, user)
+      @progress = Progress.new(:achievement => Achievement.find(achievement), :user => User.find(user))
+    end
+
+    def get_only_existing_progress(achievement, user)
+      @progress = Progress.where(:achievement => achievement, :user => user).last
+    end
 end
