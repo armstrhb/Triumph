@@ -3,13 +3,15 @@ user2 = User.create(name: 'wallBMW', active: true, email: 'wallbmw@github.com', 
 user3 = User.create(name: 'thirdPerson', active: true, email: 'fake@email.com', password: 'fakepass', password_confirmation: 'fakepass')
 
 group1 = Group.create(name: 'triumph.admin', admin: user1)
-group2 = Group.create(name: 'another.group', admin: user1)
-group3 = Group.create(name: 'bootstrap.cool.guys', admin: user2)
+group2 = Group.create(name: 'triumph.api.users', admin: user1)
+group3 = Group.create(name: 'another.group', admin: user1)
+group4 = Group.create(name: 'bootstrap.cool.guys', admin: user2)
 
 user1.groups << group1
 user2.groups << group1
 
 SysConfig.create(key: 'triumph.admin.group', value: group1.id)
+SysConfig.create(key: 'triumph.api.group', value: group2.id)
 
 Icon.create(name: 'ambulance')
 Icon.create(name: 'anchor')

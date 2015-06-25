@@ -13,7 +13,7 @@ module Api::SessionsHelper
   end
 
   def api_authorized?
-    api_logged_in? && ApiSessionBank.instance.active?(api_current_user.name, api_current_token)
+    api_logged_in? && ApiSessionBank.instance.active?(api_current_user.name, api_current_token) && api_admin_group.users.include?(api_current_user)
   end
 
   def api_current_token
@@ -22,5 +22,9 @@ module Api::SessionsHelper
 
   def bump_api_session
     ApiSessionBank.instance.bump(api_current_token)
+  end
+
+  def api_admin_group
+    Group.find(SysConfig.find_by(:key => 'triumph.api.group').value)
   end
 end
