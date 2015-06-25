@@ -18,7 +18,7 @@
           <li role="presentation"><%= link_to "Back to List", categories_path(@category.realm) %></li>
           <% if realm_admin?(@category) %>
           <li role="presentation"><a id="edit-button" data-toggle="modal" data-target="#edit-modal" href="#">Edit</a></li>
-          <li role="presentation"><%= link_to 'Delete', @rarity, class: 'text-danger', data: {confirm: "Are you sure you want to delete #{@category.name}?" }, method: :delete %></li>
+          <li role="presentation"><%= link_to 'Delete', @category, class: 'text-danger', data: {confirm: "Are you sure you want to delete #{@category.name}?" }, method: :delete %></li>
           <% end %>
         </ul>
       </div>

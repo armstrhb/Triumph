@@ -7,6 +7,7 @@ class CategoriesController < ApplicationController
 
     @new_category = Category.new
     @new_category.realm = @realm
+    @icons = Icon.all
   end
 
   def show
@@ -44,12 +45,12 @@ class CategoriesController < ApplicationController
     end
 
     flash[:notice] = "Category Removed."
-    redirect_to categories_url
+    redirect_to categories_url @category.realm
   end
 
   private
    def get_create_params
-    params.require(:category).permit(:name, :realm_id, :description)
+    params.require(:category).permit(:name, :realm_id, :description, :color, :icon_id)
    end
 
    def update_params

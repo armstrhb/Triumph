@@ -11,6 +11,6 @@ $("#rarity-description").fadeOut(250, function() {
 $("#rarity-icon").fadeOut(250, function() {
   $(this).css({"color": "<%= @rarity.color %>"});
   $(this).removeClass();
-  $(this).addClass('fa fa-fw fa-2x fa-<%= @rarity.icon.name %>');
+  $(this).addClass('fa fa-fw fa-3x fa-<%= @rarity.icon.name %>');
   $(this).fadeIn(250);
 });
