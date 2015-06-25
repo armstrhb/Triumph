@@ -53,6 +53,6 @@ class CategoriesController < ApplicationController
    end
 
    def update_params
-     params.require(:category).permit(:name, :description)
+     params.require(:category).permit(:name, :description, :color, :icon_id)
    end
 end
