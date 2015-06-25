@@ -61,33 +61,27 @@
       </div>
       <div class="modal-body">
         <%= form_for(@category, :url => update_category_path(@category), :html => { :id => "edit_form", :class => "form"}, remote: true, method: 'post') do |f| %>
-
         <%= f.hidden_field :id %>
-
         <div class="form-group">
           <%= f.label :name %>
           <%= f.text_field :name, class: "form-control" %>
         </div>
-
         <div class="form-group">
           <%= f.label :icon %>
           <%= f.collection_select(:icon_id, @icons.all, :id, :name, {}, {:class => 'form-control'}) %>
         </div>
-
         <div class="form-group">
           <%= f.label :color %>
           <%= f.color_field :color, value: "#{@category.color}", class: "form-control" %>
         </div>
-
         <div class="form-group">
           <%= f.label :description %>
           <%= f.text_field :description, class: 'form-control' %>
         </div>
-
         <%= f.submit "Do it", :class =>  'btn btn-primary' %>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <% end %>
-      </div> 
+      </div>
     </div>
   </div>
 </div>
