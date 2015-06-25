@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   get '/categories/:realm_id' => 'categories#index', as: 'categories'
   get '/categories/detail/:id' => 'categories#show', as: 'show_category'
   get '/categories' => 'categories#create', as: 'create_category'
+  post '/categories/:id' => 'categories#update', as: 'update_category'
+  delete '/categories/:id' => 'categories#destroy', as: 'destroy_category'
   resources :categories
 
   get '/admin' => 'admin#index', as: 'admin'
