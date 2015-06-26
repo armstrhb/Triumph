@@ -84,3 +84,42 @@
     </div>
   </div>
 </div>
+
+<% if @user == current_user %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Tracked Achievements
+        </div>
+        <div class="panel-body">
+          <% if @user.tracked_achievements.length == 0 %>
+          <div class="alert alert-info" role="alert">
+            You aren't tracking any achievements.
+          </div>
+          <% else %>
+            <% current_user.tracked_achievements.each do |a| %>
+              <div class="row">
+                <div class="col-xs-3 text-left">
+                  <span class="fa fa-fw fa-<%= a.realm.icon.name %>" style="color:<%= a.realm.color %>;" data-toggle="tooltip" title="<%= a.realm.name %>"></span>
+                  <%= link_to a.title, show_achievement_path(a.realm, a) %>
+                </div>
+                <% progress = current_user.current_progress(a) %>
+                <div class="col-xs-2 text-right">
+                  <%= progress.ticks %> / <%= a.required_ticks %>
+                </div>
+                <div class="col-xs-7">
+                  <div class="progress small">
+                    <div class="progress-bar small <%= 'progress-bar-success' if progress.completed %>" role="progressbar" aria-valuenow="<%= progress.ticks %>" aria-valuemin="0" aria-valuemax="<%= a.required_ticks %>" style="min-width:2em; width: <%= number_to_percentage(progress.percent_complete, precision: 1) %>">
+                      <%= number_to_percentage(progress.percent_complete, precision: 1) %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

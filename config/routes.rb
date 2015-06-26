@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   post '/users/search' => 'users#search', as: 'user_search'
   post '/users/add' => 'users#add_to_realm', as: 'add_user_to_realm'
   post '/users/remove' => 'users#remove_from_realm', as: 'remove_user_from_realm'
+  post '/users/track/achievement/toggle/:id' => 'users#toggle_achievement_tracking', as: 'user_toggle_achievement_tracking'
   resources :users
 
   get '/achievements/:realm_id' => 'achievements#index', as: 'achievements'

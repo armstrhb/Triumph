@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :groups, :join_table => "user_groups"
   has_and_belongs_to_many :realms, :join_table => "realm_users"
+  has_and_belongs_to_many :tracked_achievements, :class_name => 'Achievement', :join_table => "user_tracked_achievements"
   has_many :progresses;
   has_secure_password
 
@@ -61,6 +62,10 @@ class User < ActiveRecord::Base
 
   def times_completed(achievement)
     Progress.where(:achievement => achievement, :user => self, :completed => true).length
+  end
+
+  def tracked_achievements_for_realm(realm)
+    tracked_achievements.select { |a| a.realm == realm }
   end
 
   def to_json(options={})

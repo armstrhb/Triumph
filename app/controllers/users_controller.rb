@@ -101,6 +101,20 @@ class UsersController < ApplicationController
     @user
   end
 
+  def toggle_achievement_tracking
+    @achievement = Achievement.find(params[:id])
+    @result
+    if current_user.tracked_achievements.include?(@achievement)
+      current_user.tracked_achievements.delete(@achievement)
+      @result = false
+    else
+      current_user.tracked_achievements << @achievement
+      @result = true
+    end
+
+    @result
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)

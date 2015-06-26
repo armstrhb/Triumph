@@ -116,6 +116,14 @@ ActiveRecord::Schema.define(version: 20150616014047) do
   add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id"
   add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id"
 
+  create_table "user_tracked_achievements", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "achievement_id"
+  end
+
+  add_index "user_tracked_achievements", ["achievement_id"], name: "index_user_tracked_achievements_on_achievement_id"
+  add_index "user_tracked_achievements", ["user_id"], name: "index_user_tracked_achievements_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "name",                           null: false
     t.string   "email",                          null: false

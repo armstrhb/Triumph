@@ -34,6 +34,7 @@
       <div class="well well-sm">
         <ul class="nav nav-pills">
           <li><%= link_to "Back to Achievements", achievements_path(@achievement.realm) %></li>
+          <li><%= link_to (current_user.tracked_achievements.include?(@achievement) ? 'Tracking' : 'Track this'), user_toggle_achievement_tracking_path(@achievement), id: 'track-toggle', method: :post, :remote => true %></a></li>
           <% if realm_admin?(@achievement.realm) %>
             <li><%= link_to "Progress", progress_admin_path(@achievement) %></li>
             <li><a id="edit-button" href="#" data-toggle="modal" data-target="#edit-modal">Edit</a></li>

@@ -8,5 +8,10 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :active, default: true
       t.timestamps null: false
     end
+
+    create_table :user_tracked_achievements, id: false do |t|
+      t.belongs_to :user, index: true
+      t.belongs_to :achievement, index: true
+    end
   end
 end
