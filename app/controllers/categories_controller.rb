@@ -19,9 +19,11 @@ class CategoriesController < ApplicationController
     authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
 
     @category = Category.new(get_create_params)
-    @category.save
-
-    @category
+    if @category.save
+      @category
+    else
+      render :json => {:errors => @category.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def new
@@ -33,7 +35,11 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     authorize_realm_admin(@category.realm)
 
-    @category.update_attributes(update_params)
+    if @category.update_attributes(update_params)
+      @category
+    else
+      render :json => {:errors => @category.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -44,7 +50,7 @@ class CategoriesController < ApplicationController
     rescue ActiveRecord::RecordNotFound
     end
 
-    flash[:notice] = "Category Removed."
+    flash[:info] = "Category '#{@category.name}' Removed."
     redirect_to categories_url @category.realm
   end
 

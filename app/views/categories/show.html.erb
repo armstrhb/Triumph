@@ -24,6 +24,10 @@
       </div>
     </div>
   </div>
+
+  <%= render 'layouts/errorlist' %>
+  <%= render 'layouts/flashes' %>
+
   <div class="row">
     <div class="col-sm-12">
       <% if @category.achievements.length > 0 %>
@@ -85,13 +89,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $("#edit_form").on("ajax:error", function(event, xhr, status, error) {
-    $('#edit-modal').modal('hide');
-  }).on("ajax:complete", function(xhr, status) {
-    $('#edit-modal').modal('hide');
-  }).on("ajax:beforeSend", function(event, xhr, settings) {
-    //$("#error-message").hide();
-  });
-</script>

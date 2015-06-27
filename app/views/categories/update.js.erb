@@ -1,16 +1,18 @@
-$("#category-name").fadeOut(250, function() {
-  $(this).html("<%= @category.name %>");
-  $(this).fadeIn(250);
-});
+<% if ! @category.errors.any? %>
+  $("#category-name").fadeOut(250, function() {
+    $(this).html("<%= @category.name %>");
+    $(this).fadeIn(250);
+  });
 
-$("#category-description").fadeOut(250, function() {
-  $(this).html("<%= @category.description %>");
-  $(this).fadeIn(250);
-});
+  $("#category-description").fadeOut(250, function() {
+    $(this).html("<%= @category.description %>");
+    $(this).fadeIn(250);
+  });
 
-$("#category-icon").fadeOut(250, function() {
-  $(this).css({"color": "<%= @category.color %>"});
-  $(this).removeClass();
-  $(this).addClass('fa fa-fw fa-3x fa-<%= @category.icon.name %>');
-  $(this).fadeIn(250);
-});
+  $("#category-icon").fadeOut(250, function() {
+    $(this).css({"color": "<%= @category.color %>"});
+    $(this).removeClass();
+    $(this).addClass('fa fa-fw fa-3x fa-<%= @category.icon.name %>');
+    $(this).fadeIn(250);
+  });
+<% end %>
