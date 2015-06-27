@@ -45,15 +45,11 @@ class RealmsController < ApplicationController
     authorize_admin
     @realm = Realm.new(realm_params)
 
-    respond_to do |format|
-      if @realm.save
-        format.html{redirect_to @realm, notice: 'Realm created successfully.'}
-        format.js{}
-        format.json{render json: @realm, status: :created, location: @realm}
-      else
-        #format.html{render action: 'new'}
-        format.json{render json: @realm.errors.full_messages, status: :unprocessable_entity}
-      end
+    if @realm.save
+      @realm
+    else
+      #format.json{render json: @realm.errors.full_messages, status: :unprocessable_entity}
+      render :json => {:errors => @realm.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -108,10 +104,11 @@ class RealmsController < ApplicationController
     @realm = Realm.find(params[:id])
     authorize_realm_admin(@realm)
 
-    @realm.name = rename_params[:name]
-    @realm.save
-
-    @realm
+    if @realm.update_attributes(:name => rename_params[:name])
+      @realm
+    else
+      render :json => {:errors => @realm.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def change_icon
@@ -132,7 +129,7 @@ class RealmsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
     end
 
-    flash[:notice] = "Realm deleted."
+    flash[:info] = "Realm #{@realm.name} deleted."
     redirect_to realms_url
   end
 

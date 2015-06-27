@@ -2,9 +2,9 @@
   <div class="jumbotron">
     <h1><span class="fa fa-fw fa-<%= @realm.icon.name %>" style="color:<%= @realm.color %>;"></span> <%= @realm.name %><br/><small>Achievements</small></h1>
   </div>
-  <% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= message_type %>"><%= message %></div>
-  <% end %>
+
+  <%= render 'layouts/flashes' %>
+  
   <div class="row text-center">
     <div class="col-sm-4">
       <div class="well">

@@ -1,4 +1,6 @@
+<% if ! @realm.errors.any? %>
   $("#realm-name").fadeOut(250, function() {
     $(this).text("<%= @realm.name %>");
     $(this).fadeIn(250);
   });
+<% end %>

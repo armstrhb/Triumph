@@ -6,7 +6,8 @@ class Realm < ActiveRecord::Base
   belongs_to :group, :foreign_key => "group_id"
   belongs_to :icon, :foreign_key => "icon_id"
 
-  validates :name, presence: true, length: { minimum: 3 }, uniqueness: true
+  validates :name, presence: true, length: { minimum: 3 }
+  validates_uniqueness_of :name
   validates :active, inclusion: { in: [true, false] }
 
   def total_points_earned

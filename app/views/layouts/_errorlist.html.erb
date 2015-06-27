@@ -1,0 +1,39 @@
+
+<div class="row">
+  <div class="col-lg-12">
+    <div id="error-message" class="alert alert-danger collapse" role="alert">
+      <h4>Whoops. Look at this:</h4>
+      <ul></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $("form").on("ajax:error", function(event, xhr, status, error) {
+      handleErrors($.parseJSON(xhr.responseText).errors);
+    }).on("ajax:complete", function(xhr, status) {
+      if ($(this).closest('div.modal').length) {
+        $(this).closest('div.modal').modal('hide');
+      }
+    }).on("ajax:beforeSend", function(event, xhr, settings) {
+      $("#error-message").hide();
+    });
+  });
+
+  function handleErrors(errors) {
+    var errorDiv = $("#error-message");
+    var errorList = errorDiv.find("ul");
+
+    errorList.empty();
+    for (var i = 0; i < errors.length; i++) {
+      errorList.append($("<li>")
+               .append($("<span>", {class: "glyphicon glyphicon-exclamation-sign", "aria-hidden": true}))
+               .append($("<span>", {class: "sr-only"}))
+               .append($("<span>", {class: "error-item", html: errors[i]})));
+    }
+
+    if (errors.length > 0 && !errorDiv.is(":visible"))
+      errorDiv.fadeIn(250);
+  }
+</script>
