@@ -48,7 +48,6 @@ class RealmsController < ApplicationController
     if @realm.save
       @realm
     else
-      #format.json{render json: @realm.errors.full_messages, status: :unprocessable_entity}
       render :json => {:errors => @realm.errors.full_messages }, status: :unprocessable_entity
     end
   end

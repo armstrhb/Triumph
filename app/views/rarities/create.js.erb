@@ -1,5 +1,7 @@
-if (!$("#rarity-table").is(":visible"))
-  $("#rarity-table").fadeIn(250);
+<% if ! @rarity.errors.any? %>
+  if (!$("#rarity-table").is(":visible"))
+    $("#rarity-table").fadeIn(250);
 
-$("<%= escape_javascript(render @rarity) %>").appendTo("#rarity-table").hide().fadeIn(250);
-$('#new-rarity-modal').modal_success();
+  $("<%= escape_javascript(render @rarity) %>").appendTo("#rarity-table").hide().fadeIn(250);
+  $('#new-rarity-modal').modal_success();
+<% end %>

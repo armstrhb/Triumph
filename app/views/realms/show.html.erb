@@ -13,9 +13,6 @@
     This realm is inactive.
   </div>
 
-  <%= render 'layouts/errorlist' %>
-  <%= render 'layouts/flashes' %>
-
   <div id="superuser_ish" class="row">
     <div class="col-md-12">
       <div class="well well-sm">
@@ -36,6 +33,9 @@
       </div>
     </div>
   </div>
+  
+  <%= render 'layouts/errorlist' %>
+  <%= render 'layouts/flashes' %>
 
   <div class="row">
   <div class="col-sm-8 col-lg-8">
@@ -260,35 +260,4 @@
   </div>
 
 </div>
-<script>
-
-  /*$("#rename_form").on("ajax:error", function(event, xhr, status, error) {
-    $('#rename-modal').modal('hide');
-    handleErrors($.parseJSON(xhr.responseText));
-  }).on("ajax:complete", function(xhr, status) {
-    $('#rename-modal').modal('hide');
-  }).on("ajax:beforeSend", function(event, xhr, settings) {
-    $("#error-message").hide();
-  });
-
-  $("#change_icon_form").on("ajax:complete", function(xhr, status) {
-    $("#change-icon-modal").modal('hide');
-  });
-
-  function handleErrors(errors) {
-    var errorDiv = $("#error-message");
-    var errorList = errorDiv.find("ul");
-
-    errorList.empty();
-    for (var i = 0; i < errors.length; i++) {
-      errorList.append($("<li>")
-               .append($("<span>", {class: "glyphicon glyphicon-exclamation-sign", "aria-hidden": true}))
-               .append($("<span>", {class: "sr-only"}))
-               .append($("<span>", {class: "error-item", html: errors[i]})));
-    }
-
-    if (errors.length > 0 && !errorDiv.is(":visible"))
-      errorDiv.fadeIn(250);
-  }*/
-</script>
 </html>

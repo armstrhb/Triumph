@@ -2,9 +2,7 @@
   <div class="jumbotron">
     <div class="row">
       <div class="col-sm-6">
-        <h1><span id="rarity-name"><%= @rarity.name %></span>
-          <br/><small id="rarity-description"><%= @rarity.description %></small>
-        </h1>
+        <h1><span id="rarity-name"><%= @rarity.name %></span><br/><small id="rarity-description"><%= @rarity.description %></small></h1>
       </div>
       <div class="col-sm-2 text-center">
         <h1><span id="rarity-icon" class="fa fa-3x fa-fw fa-<%= @rarity.icon.name %>" style="color:<%= @rarity.color %>;"></span></h1>
@@ -24,6 +22,10 @@
       </div>
     </div>
   </div>
+
+  <%= render 'layouts/errorlist' %>
+  <%= render 'layouts/flashes' %>
+
   <div class="row">
     <div class="col-sm-12">
       <% if @rarity.achievements.length > 0 %>

@@ -17,29 +17,35 @@ class RaritiesController < ApplicationController
 
   def create
     authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
-
     @rarity = Rarity.new(get_create_params)
-    @rarity.save
 
-    @rarity
+    if @rarity.save
+      @rarity
+    else
+      render :json => {:errors => @rarity.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def update
     @rarity = Rarity.find(params[:id])
     authorize_realm_admin(@rarity.realm)
 
-    @rarity.update_attributes(update_params)
+    if @rarity.update_attributes(update_params)
+      @rarity
+    else
+      render :json => {:errors => @rarity.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    authorize_realm_admin(Rarity.find(params[:realm_id]).realm)
+    authorize_realm_admin(Rarity.find(params[:id]).realm)
 
     begin
       @rarity = Rarity.find(params[:id]).destroy
     rescue ActiveRecord::RecordNotFound
     end
 
-    flash[:notice] = "Rarity deleted."
+    flash[:info] = "Rarity '#{@rarity.name}' deleted."
     redirect_to rarities_url @rarity.realm
   end
 
