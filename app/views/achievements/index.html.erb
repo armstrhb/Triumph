@@ -3,8 +3,6 @@
     <h1><span class="fa fa-fw fa-<%= @realm.icon.name %>" style="color:<%= @realm.color %>;"></span> <%= @realm.name %><br/><small>Achievements</small></h1>
   </div>
 
-  <%= render 'layouts/flashes' %>
-  
   <div class="row text-center">
     <div class="col-sm-4">
       <div class="well">
@@ -32,6 +30,10 @@
       </ul>
     </div>
   </div>
+
+  <%= render 'layouts/errorlist' %>
+  <%= render 'layouts/flashes' %>
+
   <div class="row">
     <div class="col-sm-12">
       <table id="achievement-table" class='table table-striped table-hover' <%= "style=display:none;" if @achievements.length == 0 %>>
@@ -108,13 +110,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $("#new_achievement_form").on("ajax:error", function(event, xhr, status, error) {
-    //handleErrors($.parseJSON(xhr.responseText));
-  }).on("ajax:complete", function(xhr, status) {
-    $('#new-achievement-modal').modal('hide');
-  }).on("ajax:beforeSend", function(event, xhr, settings) {
-    //$("#error-message").hide();
-  });
-</script>

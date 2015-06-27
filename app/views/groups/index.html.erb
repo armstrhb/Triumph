@@ -5,9 +5,6 @@
       Groups
     </h1>
   </div>
-  <% flash.each do |message_type, message| %>
-    <div class="alert alert-<%= message_type %>"><%= message %></div>
-  <% end %>
   <div class="row">
     <div class="col-sm-12">
       <ul class="nav nav-pills well well-sm">
@@ -16,6 +13,10 @@
       </ul>
     </div>
   </div>
+
+  <%= render 'layouts/errorlist' %>
+  <%= render 'layouts/flashes' %>
+
   <div class="row">
     <div class="col-sm-12">
       <table id="group-table" class="table table-hover table-striped">

@@ -1,2 +1,4 @@
-$("<%= escape_javascript(render @group) %>").appendTo("#group-table").hide().fadeIn(250);
-$('#new-group-modal').modal_success();
+<% if ! @group.errors.any? %>
+  $("<%= escape_javascript(render @group) %>").appendTo("#group-table").hide().fadeIn(250);
+  $('#new-group-modal').modal_success();
+<% end %>

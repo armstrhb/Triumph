@@ -14,9 +14,10 @@ class AdminController < ApplicationController
     authorize_admin
     @sys_config = SysConfig.where(:key => params[:sys_config][:key]).first
 
-    @sys_config.value = params[:sys_config][:value]
-    @sys_config.save
-
-    @sys_config
+    if @sys_config.update_attributes(:value => params[:sys_config][:value])
+      @sys_config
+    else
+      render :json => {:errors => @sys_config.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 end

@@ -13,39 +13,40 @@ class AchievementsController < ApplicationController
     @achievement = Achievement.find(params[:id])
     @categories = Category.where(:realm => @achievement.realm)
     @rarities = Rarity.where(:realm => @achievement.realm)
-
-    respond_to do |format|
-      format.html
-      format.js{}
-      format.json{render :json => { :realm => @achievement}}
-    end
   end
 
   def create
     authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
 
     @achievement = Achievement.new(get_create_params)
-    @achievement.save
-
-    @achievement
+    if @achievement.save
+      @achievement
+    else
+      render :json => {:errors => @achievement.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def update
     authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
-
     @achievement = Achievement.find(params[:id])
-    @achievement.update_attributes(get_edit_params)
+
+    if @achievement.update_attributes(get_edit_params)
+      @achievement
+    else
+      render :json => {:errors => @achievement.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    authorize_realm_admin(Realm.find(get_create_params[:realm_id]))
+    @achievement = Achievement.find(params[:id])
+    authorize_realm_admin(@achievement.realm)
 
     begin
-      @achievement = Achievement.find(params[:id]).destroy
+      @achievement.destroy
     rescue ActiveRecord::RecordNotFound
     end
 
-    flash[:info] = "Achievement deleted."
+    flash[:info] = "Achievement '#{@achievement.title}' deleted."
     redirect_to achievements_url @achievement.realm
   end
 

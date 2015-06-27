@@ -1,6 +1,8 @@
-$("#config-<%= @sys_config.id %> .value").fadeOut(250, function() {
-  $(this).html("<%= @sys_config.value %>");
-  $(this).fadeIn(250);
-});
+<% if ! @sys_config.errors.any? %>
+  $("#config-<%= @sys_config.id %> .value").fadeOut(250, function() {
+    $(this).html("<%= @sys_config.value %>");
+    $(this).fadeIn(250);
+  });
 
-$('#update-sys-config-modal').modal_success();
+  $('#update-sys-config-modal').modal_success();
+<% end %>

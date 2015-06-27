@@ -4,7 +4,7 @@ $("#user-table").fadeOut(150, function() {
     $("<tr id='user-<%= u.id %>' class='user-row'> \
         <td class='user-id collapse'><%= u.id %></td> \
         <td class='col-sm-2'><%= u.name %></td> \
-        <td class='col-sm-6 progress'> \
+        <td class='col-sm-6 progress-container'> \
           <span id='times-completed-<%= u.id %>' style='padding: 3px; float: left; width: 25px; text-align: center;margin-right: 5px;' class='label label-default'><%= u.times_completed(@achievement) %></span> \
           <div class='progress'> \
             <div id='progress-bar-<%= u.id %>' class='progress-bar <%= 'progress-bar-success' if u.current_progress(@achievement).completed? %>' role='progressbar' aria-valuenow='<%= u.current_progress(@achievement).ticks %>' aria-valuemin='0' aria-valuemax='<%= @achievement.required_ticks %>' style='min-width:2em; width: <%= number_to_percentage(u.current_progress(@achievement).percent_complete, precision: 1) %>'> \

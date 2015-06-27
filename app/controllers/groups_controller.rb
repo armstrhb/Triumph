@@ -27,7 +27,11 @@ class GroupsController < ApplicationController
     authorize_admin
 
     @group = Group.new(group_params)
-    @group.save
+    if @group.save
+      @group
+    else
+      render :json => {:errors => @group.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -38,7 +42,11 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     authorize_group_admin(@group)
 
-    @group.update_attributes(update_params)
+    if @group.update_attributes(update_params)
+      @group
+    else
+      render :json => {:errors => @group.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   def edit_roster
@@ -76,7 +84,7 @@ class GroupsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
     end
 
-    flash[:info] = "Group deleted."
+    flash[:info] = "Group '#{@group.name}' deleted."
     redirect_to groups_path
   end
 

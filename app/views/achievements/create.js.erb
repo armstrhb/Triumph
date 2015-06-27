@@ -1,5 +1,7 @@
-if (!$("#achievement-table").is(":visible"))
-  $("#achievement-table").fadeIn(250);
+<% if ! @achievement.errors.any? %>
+  if (!$("#achievement-table").is(":visible"))
+    $("#achievement-table").fadeIn(250);
 
-$("<%= escape_javascript(render @achievement) %>").appendTo("#achievement-table").hide().fadeIn(250);
-$('#new-achievement-modal').modal_success();
+  $("<%= escape_javascript(render @achievement) %>").appendTo("#achievement-table").hide().fadeIn(250);
+  $('#new-achievement-modal').modal_success();
+<% end %>

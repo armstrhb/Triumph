@@ -1,11 +1,13 @@
-update_field("group-name", "<%= @group.name %>");
-update_field("group-creation", "<%= @group.created_at.strftime '%m/%d/%Y' %>");
-update_field("group-updated", "<%= @group.updated_at.strftime '%m/%d/%Y' %>");
-update_field("group-admin", "<%= @group.admin.name %>");
+<% if ! @group.errors.any? %>
+  update_field("group-name", "<%= @group.name %>");
+  update_field("group-creation", "<%= @group.created_at.strftime '%m/%d/%Y' %>");
+  update_field("group-updated", "<%= @group.updated_at.strftime '%m/%d/%Y' %>");
+  update_field("group-admin", "<%= @group.admin.name %>");
 
-$("#group-admin-gravatar img").fadeOut(250, function() {
+  $("#group-admin-gravatar img").fadeOut(250, function() {
     $(this).attr("src", "<%= raw get_gravatar_url @group.admin.email, 20 %>");
     $(this).fadeIn(250);
-});
+  });
 
-$("#edit-group-modal").modal_success();
+  $("#edit-group-modal").modal_success();
+<% end %>

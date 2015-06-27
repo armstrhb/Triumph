@@ -11,7 +11,7 @@ $(function() {
   };
 
   // bootstrap-ify tooltips
-  $('[data-toggle="tooltip"]').tooltip();
+  $('body').tooltip({selector: '[data-toggle=tooltip]'});
 });
 
 function update_field(selector, newVal) {

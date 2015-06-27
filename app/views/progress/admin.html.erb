@@ -39,11 +39,11 @@
 
 <script>
   $(document).on('mouseenter', 'tr.user-row', function() {
-    $("<button id='subtract-progress' class='btn btn-xs'><span class='fa fa-fw fa-angle-left'></span></button>").appendTo($(this).find('td.action'));
-    $("<button id='add-progress' class='btn btn-xs'><span class='fa fa-fw fa-angle-right'></span></button>").appendTo($(this).find('td.action'));
+    $("<button id='subtract-progress' data-toggle='tooltip' title='subtract' class='btn'><span class='fa fa-fw fa-angle-left'></span></button>").appendTo($(this).find('td.action'));
+    $("<button id='add-progress' data-toggle='tooltip' title='add' class='btn'><span class='fa fa-fw fa-angle-right'></span></button>").appendTo($(this).find('td.action'));
 
-    $("<button id='forfeit-progress' class='btn btn-xs'><span class='fa fa-fw fa-angle-double-left'></span></button>").appendTo($(this).find('td.action'));
-    $("<button id='grant-progress' class='btn btn-xs'><span class='fa fa-fw fa-angle-double-right'></span></button>").appendTo($(this).find('td.action'));
+    $("<button id='forfeit-progress' data-toggle='tooltip' title='forfeit' class='btn'><span class='fa fa-fw fa-angle-double-left'></span></button>").appendTo($(this).find('td.action'));
+    $("<button id='grant-progress' data-toggle='tooltip' title='grant' class='btn'><span class='fa fa-fw fa-angle-double-right'></span></button>").appendTo($(this).find('td.action'));
   });
 
   $(document).on('mouseleave', 'tr.user-row', function() {
