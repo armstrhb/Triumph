@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include Api::SessionsHelper
 
-  helper_method :admin?, :sys_config, :realm_admin?
+  helper_method :admin?, :sys_config, :realm_admin?, :current_realm
   rescue_from NotAuthorizedError, with: :permission_denied
 
   def admin?
@@ -38,6 +38,22 @@ class ApplicationController < ActionController::Base
 
   def authorize_group_admin(group)
     raise NotAuthorizedError unless group.admin == current_user || admin?
+  end
+
+  def current_realm
+    realm = nil
+
+    if ! @realm.nil?
+      realm = @realm
+    elsif ! @achievement.nil?
+      realm = @achievement.realm
+    elsif ! @rarity.nil?
+      realm = @rarity.realm
+    elsif ! @category.nil?
+      realm = @category.realm
+    end
+
+    realm
   end
 
   private
