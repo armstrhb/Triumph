@@ -19,7 +19,7 @@
         <%= form_tag({ :controller => 'users', :action => 'search', :method => :post}, { :id => "search_form", :class => "form-inline", :remote => true }) do %>
           <div class="form-group">
             <%= hidden_field_tag "realm_id", @realm.id %>
-            <%= text_field_tag "name", nil, :class => 'form-control', :placeholder => 'User name' %>
+            <%= text_field_tag "name", nil, :class => 'form-control', :placeholder => 'User name', :autofocus => true %>
           </div>
           <%= submit_tag "Search", :class => 'btn btn-default' %>
         <% end %>

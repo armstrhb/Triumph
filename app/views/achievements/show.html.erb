@@ -170,7 +170,7 @@
       <%= form_for(@achievement, :html => { :id => "edit_achievement_form", :class => "form"}, remote: true) do |f| %>
         <div class='form-group'>
           <%= f.label :title %>
-          <%= f.text_field :title, :class => 'form-control' %>
+          <%= f.text_field :title, :class => 'form-control', :autofocus => true %>
         </div>
         <div class='form-group'>
           <%= f.label :description %>

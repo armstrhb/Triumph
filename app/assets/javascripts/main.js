@@ -10,6 +10,11 @@ $(function() {
       this.modal('hide');
   };
 
+  // if a modal has an autofocus element, focus it on show
+  $('.modal').on('shown.bs.modal', function() {
+    $(this).find('[autofocus]').focus();
+  });
+
   // bootstrap-ify tooltips
   $('body').tooltip({selector: '[data-toggle=tooltip]'});
 });

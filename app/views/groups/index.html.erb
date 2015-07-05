@@ -42,7 +42,7 @@
       <%= form_for(@new_group, :html => { :id => "new_group_form", :class => "form"}, remote: true) do |f| %>
         <div class='form-group'>
           <%= f.label :name %>
-          <%= f.text_field :name, :class => 'form-control' %>
+          <%= f.text_field :name, :class => 'form-control', :autofocus => true %>
         </div>
         <div class='form-group'>
           <%= f.label :admin %>

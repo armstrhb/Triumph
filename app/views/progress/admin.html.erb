@@ -21,7 +21,7 @@
       <div class="well well-sm">
         <%= form_tag(progress_user_search_path(@achievement), { :id => "search_form", :class => "form-inline", :remote => true }) do %>
           <div class="form-group">
-            <%= text_field_tag "name", nil, :class => 'form-control', :placeholder => 'User name' %>
+            <%= text_field_tag "name", nil, :class => 'form-control', :placeholder => 'User name', :autofocus => true %>
           </div>
           <%= submit_tag "Search", :class => 'btn btn-default' %>
         <% end %>
