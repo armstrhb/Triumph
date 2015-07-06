@@ -17,8 +17,9 @@
         completed
       </span>
     <% elsif current_user.current_progress(achievement).ticks > 0 %>
-      <div class="progress no-vertical-margin">
-        <div class="progress-bar" role="progressbar" aria-valuenow="<%= current_user.current_progress(achievement).ticks %>" aria-valuemin="0" aria-valuemax="<%= achievement.required_ticks %>" style="width: <%= number_to_percentage(current_user.current_progress(achievement).percent_complete, precision: 1) %>"></div>
+      <% progress = current_user.current_progress(achievement) %>
+      <div class="progress no-vertical-margin" data-toggle="tooltip" title="<%= progress.ticks %>/<%= achievement.required_ticks %> - <%= number_to_percentage(progress.percent_complete, precision: 1) %>">
+        <div class="progress-bar" role="progressbar" aria-valuenow="<%= progress.ticks %>" aria-valuemin="0" aria-valuemax="<%= achievement.required_ticks %>" style="width: <%= number_to_percentage(progress.percent_complete, precision: 1) %>"></div>
       </div>
     <% end %>
   </td>
