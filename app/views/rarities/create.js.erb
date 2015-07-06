@@ -2,6 +2,9 @@
   if (!$("#rarity-table").is(":visible"))
     $("#rarity-table").fadeIn(250);
 
+    if ($("#no-rarities-notice").is(":visible"))
+      $("#no-rarities-notice").fadeOut(250);
+
   $("<%= escape_javascript(render @rarity) %>").appendTo("#rarity-table").hide().fadeIn(250);
   $('#new-rarity-modal').modal_success();
 <% end %>

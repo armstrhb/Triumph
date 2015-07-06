@@ -2,6 +2,9 @@
   if (!$("#category-table").is(":visible"))
     $("#category-table").fadeIn(250);
 
+  if ($("#no-categories-notice").is(":visible"))
+  $("#no-categories-notice").fadeOut(250);
+
   $("<%= escape_javascript(render @category) %>").appendTo("#category-table").hide().fadeIn(250);
   $('#new-category-modal').modal_success();
 <% end %>

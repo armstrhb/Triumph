@@ -4,5 +4,5 @@ class Category < ActiveRecord::Base
   belongs_to :icon, :foreign_key => "icon_id"
   validates :name, presence: true, length: { minimum: 3 }
   validates_uniqueness_of :name
-  validates :description, presence: true, length: { in: 5..45 }
+  validates :description, presence: true, length: { in: 5..100 }
 end
