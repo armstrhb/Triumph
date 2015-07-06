@@ -65,4 +65,5 @@ class ApplicationController < ActionController::Base
         format.json{ render json: {:error => 'permission denied'} }
       end
     end
+
 end

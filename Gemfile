@@ -12,7 +12,7 @@ gem 'autoprefixer-rails'
 
 gem 'font-awesome-rails' # sweet icons
 
-# gem 'pundit' # simple, elegant authorization
+gem 'mysql2' #mysql adapter
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
