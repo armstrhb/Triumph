@@ -71,14 +71,20 @@
         <h3 class="panel-title">Top Users</h3>
       </div>
       <div class="panel-body">
-        <% @top_users.each do |u| %>
-          <div class="row">
-            <div class="col-sm-7 col-md-8 text-left">
-              <%= gravatar_for u["email"], 20 %> <%= u["user"] %>
+        <% if @top_users.length > 0 %>
+          <% @top_users.each do |u| %>
+            <div class="row">
+              <div class="col-sm-7 col-md-8 text-left">
+                <%= gravatar_for u["email"], 20 %> <%= u["user"] %>
+              </div>
+              <div class="col-sm-5 col-md-4 text-right">
+                <%= u["points"] %> pts
+              </div>
             </div>
-            <div class="col-sm-5 col-md-4 text-right">
-              <%= u["points"] %> pts
-            </div>
+          <% end %>
+        <% else %>
+          <div class="alert alert-info">
+            No Top Users.
           </div>
         <% end %>
       </div>
