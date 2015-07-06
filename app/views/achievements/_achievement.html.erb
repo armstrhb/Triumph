@@ -4,6 +4,25 @@
     <span class="text-muted"><%= achievement.description %></span>
   </td>
   <td class='text-center'>
+    <% if achievement.repeatable && current_user.times_completed(achievement) > 0 %>
+      <span class="text-success">
+        <span class="fa fa-fw fa-2x fa-check"></span>
+        <br/>
+        <%= pluralize current_user.times_completed(achievement), "completion" %>
+      </span>
+    <% elsif current_user.times_completed(achievement) > 0 %>
+      <span class="text-success">
+        <span class="fa fa-fw fa-2x fa-check"></span>
+        <br/>
+        completed
+      </span>
+    <% elsif current_user.current_progress(achievement).ticks > 0 %>
+      <div class="progress no-vertical-margin">
+        <div class="progress-bar" role="progressbar" aria-valuenow="<%= current_user.current_progress(achievement).ticks %>" aria-valuemin="0" aria-valuemax="<%= achievement.required_ticks %>" style="width: <%= number_to_percentage(current_user.current_progress(achievement).percent_complete, precision: 1) %>"></div>
+      </div>
+    <% end %>
+  </td>
+  <td class='text-center'>
     <span class="fa fa-fw fa-2x fa-<%= achievement.rarity.icon.name %>" style="color:<%= achievement.rarity.color %>"></span>
     <br/>
     <%= achievement.rarity.name %>
