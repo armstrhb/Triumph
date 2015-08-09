@@ -15,6 +15,11 @@ $(function() {
     $(this).find('[autofocus]').focus();
   });
 
+  // reset a modal's form once it's closed
+  $('.modal').on('hidden.bs.modal', function() {
+    $(this).find('form')[0].reset();
+  });
+
   // bootstrap-ify tooltips
   $('body').tooltip({selector: '[data-toggle=tooltip]'});
 });
