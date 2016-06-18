@@ -23,7 +23,7 @@
     <%= render 'layouts/errorlist' %>
     <%= render 'layouts/flashes' %>
 
-    <table id="realm-table" class='table table-striped table-hover <%= "collapse" if !logged_in? %>'>
+    <table id="realm-table" class='table table-striped table-hover <%= "collapse" if !logged_in? or @realms.length == 0 %>'>
       <tr>
         <th>Realm</th>
         <th class='text-center'>Users</th>
